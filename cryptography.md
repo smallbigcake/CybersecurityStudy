@@ -8,6 +8,7 @@
 Elliptic-curve cryptography (ECC) is an approach to public-key cryptography based on the algebraic structure of elliptic curves over finite fields. ECC allows smaller keys compared to non-EC cryptography (based on plain Galois fields) to provide equivalent security.  
 https://en.wikipedia.org/wiki/Elliptic-curve_cryptography
 
+
 ### Curve25519
 
 In cryptography, Curve25519 is an elliptic curve offering 128 bits of security (256 bits key size) and designed for use with the elliptic curve Diffie–Hellman (ECDH) key agreement scheme. It is one of the fastest ECC curves and is not covered by any known patents. The reference implementation is public domain software.  
@@ -24,9 +25,11 @@ X25519 is a key agreement algorithm based on the Montgomery curve "curve25519" [
 
 In public-key cryptography, Edwards-curve Digital Signature Algorithm (EdDSA) is a digital signature scheme using a variant of Schnorr signature based on twisted Edwards curves.
 
+
 ### Ed25519
 
 Ed25519 is the EdDSA signature scheme using SHA-512 (SHA-2) and Curve25519.
+
 
 ### Features of X25519 and Ed25519
 
@@ -36,6 +39,7 @@ Ed25519 is the EdDSA signature scheme using SHA-512 (SHA-2) and Curve25519.
 - Ed25519 allows all 32-byte strings as private keys.
 - Ed25519 signatures are always 64 bytes long, with the three most significant bits of the final byte always zero.
 - The public keys for X25519 and Ed25519 are derived from the secret key in different ways and cannot be interchanged.
+
 
 ### Some differences from the NIST/SEC curves
 
