@@ -17,7 +17,7 @@ Vulhub: https://vulhub.org/
 [Cryptography](cryptography.md)
 
 ## CISSP
-[CISSP](CISSP.md)
+[CISSP](CISSP/README.md)
 
 ## FIDO
 
