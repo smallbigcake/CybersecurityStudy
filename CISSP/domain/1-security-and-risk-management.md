@@ -86,13 +86,13 @@ Outside of the United States, similar engagements are conducted under the Intern
 
 ##### 3 Forms
 * SOC 1: An audit and compliance report that focuses strictly on a company's financial statements and controls that can impact a customer's financial statements. A company that performs credit card processing is likely to require a SOC 1 audit and compliance report.
-* SOC 2: An audit and compliance report that evaluates an organization based on AICPA's five “Trust Services principles”: privacy, security, availability, processing integrity, and confidentiality. Many organizations undergo SOC 2 auditing and present a SOC 2 report to regulators and customers to demonstrate compliance with industry standard security controls.
+* SOC 2: An audit and compliance report that evaluates an organization based on AICPA's five "Trust Services principles": privacy, security, availability, processing integrity, and confidentiality. Many organizations undergo SOC 2 auditing and present a SOC 2 report to regulators and customers to demonstrate compliance with industry standard security controls.
   * Privacy
   * Security
   * Availability
   * Processing integrity
   * Confidentiality
-* SOC 3: This is a “lite” version of a SOC 2 report and abstracts or removes all sensitive details. A SOC 3 report generally indicates whether an organization has demonstrated each of the five Trust Services principles without disclosing specifics (like exactly what they do or don't do). Companies make SOC 3 reports available to the public and restrict SOC 2 reports to trusted parties.
+* SOC 3: This is a "lite" version of a SOC 2 report and abstracts or removes all sensitive details. A SOC 3 report generally indicates whether an organization has demonstrated each of the five Trust Services principles without disclosing specifics (like exactly what they do or don't do). Companies make SOC 3 reports available to the public and restrict SOC 2 reports to trusted parties.
 
 ##### 2 Types of Reports
 * Type I Reports These reports provide the auditor's opinion on the description provided by management and the suitability of the design of the controls. Type I reports also cover only a specific point in time, rather than an extended period. You can think of the Type I report as more of a documentation review where the auditor is checking things out on paper and making sure that the controls described by management are reasonable and appropriate.
@@ -140,7 +140,7 @@ The major provisions of the original CCCA made it a crime to perform the followi
 * Modify medical records in a computer when doing so impairs or may impair the examination, diagnosis, treatment, or medical care of an individual
 * Traffic in computer passwords if the trafficking affects interstate commerce or involves a federal computer system
 
-When Congress passed the CFAA, it raised the threshold of damage from $1,000 to $5,000 but also dramatically altered the scope of the regulation. Instead of merely covering federal computers that processed sensitive information, the act was changed to cover all “federal interest” computers. This widened the coverage of the act to include the following:
+When Congress passed the CFAA, it raised the threshold of damage from $1,000 to $5,000 but also dramatically altered the scope of the regulation. Instead of merely covering federal computers that processed sensitive information, the act was changed to cover all "federal interest" computers. This widened the coverage of the act to include the following:
 * Any computer used exclusively by the U.S. government
 * Any computer used exclusively by a financial institution
 * Any computer used by the government or a financial institution when the offense impedes the ability of the government or institution to use that system
@@ -182,12 +182,58 @@ This law has these two major provisions:
 The Child Pornography Prevention Act (CPPA) was issued in 1996 to restrict and punish the production and distribution of child pornography on the internet.
 
 #### U.S. Identity Theft and Assumption Deterrence Act of 1998
+
+The Identity Theft and Assumption Deterrence Act was enacted in 1998, and formally established identity theft as a criminal act under U.S. federal law. Under the act, identity theft is "knowingly transfer[ring] or us[ing], without lawful authority, a means of identification of another person with the intent to commit, or to aid or abet, any unlawful activity that constitutes a violation of Federal law, or that constitutes a felony under any applicable State or local law."
+
 #### USA PATRIOT Act of 2001
+
+The Uniting and Strengthening America by Providing Appropriate Tools Required to Intercept and Obstruct Terrorism (USA PATRIOT) Act, commonly known as the Patriot Act, was signed into law in 2001 in response to the terrorist attacks that took place in the United States on September 11, 2001. The act was initially issued as a temporary measure, but most measures were reauthorized in 2006.  
+The Patriot Act amends many of the provisions within the CFAA and the ECPA with both new definitions of criminal offenses and new penalties for previously and newly defined computer crimes.
+
+* Section 202 — Authority to intercept wire, oral, and electronic communications relating to computer fraud and abuse offenses: This section amends the CFAA to authorize investigators to obtain a wiretap for felony violations relating to computer fraud and abuse.
+* Section 209 — Seizure of voicemail messages pursuant to warrants: This section authorizes investigators to seize voicemail messages with a search warrant. Prior to the Patriot Act, voicemail was only authorized for seizure with a harder-to-obtain wiretap order.
+* Section 210 — Scope of subpoenas for records of electronic communications: This section updates previous law and grants access to additional information when filing a subpoena for electronic records.
+* Section 212 — Emergency disclosure of electronic communications to protect life and limb: This section grants special provisions to allow a communications provider (like an ISP) to disclose customer information to law enforcement in emergency situations, such as imminent crime or terrorist attack. Prior to this amendment, communications providers may have been subject to civil liability suits for providing such information without the customer’s consent.
+* Section 214 — Pen register and trap and trace authority under FISA: A pen register is a device that shows the outgoing calls made from a phone, while a trap and trace device shows incoming numbers that called a phone; these capabilities are often consolidated into a single device called a pen/trap device. This section of the Patriot Act authorizes use of these devices nationwide (as opposed to an issuing court’s jurisdiction) and broadens authority to include computer and internet-based communications.
+* Section 217 — Interception of computer trespasser communications: This section amends previous law to allow communications providers and other organizations to allow law enforcement to intercept and monitor their systems. Prior to this amendment, companies were authorized to monitor their own systems, but were not permitted to allow law enforcement to assist in such monitoring.
+* Section 220 — Nationwide service of search warrants for electronic evidence: This section authorizes nationwide jurisdiction for search warrants related to electronic evidence, such as email.
+* Section 808 — Definition of federal crime of terrorism: The official definition of terrorism includes, among other things, “destruction of communication lines, stations, or systems.”
+* Section 814 — Deterrence and prevention of cyberterrorism: This section strengthens penalties associated with violations in the CFAA, including doubling the maximum prison sentence from 10 to 20 years.
+* Section 815 — Additional defense to civil actions relating to preserving records in response to government requests: This amendment absolves an organization from civil penalties associated with violations of the ECPA if the organization is responding to “a request of a governmental entity.”
+* Section 816 — Development and support for cybersecurity forensic capabilities: This section requires the U.S. Attorney General to establish regional computer forensic laboratories to support forensic examinations on seized or intercepted computer evidence. Section 816 also requires these laboratories to provide forensic analysis training and education to federal, state, and local law enforcement personnel and prosecutors. This section also includes open-ended language authorizing these forensic labs “to carry out such other activities as the U.S. Attorney General considers appropriate.”
+
+
 #### U.S. Homeland Security Act of 2002
+
+The Homeland Security Act was enacted in 2002, building off the Patriot Act’s response to the September 11, 2001, terrorist attacks in the United States. The Homeland Security Act sparked the largest U.S. government reorganization since the creation of the Department of Defense in 1947. Under the Homeland Security Act, dozens of government agencies, offices, and services were consolidated into the newly created U.S. Department of Homeland Security (DHS). With the creation of the DHS, a new cabinet-level position, Secretary of Homeland Security, was also created. Title X of the Homeland Security Act identifies several standards, tactics, and controls that should be used to secure U.S. federal government information. Title X and its subsections establish the authorities, responsibilities, and functions associated with information security.
+
+
 #### U.S. Controlling the Assault of Non-Solicited Pornography and Marketing (CAN-SPAM) Act of 2003
+
+The U.S. Controlling the Assault of Non-Solicit Pornography and Marketing Act was signed into law in 2003. This law established the United States’ first national standards for sending commercial emails in response to the growing number of complaints over spam (unwanted) emails. The law requires companies to allow email recipients to unsubscribe or opt out from future emails and establishes a variety of requirements around email content and sending behavior. CAN-SPAM designates the Federal Trade Commission (FTC) as responsible for enforcing the provisions within the Act.
+
+
 #### U.S. Intelligence Reform and Terrorism Prevention Act of 2004
+
+The Intelligence Reform and Terrorism Prevention Act of 2004 established the National Counterterrorism Center (NCTC) and the position of the Director of National Intelligence (DNI). Under this law, the Department of Homeland Security and other U.S. government agencies are required to share intelligence information to help prevent terrorist acts against the United States. This act also established the Privacy and Civil Liberties Oversight Board with the intent of protecting the privacy and civil liberties of U.S. citizens.
+
+
 #### The Council of Europe's Convention on Cybercrime of 2001
+
+The Convention on Cybercrime, also known as the Budapest Convention, is the first international treaty established to address cybercrime. The treaty was first signed in 2001 and became effective in 2004, and has since been signed by more than 65 nations (the United States ratified the treaty in 2006). The treaty aims to increase cooperation among nations and establish more consistent national laws related to preventing and prosecuting cybercrime.
+
+
 #### The Computer Misuse Act 1990 (U.K.)
+
+The Computer Misuse Act came into effect in the United Kingdom in 1990 and introduced
+five offenses related to cybercrime:
+* Unauthorized access to computer material
+* Unauthorized access with intent to commit or facilitate commission of further offenses
+* Unauthorized acts with intent to impair, or with recklessness as to impairing, operation of computer, etc.
+* Unauthorized acts causing, or creating risk of, serious damage
+* Making, supplying, or obtaining articles for use in other offenses
+
+
 #### Information Technology Act of 2000 (India)
 #### Cybercrime Act 2001 (Australia)
 
