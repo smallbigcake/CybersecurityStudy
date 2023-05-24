@@ -738,6 +738,110 @@ A guideline is similar to a standard but is a recommendation rather than a manda
 
 According to the ISO, a business impact analysis is “the process of analyzing the impact over time of a disruption on the organization.” In other words, a BIA helps an organization identify its essential business functions and understand the impact that a disaster would have on each of those functions; the BIA provides the primary justification for the business continuity plan and its requirements. The BIA helps an organization identify which of its business functions are more resilient and which are more fragile.
 
+To complete the BIA, you should begin by establishing your BC project team, scope, and budget; we cover this step in the next section, “Develop and Document the Scope and the Plan.” You should ensure that you have executive support for BCP activities.
+
+The next step is one of the most important: identify all your critical business functions (CBFs) and other essential business elements. The key word here is business, as you should be focused on identifying the essential functions that are critical to your business operations, whether your business involves selling widgets or saving lives.
+
+Identifying CBFs requires input from a broad range of stakeholders. The perspectives of the system owners, subject-matter experts, customers, and suppliers all help in identifying an organization’s potential CBFs.
+
+A list of CBFs and essential business elements should include the following:
+* Personnel
+* Business processes
+* Information systems and applications
+* Other assets
+
+Determining the level of impact of a disaster is done in several ways, and there are a few metrics that you should be comfortable with:
+* **Maximum tolerable downtime (MTD)**, or maximum acceptable outage (MAO), expresses the total length of time a critical business function can be unavailable without causing significant, long-term harm to the business; it is the longest time a CBF can remain disabled before it threatens the organization’s long-term survival. MTD must be defined by the system owner, who is ultimately responsible to the organization for the proper operation of the CBF. Exceeding the MTD is an expression of unacceptable risk by the business owner.
+* **Recovery time objective (RTO)** is the planned time necessary to restore a system to the point where it meets the minimum service expectations of the system owner. In other words, RTO is the maximum period of time within which a CBF must be restored after a disruption to avoid unacceptable business consequences. Since unacceptable disaster occurs when the MTD is exceeded, the RTO, by definition, must be less than or equal to the MTD. The RTO must be adjusted by the application of additional controls to bring it within the MTD. At the point where the business owner is no longer willing to apply control, they have accepted the risk of operation.
+* **Recovery Point Objective (RPO)** represents the measurement of tolerable data loss, represented as a period of time. As with the MTD, this must be defined by the business, and the business is responsible for resourcing the controls to achieve the RPO.
+
+### Develop and Document the Scope and the Plan
+
+While there is no one-size-fits-all for business continuity planning, the scope of most plans includes the following:
+* Critical business functions
+* Threats, vulnerabilities, and risks
+* Data backup and recovery plan
+* BCP personnel
+* Communications plan
+* BCP testing requirements
+
+#### People
+
+People are always, without exception, your most valuable and critical asset. The first goal of any BCP must be to ensure the safety of your people during and after an emergency. In the context of BCP, “people” include your employees, contractors, customers, vendors, and any other living human being that may be affected by an adverse event.
+
+#### Processes
+
+The BCP team must evaluate every critical business function and determine what resources must be available during a disaster. Your continuity plan should identify the critical supplies and logistics required to maintain critical operations, and it should establish a process to ensure those resources remain continuously available.
+
+#### Technologies
+
+Hardware and software failures —that’s just part of the reality of technology. A business continuity plan must anticipate these failures and outline controls and procedures to mitigate the risk of technology failure.
+
+
+### CONTRIBUTE TO AND ENFORCE PERSONNEL SECURITY POLICIES AND PROCEDURES
+
+
+#### Candidate Screening and Hiring
+
+Candidate screening and hiring the right employees is a critical part of assuring the security of your company’s systems and data. Not only do you need to make sure to hire the right fit for the job, but it’s also critical that you are familiar with a candidate’s background and history before bringing them into your organization and giving them access to your sensitive information.
+
+There are a couple things your organization must do before beginning to recruit candidates for a position.
+* First, the hiring manager should work with HR to clearly and concisely document the job description and responsibilities.
+* Next, you should identify the classification or sensitivity of the role, based on the level of damage that could done by a person in that role who intentionally or negligently violates security protocols.
+
+Once a potential employee or contractor is identified, your organization should verify the information in their application and confirm their suitability for the position by conducting a background check.
+
+Generally speaking, an employment background check may include the following checks and verifications:
+* Education
+* Work history
+* Citizenship
+* Criminal record
+* Credit and financial history
+* References
+
+#### Employment Agreements and Policies
+
+When joining an organization, an employee generally signs an employment contract that may include one or more employee agreements that make certain stipulations by which the employee must abide. The most common employee agreements are nondisclosure agreements and noncompete agreements.
+
+##### Nondisclosure Agreement
+A nondisclosure agreement (NDA) is an agreement that restricts an employee or contractor (or anyone else with access to sensitive information) from disclosing sensitive information they obtain through the course of their employment or relationship with an organization. An NDA is designed to protect the confidentiality of the organization’s data (such as trade secrets or customer information) and is often a lifetime agreement (even after the employee leaves the company).
+
+##### Noncompete Agreement
+A noncompete agreement is an agreement that restricts an employee from directly competing with the organization during their employment and, in most cases, for a fixed time after employment. Noncompetes are one-way agreements that are designed to protect organizations from unfair competition by former employees or contractors.
+
+
+In addition to NDAs and noncompete agreements, employees may be responsible for reviewing and/or signing various employment policies such as **acceptable use policies**, **code of conduct**, or **conflict of interest policies**.
+
+#### Onboarding, Transfers, and Termination Processes
+
+##### Onboarding
+
+Setting good expectations for work behavior should start before the employee walks in the door. Part of the employee orientation program should address information security expectations and requirements. Employees should be reminded of their obligations to protect information and current threats to the organization’s information assets, particularly if they are likely to be the targets of malicious actors. Further, orientation practices should inform new employees of the processes for reporting security incidents, their role in maintaining the security of their work area, and the company’s classification and categorization processes so they can identify the level of control necessary for particular information.
+
+##### Transfers
+
+Organizations should have well-defined policies and procedures for handling an employee transferring from one role to another. Part of this process should involve reviewing the employee’s existing access to information and evaluating the need for continued access to the same information. Where possible, your organization should seek to remove access that will no longer be needed in the employee’s new role; this enforces the principle least privilege, which we discussed earlier in this chapter. In addition, you should have a process in place to identify any role-based training that the employee needs to take prior to the transfer; this is particularly critical when the employee’s new role comes with new responsibilities or access to information at a higher sensitivity.
+
+##### Termination
+
+Taking appropriate care when people depart an organization is just as important as ensuring they are properly brought into the organization. Terminations may be voluntary (i.e., an employee retires or finds a new job) or involuntary (i.e., an employee is fired, furloughed, or otherwise “let go”). These former insiders represent a risk to the organization, and appropriate actions must be taken to ensure they do not compromise the operations, intellectual property, or sensitive information with which they have been entrusted.
+
+When an individual leaves an organization on good terms, it is relatively easy to go through the standard checklist: suspending electronic access, recovering their access badges and equipment, accounting for their keys, and changing the key codes on cipher locks that the departing employee used are among many other standard practices. Most organizations have well-structured off-boarding processes to ensure the removal of access when an individual is no longer entitled to organizational information or resources.
+
+Involuntary termination of employment is an emotionally charged event for all involved. In virtually all cases, an involuntary termination forces the employer to assume the terminated individual is a threat to the organization, and appropriate action should be taken to protect organizational assets. Termination procedures at most organizations include specific processes to notify the information security organization to disable access to electronic and physical systems.
+
+Where possible, recovery of property that an involuntarily terminated employee used should be attempted. Where appropriate, the recovered material should be tracked as evidence and retained for subsequent forensic analysis. Finally, once the individual has left the organization, remaining staff should be informed that the terminated individual is no longer allowed access and that any attempts by that individual to access resources or property should be reported.
+
+##### Vendor, Consultant, and Contractor Agreements and Controls
+
+Many organizations require expertise or talent that does not exist inside their organizations.
+These relationships may exist for goods or services, but both types of acquisition
+open the organization to risk. Information security policies should be in place to ensure
+that these relationships do not expose the organization’s sensitive information to an
+unreasonable amount of risk. NDAs and other employment agreement policies play a big
+part in establishing expectations with third parties and can lead to additional compliance
+burden on the organization who must enforce them.
+
 
 
 ## ESTABLISH AND MAINTAIN A SECURITY AWARENESS, EDUCATION, AND TRAINING PROGRAM
