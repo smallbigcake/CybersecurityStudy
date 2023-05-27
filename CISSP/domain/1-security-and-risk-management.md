@@ -778,10 +778,10 @@ The BCP team must evaluate every critical business function and determine what r
 Hardware and software failures —that’s just part of the reality of technology. A business continuity plan must anticipate these failures and outline controls and procedures to mitigate the risk of technology failure.
 
 
-### CONTRIBUTE TO AND ENFORCE PERSONNEL SECURITY POLICIES AND PROCEDURES
+## CONTRIBUTE TO AND ENFORCE PERSONNEL SECURITY POLICIES AND PROCEDURES
 
 
-#### Candidate Screening and Hiring
+### Candidate Screening and Hiring
 
 Candidate screening and hiring the right employees is a critical part of assuring the security of your company’s systems and data. Not only do you need to make sure to hire the right fit for the job, but it’s also critical that you are familiar with a candidate’s background and history before bringing them into your organization and giving them access to your sensitive information.
 
@@ -799,30 +799,30 @@ Generally speaking, an employment background check may include the following che
 * Credit and financial history
 * References
 
-#### Employment Agreements and Policies
+### Employment Agreements and Policies
 
 When joining an organization, an employee generally signs an employment contract that may include one or more employee agreements that make certain stipulations by which the employee must abide. The most common employee agreements are nondisclosure agreements and noncompete agreements.
 
-##### Nondisclosure Agreement
+#### Nondisclosure Agreement
 A nondisclosure agreement (NDA) is an agreement that restricts an employee or contractor (or anyone else with access to sensitive information) from disclosing sensitive information they obtain through the course of their employment or relationship with an organization. An NDA is designed to protect the confidentiality of the organization’s data (such as trade secrets or customer information) and is often a lifetime agreement (even after the employee leaves the company).
 
-##### Noncompete Agreement
+#### Noncompete Agreement
 A noncompete agreement is an agreement that restricts an employee from directly competing with the organization during their employment and, in most cases, for a fixed time after employment. Noncompetes are one-way agreements that are designed to protect organizations from unfair competition by former employees or contractors.
 
 
 In addition to NDAs and noncompete agreements, employees may be responsible for reviewing and/or signing various employment policies such as **acceptable use policies**, **code of conduct**, or **conflict of interest policies**.
 
-#### Onboarding, Transfers, and Termination Processes
+### Onboarding, Transfers, and Termination Processes
 
-##### Onboarding
+#### Onboarding
 
 Setting good expectations for work behavior should start before the employee walks in the door. Part of the employee orientation program should address information security expectations and requirements. Employees should be reminded of their obligations to protect information and current threats to the organization’s information assets, particularly if they are likely to be the targets of malicious actors. Further, orientation practices should inform new employees of the processes for reporting security incidents, their role in maintaining the security of their work area, and the company’s classification and categorization processes so they can identify the level of control necessary for particular information.
 
-##### Transfers
+#### Transfers
 
 Organizations should have well-defined policies and procedures for handling an employee transferring from one role to another. Part of this process should involve reviewing the employee’s existing access to information and evaluating the need for continued access to the same information. Where possible, your organization should seek to remove access that will no longer be needed in the employee’s new role; this enforces the principle least privilege, which we discussed earlier in this chapter. In addition, you should have a process in place to identify any role-based training that the employee needs to take prior to the transfer; this is particularly critical when the employee’s new role comes with new responsibilities or access to information at a higher sensitivity.
 
-##### Termination
+#### Termination
 
 Taking appropriate care when people depart an organization is just as important as ensuring they are properly brought into the organization. Terminations may be voluntary (i.e., an employee retires or finds a new job) or involuntary (i.e., an employee is fired, furloughed, or otherwise “let go”). These former insiders represent a risk to the organization, and appropriate actions must be taken to ensure they do not compromise the operations, intellectual property, or sensitive information with which they have been entrusted.
 
@@ -832,15 +832,314 @@ Involuntary termination of employment is an emotionally charged event for all in
 
 Where possible, recovery of property that an involuntarily terminated employee used should be attempted. Where appropriate, the recovered material should be tracked as evidence and retained for subsequent forensic analysis. Finally, once the individual has left the organization, remaining staff should be informed that the terminated individual is no longer allowed access and that any attempts by that individual to access resources or property should be reported.
 
-##### Vendor, Consultant, and Contractor Agreements and Controls
+### Vendor, Consultant, and Contractor Agreements and Controls
 
-Many organizations require expertise or talent that does not exist inside their organizations.
-These relationships may exist for goods or services, but both types of acquisition
-open the organization to risk. Information security policies should be in place to ensure
-that these relationships do not expose the organization’s sensitive information to an
-unreasonable amount of risk. NDAs and other employment agreement policies play a big
-part in establishing expectations with third parties and can lead to additional compliance
-burden on the organization who must enforce them.
+Many organizations require expertise or talent that does not exist inside their organizations. These relationships may exist for goods or services, but both types of acquisition open the organization to risk. Information security policies should be in place to ensure that these relationships do not expose the organization’s sensitive information to an unreasonable amount of risk. NDAs and other employment agreement policies play a big part in establishing expectations with third parties and can lead to additional compliance burden on the organization who must enforce them.
+
+### Compliance Policy Requirements
+
+Responsibilities for compliance with applicable policies and regulations should be clearly documented and understood by all employees within an organization. In many cases, employees may be required to sign an attestation stating that they have reviewed and agree to comply with all company policies and applicable regulations.
+
+Employees and other parties with access to systems and information must undergo initial and periodic training that includes security awareness and job-based training. Generally, annual recertification is a good way to ensure that all parties with access remain in compliance with employment policies.
+
+### Privacy Policy Requirements
+
+Your organization’s privacy policy is an explanation of your company’s personal data collection and use practices. Privacy policies should link back to applicable privacy laws and regulations, such as HIPAA in the United States and GDPR (discussed later in this chapter) for companies that handle EU residents’ information.
+
+Your privacy policy should explain what kind of personal data is collected, how your organization will or won’t use it, and how the personal data will be stored, maintained, and secured. The privacy policy should be made available to all personnel, and many organizations require a signed acknowledgment from each employee.
+
+## UNDERSTAND AND APPLY RISK MANAGEMENT CONCEPTS
+
+### Identify Threats and Vulnerabilities
+
+In security, a **risk** is the potential for negative impact on the organization, its goals or objectives, or its assets (including people, systems, and data) due to a threat exploiting a vulnerability.
+
+#### Threats
+
+A threat is a negative event that can lead to an undesired outcome, such as damage to, or loss of, an asset. A threat is posed by a **threat actor**, which is a person or entity that is capable of intentionally or accidentally compromising an asset’s security. As security professionals, threats are the people and events that we work to protect our information and systems from.
+
+Examples of security threats include the following:
+* A hacker who wants to encrypt your data and charge you a ransom for it
+* A disgruntled employee who wants to steal or sell corporate information
+* A fire or other natural disaster that may damage or destroy your datacenter
+
+#### Vulnerabilities
+
+A vulnerability is a weakness or gap that exists within a system that may be exploited (by a threat actor) to compromise an asset’s security or trigger a risk event. Vulnerabilities are the things within our systems that we try to fortify and improve.
+
+Examples of security vulnerabilities include the following:
+* Unpatched software applications
+* Weak access control mechanisms (e.g., weak passwords)
+* Faulty fire suppression systems
+
+#### Assets
+
+An asset is anything of value, which may include people, property, and information. Assets are the things that we, as security professionals, are trying to protect. People assets may include your company’s employees, contractors, and vendors, as well as your customers. Property assets include tangible things like servers and equipment, as well as intangible things like software code and other intellectual property.
+
+### Risk Assessment
+
+Remember that risks are the intersection between threats, vulnerabilities, and assets, as shown in Figure 1.5.
+
+A risk assessment is the set of activities that involve identifying the threats and vulnerabilities that exist and determining the impact and likelihood of those threats exploiting the identified vulnerabilities.
+
+#### Risk Identification
+
+The first step in a typical risk assessment process is to identify your assets and determine the value of those assets; this includes identifying and classifying your sensitive data, based on its sensitivity or value to your organization. During the risk identification phase, you find the systems, applications, and information that need protecting and then identify and describe the vulnerabilities and threats that pose a risk to each of those assets.
+
+#### Risk Analysis
+
+Risk analysis should always begin with a vulnerability assessment and a threat analysis. This stage of risk assessment is focused on evaluating the likelihood of identified threats exploiting weaknesses (i.e., vulnerabilities) in your environment and determining the impact to your assets if that happens. Likelihood describes the probability that an event will occur, and impact defines how disastrous the event would be if it were to happen.
+
+Likelihood can be identified by evaluating each threat and assessing the probability that the threats might actually exploit a vulnerability, or weakness.
+
+Impact can be identified by establishing the value associated with each potentially affected asset and determining how that value will be destroyed or otherwise affected by an adverse event.
+
+An asset’s value can be both **quantitative** (i.e., determined by its cost or market value) or **qualitative** (i.e., determined by its relative importance to you or your organization). By establishing an asset’s value, you can better determine the impact of that asset’s security being compromised - this allows informed decision-making when determining how much to spend on safeguarding a given resource, as you never want to spend more protecting an asset than the asset itself is worth.
+
+#### Quantitative Risk Calculation
+
+One important concept in quantitative risk analysis is annualized loss expectancy (ALE), which is a metric that helps quantify the impact of a realized threat on your organization’s assets.
+
+ALE is measured in dollars and is the product of **single loss expectancy (SLE)** and **annual rate of occurrence (ARO)**, which are each discussed here:
+* **SLE** is a measure of the monetary loss (calculated in dollars) you would expect from a single adverse event. In other words, SLE estimates how much you would lose from one occurrence of a particular realized threat. SLE is calculated by multiplying an **asset’s value (AV)** by its **exposure factor (EF)**. EF is the estimated percentage of loss to a specific asset if a specific threat is realized.
+* **ARO** is the estimated annual frequency of occurrence for a given adverse event. In other words, ARO is the number of times that you expect a particular risk event to occur every year.
+
+* Here are the two formulas to keep in mind:
+> ALE = SLE * ARO
+
+> SLE = AV * EF
+
+#### Risk Evaluation
+
+During risk evaluation, you compare the results of your risk analysis to your organization’s established risk profile or risk tolerance (i.e., how much risk your organization is willing to take on). In doing so, you are able to determine the best course of action for each of your identified risks. We cover the various options for risk response in the following section.
+
+### Risk Response/Treatment
+
+Once you identify and assess your organization’s threats, vulnerabilities, and risks, you must determine the best way to address each risk; this is known as risk treatment (or risk response).
+
+#### Avoid
+Risk avoidance involves eliminating an identified risk by stopping or removing the activity or technology that causes the risk in the first place. Organizations use risk avoidance when a particular risk exceeds their acceptable risk tolerance, but complete avoidance is often difficult to achieve without business disruption. While this type of risk treatment can often mean simply not doing something, policies that ban the use of removable media or personal cloud storage services are avoidance steps that require upfront investment and action.
+
+#### Mitigate
+
+Risk mitigation (sometimes called risk reduction or risk modification) is a strategy that involves reducing the likelihood of a threat being realized or lessening the impact that the realized threat would have on the organization. Risk mitigation is the most common treatment option for identified risks and involves implementing policies and technologies to reduce the harm that a risk might cause. Moving from single-factor to mutifactor authentication is an example of a mitigation treatment for sensitive data access.
+
+#### Transfer
+
+Risk transference (also known as risk assignment) involves shifting the responsibility and potential loss associated with a risk onto a third party. Insurance is the most common form of risk transference.
+For example, if a company loses customer data due to a cyber breach, the company may rely on their cyber insurance to cover any monetary losses associated with the breach.
+In this case, the breached organization has transferred financial risk to their cyber insurer, but the company still must manage through some level of reputational risk.
+It’s hard to completely transfer all risk, so many people instead use the term **risk sharing**. Using cloud-based services or managed security services is a great example, because risk is split between you, as the customer, and the third-party provider.
+
+#### Accept
+
+Risk acceptance unsurprisingly involves accepting the risk associated with a particular threat.
+Risk acceptance is the way to go if avoiding, mitigating, or transferring the risk would cost more than the expected losses of the realized threat.
+In theory, a risk should be accepted only if it is completely within an organization’s risk tolerance.
+In practice, organizations are often forced to accept potentially painful risks associated with normal business operations.
+
+### Countermeasure Selection and Implementation
+
+Countermeasures generally fall into three categories:
+* **Personnel-related:**
+As people are commonly considered to be an organization’s “weakest link,” these countermeasures often prove invaluable. Hiring (or firing), organization restructuring, and awareness training are some common personnel-related countermeasures.
+Despite our potential as weaknesses, people in high-performing organizations with strong security awareness programs can often prove to be the greatest security asset.
+* **Process-related:**
+Policy, procedure, and other “workflow-based” mitigations generally fall into this category. As an example, consider the implementation of separation of duties on invoice approval and payment as a process-related mitigation against cyber fraud.
+* **Technology-related:**
+This is the category that typically gets the most attention. Encryption, modifying configuration settings, and other hardware or software changes are common examples of technology-related countermeasures.
+
+#### Security-Effectiveness
+
+Measuring the security-effectiveness of a security control is an essential step in the selection and implementation process.
+When selecting your countermeasures, you want to be certain that the specific policy, technology, or operational control that you select is able to directly address a risk identified during your risk analysis process.
+To do this, one must consider what kind of security risks one wants to prevent, detect, or correct, and then identify countermeasures that specifically target those risks.
+For example, many security teams choose to throw encryption at everything, but if you are concerned with risks that encryption cannot fix (like availability risks), you are better off using those resources for other countermeasures (such as backups).
+
+
+#### Cost-Effectiveness
+
+Perhaps even more important than security-effectiveness (believe it or not), cost-effectiveness is a primary consideration for security teams and the management teams that oversee them.
+Cost-effectiveness can be calculated by performing a cost-benefit analysis that compares the cost of a countermeasure (or multiple countermeasures) to the costs that would be realized by a compromise of the risks that the countermeasures are intended to mitigate.
+
+
+#### Operational Impact
+
+Beyond cost-effectiveness and pure security-effectiveness, you must be sure to evaluate the potential operational impact that a countermeasure may have on your organization.
+If a countermeasure is too difficult to implement or use, it may have a counterintuitive effect and actually increase risk because it is not being used properly (or at all).
+
+#### Applicable Types of Controls
+
+
+A **security control** is any safeguard that is put in place to positively impact security.
+Security controls may be automatic or manual, and they can be technical (i.e., implemented and executed through hardware, software, or firmware),
+operational (i.e., related to day-to-day operations and tangible things like security guards, gates, etc.),
+or management (i.e., implemented by people and related to administrative methods —things like policies, procedures, and guidelines).
+
+There are five major types of controls, and you’ll notice that some countermeasures (like security guards) may fit into multiple categories:
+
+* **Preventative:**
+These are the first-line controls that are designed to keep adverse security events from occurring.
+For example, software applications typically have some form of “input validation” to avoid invalid inputs from being executed and causing an issue.
+Firewalls, system backups, and security awareness training are other common examples of preventative controls.
+
+* **Detective:**
+These controls are designed to identify a negative security event while it is in progress or soon after it occurs.
+Much like a human detective, this type of control is intended to gather information and help security teams determine what happened, how bad the damage is, and what caused it to happen.
+Security audits, door alarms, and IDSs are common examples of detective controls.
+
+* **Corrective:**
+These controls are designed to minimize and repair damages following an adverse security event; they are typically put in place after a detective control identifies a problem.
+Corrective controls include things such as software patches, configuration file modifications, and new policies that target the cause of the incident.
+
+* **Recovery:**
+These countermeasures are designed to complement corrective controls, with the intent to get a system back to normal as quickly as possible.
+Examples include system and data backups and disaster recovery sites.
+
+* **Deterrent:**
+These controls are designed to discourage attackers by making them think twice about their malicious intents.
+Wired fences, security guards, and guard dogs are some examples of deterrents.
+
+## Control Assessments
+
+Periodic assessment of your security controls is equally as important as the selection and implementation of those controls.
+In many cases, your organization may have legal or regulatory requirements that dictate how and when to **conduct security control assessments (SCA)**, but in all cases, you should routinely conduct control assessments to ensure that your security and privacy controls remain effective.
+
+NIST 800-53A, “Assessing Security and Privacy Controls in Federal Information Systems and Organizations,” lays out some helpful guidelines for conducting controls assessments and describes the three assessment methods as follows:
+
+* Examine:
+This method is “the process of reviewing, inspecting, observing, studying, or analyzing one or more assessment objects (i.e., specifications, mechanisms, or activities).
+The purpose of the examine method is to facilitate assessor understanding, achieve clarification, or obtain evidence.”
+Assessors often begin an SCA by requesting a list of artifacts or evidence (such as security policies, configuration files, etc.) that they can examine to form an initial perspective.
+
+* Interview:
+This method is “the process of holding discussions with individuals or groups of individuals within an organization to once again, facilitate assessor understanding, achieve clarification, or obtain evidence.”
+After reviewing any evidence provided during the examine phase, assessors meet with key stakeholders to gain additional clarity on what security controls are in place and how they work.
+
+* Test:
+This method is “the process of exercising one or more assessment objects (i.e., activities or mechanisms) under specified conditions to compare actual with expected behavior.”
+In this stage, an auditor or assessor is seeking to confirm that security controls are implemented as they are documented and that they are operating effectively and as intended.
+
+### Monitoring and Measurement
+
+Monitoring and measurement of your controls is an important part of operating a risk-based security program.
+In addition to conducting periodic (e.g., annual or quarterly) security and privacy control assessments, you should actively and intentionally monitor your controls to measure their effectiveness and assess the health of your overall security program.
+Depending on your organization’s needs, you should develop a set of key performance indicators (KPIs) that allow you to quantify and measure the long-term performance of your controls.
+
+### Reporting
+
+Conducting SCAs and other monitoring and measurement activities is useless without a well-managed reporting function.
+Auditors and assessors generally create formal reports that detail their findings for each control that is assessed.
+In addition, your security team should have a process to document and report any important discoveries or metrics to senior leadership, regulators, and other stakeholders.
+
+In general, a well-managed risk-based security program includes some level of reporting for the following:
+* Internal audits (e.g., self-assessments)
+* External audits (i.e., regulator or any other third-party audits)
+* Significant changes to the organization’s risk posture
+* Significant changes to security or privacy controls
+* Suspected or confirmed security breaches (or other incidents)
+
+### Continuous Improvement
+
+A common goal among security leaders is to continuously improve their organization’s security posture and measure their journey toward their desired end state.
+
+Risk maturity modeling is a process that allows an organization to assess the strength of its security program and create a plan for continuous improvement based on their results.
+By identifying the maturity of its program on a predefined scale, an organization may better focus on what types of behaviors are necessary to improve, rather than getting caught up strictly in individual security gaps.
+
+### Risk Frameworks
+
+A **risk framework** is a structured process for identifying, assessing, and managing an organization’s risks.
+
+From a governance perspective, the selection of a framework should create a controls environment that is as follows:
+* **Consistent:**
+A governance program must be consistent in how information security and privacy are approached and applied.
+
+* **Measurable:**
+The governance program must provide a way to determine progress and set goals. Most control frameworks contain an assessment standard or procedure to determine compliance and, in some cases, risk as well.
+
+* **Standardized:**
+As with measurable, a controls framework should rely on standardization so results from one organization or part of an organization can be compared in a meaningful way to results from another organization.
+
+* **Comprehensive:**
+The selected framework should cover the minimum legal and regulatory requirements of an organization and be extensible to accommodate additional organization-specific requirements.
+
+* **Modular:**
+A modular framework is more likely to withstand the changes of an organization, as only the controls or requirements needing modification are reviewed and updated.
+
+#### International Standards Organization
+
+##### ISO 31000 Series
+
+The International Standards Organization has developed the ISO 31000 series of standards to identify principles for general risk management and to provide a set of guidelines for implementation.
+Developed using the consistent language contained in ISO/IEC Guide 73:2009, the ISO 31000:2018 is intended to be applicable to any organization, regardless of the governance structure or industry.
+The standard encourages the integration of risk management activities across organizational lines and levels to provide the organization with a consistent approach to management of operational and strategic risks.
+
+ISO 31000:2018 is based on a set of eight principles that drive the development of the risk framework shown in Figure 1.7. That framework, in turn, structures the processes for implementing risk management.
+
+The eight ISO 31000 principles are described here:
+* Customized: The framework should be customized and proportionate to the organization and the level of risk.
+* Inclusive: The appropriate and timely involvement of stakeholders is necessary.
+* Comprehensive: A structured and comprehensive approach is required.
+* Integrated: Risk management is an integral part of all organizational activities.
+* Dynamic: Risk management anticipates, detects, acknowledges, and responds to changes in a timely fashion.
+* Best available information: Risk management explicitly considers any limitations of available information.
+* Human and cultural factors: Human and cultural factors influence all aspects of risk management.
+* Continual improvement: Risk management is continually improved through learning and experience.
+
+To assist organizations in implementing the ISO 31000 standard, ISO 31004, “Risk Management - Guidance for the implementation of ISO 31000,” was published to provide a structured approach to transition their existing risk management practices to be consistent with ISO 31000 and consistent with the individual characteristics and demands of the organization.
+
+##### ISO 27000 Series
+
+While the 31000 series addresses general risk, information security practices are addressed in the ISO 27000 series.
+The use of the ISO/IEC Guide 73 allows for a common language, but ISO/IEC 27005:2011, “Information technology—Security techniques - Information security risk management,” gives detail and structure to the information security risks by defining the context for information security risk decision-making.
+This context includes definition of the organization’s risk tolerance, compliance expectations, and the preferred approaches for assessment and treatment of risk.
+
+#### U.S. National Institute of Standards and Technology
+
+Through a hierarchy of publications, the National Institute of Standards and Technology provides direction to U.S. government agencies in implementing information security practices.
+In the current incarnation, the Risk Management Framework (RMF) provides a structured analytical process to identify, control, evaluate, and improve the organization’s information security controls.
+Documented in NIST Special Publication 800-37, “Guide for Applying the Risk Management Framework to Federal Information Systems,” it prescribes a six-step process through which the federal government manages the risks of its information systems; the six steps are pictured in Figure 1.8.
+Though the steps in this framework are tailored to government agencies, they are widely applicable within just about every industry.
+
+##### Categorize System
+
+The first step of the NIST RMF involves categorizing all information systems based on the potential impact to the organization due to the loss of confidentiality, integrity, or availability.
+Implied in this process is that the organization must have a comprehensive inventory of systems to apply the categorization standard.
+
+##### Select Controls
+
+Once security categorization has been performed, a baseline set of controls must be selected based on the identified categorization and impact.
+
+##### Implement Controls / Assess Controls
+
+Once the system has been categorized and baseline controls are selected, the controls must be implemented and monitored to ensure that they “are implemented correctly, operating as intended, and producing the desired outcome with respect to meeting the security requirements for the system.”
+This will produce a set of documents certifying the technical application of the controls.
+
+##### Authorize System
+
+After categorizing information systems, selecting and implementing controls, and assessing the effectiveness of those controls, organizational leadership then makes a formal decision whether to authorize the use of the system.
+This decision is based on the ability of the controls to operate the system within the organization’s risk tolerance.
+
+##### Monitor Controls
+
+Finally, the organization must continuously monitor the effectiveness of the controls over time to ensure that the ongoing operation of the system occurs within the organization’s risk tolerance.
+
+#### COBIT and RiskIT
+
+In the late 1990s, the audit community in the United States and Canada recognized that there was a significant gap between IT governance and the larger organizational management structures.
+Consequently, IT activities were often misaligned with corporate goals, and risks were not comprehensively addressed by the control structure or consistently reflected in financial reporting.
+To address this gap, ISACA developed a framework through which the IT activities of an organization could be assessed.
+
+The Control Objectives for Information and Related Technology framework differentiates processes into either Governance of Enterprise IT (five processes) or Management of Enterprise IT (32 processes).
+Each process has a set of objectives, inputs, key activities, and outputs, and measures to evaluate performance against the objectives.
+As the framework is closely aligned with other management frameworks and tools (ISO 20000, ISO 27001, ITIL, Prince 2, SOX, and TOGAF), it has gained wide acceptance as an encompassing framework for managing the delivery of IT.
+
+Based on the ISACA COBIT governance framework, the RiskIT framework provides a structure for the identification, evaluation, and monitoring of information technology risk.
+This simplifies the integration of IT risk into the larger organization enterprise risk management (ERM) activities.
+
+The RiskIT framework consists of three domains - risk governance, risk evaluation, and risk response - each of which has three processes.
+The framework then details the key activities within each process and identifies organizational responsibilities, information flows between processes, and process performance management activities.
+Additional detail on how to implement the framework and link it to other organizational management practices is contained in the RiskIT Practitioner Guide.
 
 
 
