@@ -854,6 +854,22 @@ Your privacy policy should explain what kind of personal data is collected, how 
 
 In security, a **risk** is the potential for negative impact on the organization, its goals or objectives, or its assets (including people, systems, and data) due to a threat exploiting a vulnerability.
 
+##### Inherent Risk
+Inherent risk is the level of natural, native, or default risk that exists in an environment, system, or product prior to any risk management efforts being performed. Inherent risk can exist due to the supply chain, developer operations, design and architecture of a system, or the knowledge and skill base of an organization. Inherent risk is also known as initial risk or starting risk. This is the risk that is identified by the risk assessment process.
+
+##### Residual Risk
+Once safeguards, security controls, and countermeasures are implemented, the risk that remains is known as residual risk. Residual risk consists of threats to specific assets against which upper management chooses not to implement a response. In other words, residual risk is the risk that management has chosen to accept rather than mitigate. In most cases, the presence of residual risk indicates that the cost/benefit analysis showed that the available safeguards were not cost-effective deterrents.
+
+##### Total Risk
+Total risk is the amount of risk an organization would face if no safeguards were implemented.
+
+##### Controls Gap
+The controls gap is the amount of risk that is reduced by implementing safeguards.
+
+> threats * vulnerabilities * asset value = total risk
+
+> total risk – controls gap = residual risk
+
 #### Threats
 
 A threat is a negative event that can lead to an undesired outcome, such as damage to, or loss of, an asset. A threat is posed by a **threat actor**, which is a person or entity that is capable of intentionally or accidentally compromising an asset’s security. As security professionals, threats are the people and events that we work to protect our information and systems from.
@@ -1077,14 +1093,29 @@ The standard encourages the integration of risk management activities across org
 ISO 31000:2018 is based on a set of eight principles that drive the development of the risk framework shown in Figure 1.7. That framework, in turn, structures the processes for implementing risk management.
 
 The eight ISO 31000 principles are described here:
-* Customized: The framework should be customized and proportionate to the organization and the level of risk.
-* Inclusive: The appropriate and timely involvement of stakeholders is necessary.
-* Comprehensive: A structured and comprehensive approach is required.
-* Integrated: Risk management is an integral part of all organizational activities.
-* Dynamic: Risk management anticipates, detects, acknowledges, and responds to changes in a timely fashion.
-* Best available information: Risk management explicitly considers any limitations of available information.
-* Human and cultural factors: Human and cultural factors influence all aspects of risk management.
-* Continual improvement: Risk management is continually improved through learning and experience.
+* **Customized:**
+The framework should be customized and proportionate to the organization and the level of risk.
+
+* **Inclusive:**
+The appropriate and timely involvement of stakeholders is necessary.
+
+* **Comprehensive:**
+A structured and comprehensive approach is required.
+
+* **Integrated:**
+Risk management is an integral part of all organizational activities.
+
+* **Dynamic:**
+Risk management anticipates, detects, acknowledges, and responds to changes in a timely fashion.
+
+* **Best available information:**
+Risk management explicitly considers any limitations of available information.
+
+* **Human and cultural factors:**
+Human and cultural factors influence all aspects of risk management.
+
+* **Continual improvement:**
+Risk management is continually improved through learning and experience.
 
 To assist organizations in implementing the ISO 31000 standard, ISO 31004, “Risk Management - Guidance for the implementation of ISO 31000,” was published to provide a structured approach to transition their existing risk management practices to be consistent with ISO 31000 and consistent with the individual characteristics and demands of the organization.
 
@@ -1142,6 +1173,209 @@ The framework then details the key activities within each process and identifies
 Additional detail on how to implement the framework and link it to other organizational management practices is contained in the RiskIT Practitioner Guide.
 
 
+## UNDERSTAND AND APPLY THREAT MODELING CONCEPTS AND METHODOLOGIES
+
+**Threat modeling** is a technique by which you can identify potential threats to your systems and applications, as well as identify suitable countermeasures against those threats.
+
+The **attack surface** is the total range of areas where an attacker can potentially execute a compromise.
+With an information system, this might include the methods of communication, the access controls, or weaknesses in the underlying architectures.
+With a physical environment, the attack surface might include the construction techniques, the location, or the means of entrance and egress.
+Limiting the attack surface to the minimum number of areas of exposure reduces the opportunities for a threat to become a successful attack.
+
+### Threat Modeling Concepts
+
+#### Attacker-centric
+
+The attacker-centric threat modeling approach starts by identifying the various actors who could potentially cause harm to a system.
+With an attacker-centric approach, you start by profiling a potential attacker’s characteristics, skillset, and motivation, and then use that profile to identify attackers who would be most likely to execute specific types of attacks.
+This approach can be helpful when narrowly approaching a problem by limiting the number of scenarios under analysis.
+
+Tactical military intelligence is typically driven by an attacker-centric threat model, as are many business continuity/disaster recovery planning processes.
+If you work in financial services, you may be familiar with attacker-centric modelling from anti-money laundering (AML) and other anti-financial crimes applications.
+AML processes involve using process models of how money launderers operate when they attack to identify steps to take in order to thwart such attacks.
+
+#### Asset-centric
+
+As opposed to an attacker-centric approach, an asset-centric threat model identifies the assets of value first.
+Assets should be characterized by their value to the organization as well as their value to potential attackers.
+The means by which the asset is managed, manipulated, used, and stored are then evaluated to identify how an attacker might compromise the asset.
+
+Many compliance regimes focus on protection of an asset (e.g., PHI under HIPAA, PII under the GDPR, or cardholder data under PCI-DSS), so this approach is helpful when establishing or verifying compliance.
+You’ll also find this approach particularly useful when protecting other high-value assets such as intellectual property and security credentials.
+
+#### Software-centric (or System-centric)
+
+For many information systems environments, the software-or system-centric model is most useful.
+In this approach, the system is represented as a set of interconnected processes, using architecture diagrams such as dataflow diagrams (DFDs) or component diagrams.
+These diagrams are then evaluated by threat analysts to identify potential attacks against each component and to determine whether a security control is necessary, exists, and achieves the control effect.
+
+### Threat Modeling Methodologies
+
+#### STRIDE
+
+STRIDE is a threat modeling methodology developed by Microsoft in the late 1990s to help identify and classify computer security threats.
+
+The name itself is a mnemonic for six categories of security threats, discussed here:
+* **Spoofing:**
+Spoofing is an attack during which a malicious party assumes the identity of another party (either a user or a system) by falsifying information.
+A common example of identity spoofing occurs when email spammers modify the “From:” field to depict the name of a sender that the target recipient is more likely to trust.
+Within applications, spoofing can occur if an attacker steals and uses a victim’s authentication information (like username and password) to impersonate them within the application.
+
+* **Tampering:**
+Data tampering is an attack on the integrity of data by intentionally and maliciously manipulating data.
+Tampering can include altering data on disk, in memory, over the network, or elsewhere.
+Applications that don’t properly validate user input may allow malicious actors to modify values and have the manipulated data stored and used by the application.
+
+* **Repudiation:**
+Repudiation is the ability of a party to deny that they are responsible for performing an action.
+The threat of repudiation occurs when a user claims that they did not perform an action, and no other party is able to prove otherwise.
+In the physical world, signing for a mail delivery is a common form of nonrepudiation - the delivery company maintains a record that you received and accepted the mail on a specific date.
+In the digital world, an example of a repudiation threat is a user claiming that they did not make an online purchase - even if they did, in fact, make that purchase.
+Comprehensive logging, digital signatures, and multifactor authentication can be integrated into applications to provide nonrepudiation for high-risk actions.
+
+* **Information disclosure:**
+Information disclosure is when information is shared with an unauthorized party - such as during a data breach or when inadvertently sending an email to the wrong person.
+This threat compromises the confidentiality of data and carries a great deal of risk depending on the sensitivity of the leaked data.
+Organizations that store and process PII, PHI, cardholder data, or other confidential information should focus on this threat, and identify controls to mitigate against it.
+Data encryption, strong access control, and other data protection mechanisms are the keys to protecting against unauthorized information disclosure.
+
+* **Denial of service:**
+A denial-of-service (DoS) attack is a common availability attack that denies access to resources by legitimate users.
+Controls should be put in place to monitor and detect abnormally high resource consumption by any single user; this may be an indication of either malicious or unintentional resource exhaustion.
+As a principle, applications should be developed with availability and reliability in mind.
+
+* **Elevation of privilege:**
+Elevation of privilege (or privilege escalation) occurs when an unprivileged user is able to upgrade their privileges to those of a privileged user (e.g., a system administrator).
+Elevation of privilege can give an untrusted party the “keys to the kingdom” and grant them access to and control over sensitive data and systems.
+Strong access control is required to help protect against this threat. Systems should revalidate a user’s identity and credentials prior to granting privileged access, and multifactor authentication should be used, wherever possible.
+
+#### PASTA
+The Process for Attack Simulation and Threat Analysis (PASTA) is a risk-based threat model, developed in 2012, that supports dynamic threat analysis.
+The PASTA methodology integrates business objectives with technical requirements, making the output more easily understood by upper management.
+
+There are seven stages of the PASTA methodology:
+* Define objectives
+* Define technical scope
+* Application decomposition
+* Threat analysis
+* Vulnerability analysis
+* Attack enumeration
+* Risk and impact analysis
+
+#### NIST 800-154
+NIST 800-154, “Guide to Data-Centric System Threat Modeling,” was released in draft form in 2016.
+It explicitly rejects that best-practice approaches are sufficient to protect sensitive information, as best practice is too general and often overlooks controls specifically tailored to meet the protection of the sensitive asset.
+
+NIST 800-154 establishes four major steps for data-centric system threat modeling:
+1. Identify and characterize the system and data of interest.
+2. Identify and select the attack vectors to be included in the model.
+3. Characterize the security controls for mitigating the attack vectors.
+4. Analyze the threat model.
+
+#### DREAD
+DREAD is an older threat modeling technique, previously used by Microsoft but later abandoned.
+
+DREAD provides a mnemonic for quantitative risk rating security threats using five categories:
+* Damage
+* Reproducibility
+* Exploitability
+* Affected users
+* Discoverability
+
+Though it is sparsely used today, you should be familiar with the DREAD mnemonic and the categories that it represents.
+
+#### Other Models
+Other threat modeling methodologies include the following:
+* Operationally Critical Threat, Asset, and Vulnerability Evaluation (OCTAVE) is an approach for managing information security risks, developed at the Software Engineering Institute (SEI).
+* Trike is an open-source threat modeling approach and tool that focuses on using threat models as a risk management tool.
+* Construct a platform for Risk Analysis of Security Critical Systems (CORAS), also open source, is a European project that relies heavily on Unified Modeling Language (UML) as the front end for visualizing the threats.
+* Visual, Agile, and Simple Threat Modeling (VAST) is a proprietary approach that leverages Agile concepts.
+  
+
+## APPLY SUPPLY CHAIN RISK MANAGEMENT CONCEPTS
+
+### Risks Associated with Hardware, Software, and Services
+
+Any time an organization considers using third-party hardware, software, or services, the organization must determine how the new hardware, software, or services may fit into the organization’s existing environment, and evaluate how the additions may impact the organization’s overall security posture.
+
+#### Malicious Code in the Supply Chain
+
+The widespread use of proprietary commercial off-the-shelf (COTS) software requires customers to trust the security practices of the vendors.
+However, many instances have been documented where that trust has been abused, and the COTS vendors become a vehicle to introduce vulnerabilities or compromise the CIA aspects of the customers’ data.
+
+### Third-Party Assessment and Monitoring
+
+To minimize supply chain risk, appropriate controls must be applied to verify the security practices of all involved parties.
+In most cases, controls have been identified that would address security risks; the toughest challenge is to ensure that third parties actually do what they should to protect your organization’s information from those risks.
+
+Any organization that does business with contractors, vendors, or any other third parties should have a third-party risk management policy that establishes a third-party risk management program responsible for assessing, monitoring, and controlling risks associated with outsourcing to third parties.
+Governance and oversight activities should include onsite security surveys, formal security audits of third-party systems, and penetration testing, where feasible.
+Any new third party should be assessed against your organization’s security requirements, and gaps should be documented and closely monitored.
+Further, vendors and other third parties should be regularly reassessed and continuously monitored to ensure that they continue to adequately protect your organization’s information.
+
+### Minimum Security Requirements
+
+Similar to baselines and standards (discussed earlier in this chapter), your organization should establish minimum security requirements (MSRs) that define the least acceptable security standards that vendors and other parties in your supply chain must satisfy.
+Of course, you should strive to ensure that your third parties have the strongest possible security postures, but MSRs, as the name suggests, describe the lowest level of security that your organization is willing to accept from a third party.
+To avoid issues, your MSRs should take into consideration any legal, contractual, or regulatory requirements that you are required to satisfy; you should not establish an MSR that is below any external security compliance requirement.
+You must also be prepared to audit and assess third parties’ compliance with any MSRs that you have established and communicated.
+
+### Service-Level Requirements
+
+A **service-level agreement (SLA)** is a contractual agreement between a service provider and its customers that establishes the minimum performance standards that the provider is obligated to meet.
+When dealing with vendors and other third parties, SLAs serve as documented and agreed-upon performance requirements that a customer can use to hold the third party accountable.
+
+### Frameworks
+
+Several frameworks explicitly address supply chain risks. This is an evolving area of risk management, but the complexities of managing the information systems supply chain have been evident for many years.
+
+#### NIST IR 7622
+
+The U.S. government began directly addressing cyber supply chain risk as a separate issue with the publication of NIST IR 7622, “Notional Supply Chain Risk Management Practices for Federal Information Systems.”
+This work recognizes that the actions required of the entities in the supply chain will change depending on their role, as will the level and type of control to be applied.
+
+The document identifies 10 practices that should be taken into account in addressing supply chain risk:
+
+* Uniquely identify supply chain elements, processes, and actors.
+* Limit access and exposure within the supply chain.
+* Establish and maintain the provenance of elements, processes, tools, and data.
+* Share information within strict limits.
+* Perform supply chain risk management awareness and training.
+* Use defensive design for systems, elements, and processes.
+* Perform continuous integrator review.
+* Strengthen delivery mechanisms.
+* Assure sustainment activities and processes.
+* Manage disposal and final disposition activities throughout the system or element lifecycle.
+
+The U.S. government has a number of other supply chain risk management initiatives,
+including the **Committee on National Security Systems Directive 505, “Supply Chain Risk Management,”** which specifically addresses security requirements for strategic national systems
+and the **Comprehensive National Cybersecurity Initiative Number 11**, which provides a set of tools to agencies to manage their cybersecurity supply chain through a risk-driven approach.
+
+#### ISO 28000
+
+ISO 28000:2007, “Specification for security management systems for the supply chain,” provides a broad framework for managing supply chain risk.
+While not specific to cybersecurity, ISO 28000 is useful for organizations that leverage other ISO specifications (such as ISO 9001 and ISO 27001) to align supply chain risk with the organizations’ audit processes or that seek to use a standardized, risk-based approach to evaluating supply chain risk.
+
+ISO 28000:2007 relies heavily on the continuous process improvement model of plan, do, check, act (PDCA) to improve the security management system and to assure organizational conformance to the security practice.
+This approach facilitates the integration of supply chain risk with broader organizational risk management activities.
+
+#### U.K. National Cyber Security Centre
+
+The U.K. National Cyber Security Centre (NCSC) proposed guidance that attempts to provide organizations with improved awareness of supply chain risks, while also establishing 12 principles intended to help organizations establish and maintain effective control of their supply chain.
+
+The 12 supply chain principles are divided into these separate stages:
+1. **Understand the risks:**
+The principles in this stage involve identifying your vendors in your supply chain and establishing what needs to be protected in that supply chain (and why).
+
+2. **Establish control:**
+This stage involves establishing minimum security requirements (see the earlier section “Minimum Security Requirements”) and communicating your security expectations to your suppliers.
+
+3. **Check your arrangements:**
+This stage involves establishing assurance activities and building those into your supply chain processes. This includes establishing audit rights, key performance indicators, and other testing/validation activities.
+
+4. **Continuous improvement:**
+This stage involves continually building trust with your suppliers and constantly encouraging security improvements for your supply chain.
+
 
 ## ESTABLISH AND MAINTAIN A SECURITY AWARENESS, EDUCATION, AND TRAINING PROGRAM
 
@@ -1161,29 +1395,22 @@ to help raise awareness of important security topics.
 
 ### Periodic Content Reviews
 
+Information security is a constantly evolving field, with security threats and vulnerabilities that are forever changing.
+As such, it’s important that you regularly review the content within your security awareness, education, and training program to certify that it remains relevant.
+Content should be reviewed and updated annually, at a minimum, to ensure that there is no reference to obsolete or irrelevant technologies or terminology, and these reviews should validate that all security awareness and training materials reflect current security trends, concepts, and concerns that are relevant to your organization and industry.
+
 ### Program Effectiveness Evaluation
 
-There are several methods by which you can evaluate the effectiveness of your security
-awareness program. Some examples include the following:
-* **Training metrics:** Simple metrics like training completion rates are a great place to start when evaluating the effectiveness of your security awareness program. These types of metrics can tell you whether your training resources are reaching a sufficient percentage of your employees and may alert you if alternate delivery methods are necessary.
-* **Quizzes:** This is one of the most effective methods of measuring program effectiveness through knowledge retention. Quizzes are most reliable when measuring the effectiveness of security policies and related information. Analysis of quiz results should be conducted to identify trends that reveal necessary modifications to your training materials; if a substantial number of your employees get the same question wrong, it likely means you need to provide further (or clearer) information about that topic.
-* **Security awareness days or weeks:** By sponsoring security awareness days or weeks, you not only have an opportunity to provide security education, but you can also use this as an opportunity to solicit feedback from your employees on the program itself. You can provide attendees with anonymous questionnaires that allow them to express their opinion about the current program and propose new ideas on content delivery.
-* **Inherent evaluation:** As previously stated, you can also measure the effectiveness of your awareness program by evaluating your organization's overall security posture. Certain metrics, such as the number of phishing emails and other security issues reported to IT, can provide a great deal of insight into the effectiveness of your program. As your company's employees are increasingly educated on security risks, you should start to see the number of self-reported security issues rise. It's better to see a rise in reported suspected issues than a rise in successful compromises.
+There are several methods by which you can evaluate the effectiveness of your security awareness program. Some examples include the following:
 
-#### Inherent Risk
-Inherent risk is the level of natural, native, or default risk that exists in an environment, system, or product prior to any risk management efforts being performed. Inherent risk can exist due to the supply chain, developer operations, design and architecture of a system, or the knowledge and skill base of an organization. Inherent risk is also known as initial risk or starting risk. This is the risk that is identified by the risk assessment process.
+* **Training metrics:**
+Simple metrics like training completion rates are a great place to start when evaluating the effectiveness of your security awareness program. These types of metrics can tell you whether your training resources are reaching a sufficient percentage of your employees and may alert you if alternate delivery methods are necessary.
 
-#### Residual Risk
-Once safeguards, security controls, and countermeasures are implemented, the risk that remains is known as residual risk. Residual risk consists of threats to specific assets against which upper management chooses not to implement a response. In other words, residual risk is the risk that management has chosen to accept rather than mitigate. In most cases, the presence of residual risk indicates that the cost/benefit analysis showed that the available safeguards were not cost-effective deterrents.
+* **Quizzes:**
+This is one of the most effective methods of measuring program effectiveness through knowledge retention. Quizzes are most reliable when measuring the effectiveness of security policies and related information. Analysis of quiz results should be conducted to identify trends that reveal necessary modifications to your training materials; if a substantial number of your employees get the same question wrong, it likely means you need to provide further (or clearer) information about that topic.
 
-#### Total Risk
-Total risk is the amount of risk an organization would face if no safeguards were implemented.
+* **Security awareness days or weeks:**
+By sponsoring security awareness days or weeks, you not only have an opportunity to provide security education, but you can also use this as an opportunity to solicit feedback from your employees on the program itself. You can provide attendees with anonymous questionnaires that allow them to express their opinion about the current program and propose new ideas on content delivery.
 
-#### Controls Gap
-The controls gap is the amount of risk that is reduced by implementing safeguards.
-
-> threats * vulnerabilities * asset value = total risk
-
-> total risk – controls gap = residual risk
-
-
+* **Inherent evaluation:**
+As previously stated, you can also measure the effectiveness of your awareness program by evaluating your organization's overall security posture. Certain metrics, such as the number of phishing emails and other security issues reported to IT, can provide a great deal of insight into the effectiveness of your program. As your company's employees are increasingly educated on security risks, you should start to see the number of self-reported security issues rise. It's better to see a rise in reported suspected issues than a rise in successful compromises.
