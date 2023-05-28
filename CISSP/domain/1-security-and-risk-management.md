@@ -24,6 +24,20 @@
 
 ### Organizational Code of Ethics
 
+#### Code of Ethics for Government Service
+The U.S. government has a Code of Ethics for Government Service that is written into federal law.
+Passed by Congress in 1980, this code says that any person in government service should:
+* Put loyalty to the highest moral principles and to country above loyalty to persons, party, or Government department.
+* Uphold the Constitution, laws, and regulations of the United States and of all governments therein and never be a party to their evasion.
+* Give a full day’s labor for a full day’s pay; giving earnest effort and best thought to the performance of duties.
+* Seek to find and employ more efficient and economical ways of getting tasks accomplished.
+* Never discriminate unfairly by the dispensing of special favors or privileges to anyone, whether for remuneration or not; and never accept, for himself or herself or for family members, favors or benefits under circumstances which might be construed by reasonable persons as influencing the performance of governmental duties.
+* Make no private promises of any kind binding upon the duties of office, since a Government employee has no private word which can be binding on public duty.
+* Engage in no business with the Government, either directly or indirectly, which is inconsistent with the conscientious performance of governmental duties.
+* Never use any information gained confidentially in the performance of governmental duties as a means of making private profit.
+* Expose corruption wherever discovered.
+* Uphold these principles, ever conscious that public office is a public trust.
+
 #### RFC 1087 - Ethics and the Internet
 
 Issued by the Internet Activities Board (IAB) in 1989
@@ -117,6 +131,21 @@ Many companies use the SMART criteria to define their organizational goals. SMAR
 An objective is a milestone or a specific step that contributes to an organization reaching its goals and achieving its mission. Objectives are used to define incremental steps toward achieving a broader goal. Much like SMART goals, organizations often use the SMART framework to define quality objectives.
 
 While many people incorrectly use the terms goal and objective interchangeably, you should understand that an objective is a short-term milestone that supports a longer-term goal.
+
+#### Security Plan
+
+##### Strategic Plan
+
+A strategic plan is a long-term plan that is fairly stable. It defines the organization’s security purpose. It defines the security function and aligns it to the goals, mission, and objectives of the organization. It’s useful for about five years, if it is maintained and updated annually. The strategic plan also serves as the planning horizon. Long-term goals and visions for the future are discussed in a strategic plan. A strategic plan should include a risk assessment.
+
+##### Tactical Plan
+
+The tactical plan is a midterm plan developed to provide more details on accomplishing the goals set forth in the strategic plan, or can be crafted ad hoc based on unpredicted events. A tactical plan is typically useful for about a year and often prescribes and schedules the tasks necessary to accomplish organizational goals. Some examples of tactical plans are project plans, acquisition plans, hiring plans, budget plans, maintenance plans, support plans, and system development plans.
+
+##### Operational Plan
+
+An operational plan is a short-term, highly detailed plan based on the strategic and tactical plans. It is valid or useful only for a short time. Operational plans must be updated often (such as monthly or quarterly) to retain compliance with tactical plans. Operational plans spell out how to accomplish the various goals of the organization. They include resource allotments, budgetary requirements, staffing assignments, scheduling, and step-by-step or implementation procedures. Operational plans include details on how the implementation processes are in compliance with the organization’s security policy. Examples of operational plans are training plans, system deployment plans, and product design plans.
+
 
 ### Organizational Processes
 
@@ -353,7 +382,6 @@ A cybercrime is any criminal activity that directly involves computers or the in
 * **Crimes against government:** Any cybercrime committed against a government organization is considered an attack on that nation's sovereignty. This category of cybercrime may include hacking, theft of confidential information, or cyber terrorism. Hacktivism is another cybercrime that involves hackers seeking to make a political statement with their attacks. Hacktivists often target government entities but may also target other organizations with whom they disagree.
 
 #### U.S. Computer Fraud and Abuse Act of 1986
- 
 
 The major provisions of the original CCCA made it a crime to perform the following:
 * Access classified information or financial information in a federal system without authorization or in excess of authorized privileges
@@ -505,6 +533,7 @@ Unlike patents, a trademark does not expire after a set period of time. Instead,
 
 
 ### Copyrights
+
 A copyright is a legal protection granted to the authors of “original works of authorship” that may include books, movies, songs, poetry, artistic creations, and computer software, among other categories.
 
 Current copyright law provides for a lengthy period of protection. Works by one or more authors are protected until 70 years after the death of the last surviving author. Works for hire and anonymous works are provided protection for 95 years from the date of first publication or 120 years from the date of creation, whichever is shorter.
@@ -519,6 +548,28 @@ copyright protection:
 * Motion pictures and other audiovisual works
 * Sound recordings
 * Architectural works
+
+#### Digital Millennium Copyright Act (DMCA)
+
+In 1998, Congress recognized the rapidly changing digital landscape that was stretching the reach of existing copyright law.
+To help meet this challenge, it enacted the hotly debated Digital Millennium Copyright Act (DMCA).
+The DMCA also serves to bring U.S. copyright law into compliance with terms of two World Intellectual Property Organization (WIPO) treaties.
+
+The first major provision of the DMCA is the prohibition of attempts to circumvent copyright protection mechanisms placed on a protected work by the copyright holder.
+This clause was designed to protect copy-prevention mechanisms placed on digital media such as compact discs (CDs) and digital video discs (DVDs).
+The DMCA provides for penalties of up to $1 million and 10 years in prison for repeat offenders.
+Nonprofit institutions such as libraries and schools are exempted from this provision.
+
+The DMCA also limits the liability of internet service providers (ISPs) when their circuits are used by criminals violating the copyright law.
+The DMCA recognizes that ISPs have a legal status similar to the “common carrier” status of telephone companies and does not hold them liable for the “transitory activities” of their users.
+
+To qualify for this exemption, the service provider’s activities must meet the following requirements (quoted directly from the Digital Millennium Copyright Act of 1998, U.S. Copyright Office Summary, December 1998):
+
+* The transmission must be initiated by a person other than the provider.
+* The transmission, routing, provision of connections, or copying must be carried out by an automated technical process without selection of material by the service provider.
+* The service provider must not determine the recipients of the material.
+* Any intermediate copies must not ordinarily be accessible to anyone other than anticipated recipients and must not be retained for longer than reasonably necessary.
+* The material must be transmitted with no modification to its content.
 
 ### Trade Secrets
 A trade secret is a proprietary formula, process, practice, or combination of information that a company has exclusive rights to.
@@ -550,6 +601,9 @@ In China, the enforcement of the Cybersecurity Law will place new restrictions o
 
 The Federal Privacy Act is a U.S. law that was enacted in 1974. The Privacy Act establishes and governs practices related to the collection, maintenance, use, and dissemination of PII by U.S. government agencies. The purpose of the Privacy Act is to balance the government’s need to maintain information about citizens and permanent residents with the rights of those individuals to keep their personal information private.
 
+#### Communications Assistance for Law Enforcement Act (CALEA) of 1994
+The Communications Assistance for Law Enforcement Act (CALEA) of 1994 amended the Electronic Communications Privacy Act of 1986.
+CALEA requires all communications carriers to make wiretaps possible for law enforcement with an appropriate court order, regardless of the technology in use.
 
 #### U.S. Health Insurance Portability and Accountability Act (HIPAA) of 1996
 
@@ -561,6 +615,15 @@ HIPAA was signed into law in 1996, while the HIPAA Privacy Rule and Security Rul
 #### U.S. Children’s Online Privacy Protection Act (COPPA) of 1998
 
 The Children’s Online Privacy Protection Act of 1998 is a U.S. federal law that establishes strict guidelines for online businesses to protect the privacy of children under the age of 13. COPPA applies to any organization around the world that handles the data of children residing in the United States and also applies to children that reside outside of the United States, if the company is U.S.-based. The law sets requirements for seeking parental consent and establishes restrictions on marketing to children under the age of 13.
+
+#### Family Educational Rights and Privacy Act
+The Family Educational Rights and Privacy Act (FERPA) is another specialized privacy bill that affects any educational institution that accepts any form of funding from the federal government (the vast majority of schools).
+It grants certain privacy rights to students older than 18 and the parents of minor students.
+
+Specific FERPA protections include the following:
+* Parents/students have the right to inspect any educational records maintained by the institution on the student.
+* Parents/students have the right to request correction of records they think are erroneous and the right to include a statement in the records contesting anything that is not corrected.
+* Schools may not release personal information from student records without written consent, except under certain circumstances.
 
 #### U.S. Gramm-Leach-Bliley Act (GLBA) of 1999
 
@@ -755,7 +818,16 @@ Determining the level of impact of a disaster is done in several ways, and there
 * **Recovery time objective (RTO)** is the planned time necessary to restore a system to the point where it meets the minimum service expectations of the system owner. In other words, RTO is the maximum period of time within which a CBF must be restored after a disruption to avoid unacceptable business consequences. Since unacceptable disaster occurs when the MTD is exceeded, the RTO, by definition, must be less than or equal to the MTD. The RTO must be adjusted by the application of additional controls to bring it within the MTD. At the point where the business owner is no longer willing to apply control, they have accepted the risk of operation.
 * **Recovery Point Objective (RPO)** represents the measurement of tolerable data loss, represented as a period of time. As with the MTD, this must be defined by the business, and the business is responsible for resourcing the controls to achieve the RPO.
 
+
+
 ### Develop and Document the Scope and the Plan
+
+#### Project Scope and Planning
+
+* Perform a structured review of the business’s organization from a crisis planning point of view.
+* Create a BCP team with the approval of senior management.
+* Assess the resources available to participate in business continuity activities.
+* Analyze the legal and regulatory landscape that governs an organization’s response to a catastrophic event.
 
 While there is no one-size-fits-all for business continuity planning, the scope of most plans includes the following:
 * Critical business functions
@@ -777,6 +849,20 @@ The BCP team must evaluate every critical business function and determine what r
 
 Hardware and software failures —that’s just part of the reality of technology. A business continuity plan must anticipate these failures and outline controls and procedures to mitigate the risk of technology failure.
 
+
+### BCP Documentation
+
+#### Continuity Planning Goals
+#### Statement of Importance
+#### Statement of Priorities
+#### Statement of Organizational Responsibility
+#### Statement of Urgency and Timing
+#### Risk Assessment
+#### Risk Acceptance/Mitigation
+#### Vital Records Program
+#### Emergency Response Guidelines
+#### Maintenance
+#### Testing and Exercises
 
 ## CONTRIBUTE TO AND ENFORCE PERSONNEL SECURITY POLICIES AND PROCEDURES
 
@@ -985,7 +1071,6 @@ Beyond cost-effectiveness and pure security-effectiveness, you must be sure to e
 If a countermeasure is too difficult to implement or use, it may have a counterintuitive effect and actually increase risk because it is not being used properly (or at all).
 
 #### Applicable Types of Controls
-
 
 A **security control** is any safeguard that is put in place to positively impact security.
 Security controls may be automatic or manual, and they can be technical (i.e., implemented and executed through hardware, software, or firmware),
@@ -1290,7 +1375,35 @@ Other threat modeling methodologies include the following:
 * Trike is an open-source threat modeling approach and tool that focuses on using threat models as a risk management tool.
 * Construct a platform for Risk Analysis of Security Critical Systems (CORAS), also open source, is a European project that relies heavily on Unified Modeling Language (UML) as the front end for visualizing the threats.
 * Visual, Agile, and Simple Threat Modeling (VAST) is a proprietary approach that leverages Agile concepts.
-  
+
+### Threat Modeling Steps
+
+#### Identifying Threats
+
+#### Determining and Diagramming Potential Attacks
+
+#### Performing Reduction Analysis
+
+In the decomposition process, you must identify five key concepts:
+* Trust Boundaries Any location where the level of trust or security changes
+* Dataflow Paths The movement of data between locations
+* Input Points Locations where external input is received
+* Privileged Operations Any activity that requires greater privileges than of a standard user account or process, typically required to make system changes or alter security
+* Details about Security Stance and Approach The declaration of the security policy, security foundations, and security assumptions
+
+#### Prioritization and Response
+
+##### Probability × Damage Potential
+
+The ranking technique of Probability × Damage Potential produces a risk severity number on a scale of 1 to 100, with 100 the most severe risk possible.
+Each of the two initial values can be assigned numbers between 1 and 10, with 1 being lowest and 10 the highest.
+
+##### High/Medium/Low Rating
+
+The high/medium/low (1/2/3 or green/yellow/red) rating process is even simpler. It creates a basic risk matrix or heat map (Figure 1.5).
+As with any means of risk assessment, the purpose is to help establish criticality prioritization.
+Using a risk matrix, each threat can be assigned a probability and a damage level. Then when these two values are compared, the result is a combined value somewhere in the nine squares.
+Those threats in the HH (high probability/high damage) area are of the highest priority and concern, whereas those in the LL (low probability/low damage) area are of least priority and concern.
 
 ## APPLY SUPPLY CHAIN RISK MANAGEMENT CONCEPTS
 
