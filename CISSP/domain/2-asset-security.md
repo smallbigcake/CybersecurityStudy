@@ -314,6 +314,7 @@ In this context, the data controller is the person or entity that controls the p
 
 #### Data Custodians
 
+Data owners often delegate day-to-day tasks to a data custodian. A custodian helps protect the integrity and security of data by ensuring that it is properly stored and protected.
 
 #### Data Processors
 
@@ -321,11 +322,62 @@ Generically, a data processor is any system used to process data.
 However, in the context of the GDPR, data processor has a more specific meaning.
 The GDPR defines a data processor as “a natural or legal person, public authority, agency, or other body, which processes personal data solely on behalf of the data controller.”
 
+#### Administrators
 
+You’ll often hear the term administrator(s). However, the term means different things in different contexts.
+If Sally logs onto the Administrator account in a Windows system, she is an administrator.
+Similarly, anyone added to an Administrators group in Windows is also an administrator.
+
+However, many organizations view anyone with elevated privileges as administrators, even if they don’t have full administrative privileges.
+For example, help desk employees are granted some elevated privileges to perform their job but aren’t granted full administrative privileges.
+In this context, they are sometimes referred to as administrators.
+
+In the context of data roles, a data administrator may be a data custodian or someone in another data role.
 
 #### Data Users
 
+A user is any person who accesses data via a computing system to accomplish work tasks. Users should have access only to the data they need to perform their work tasks.
+You can also think of users as employees or end users.
 
 #### Data Subjects
 
+A subject is any entity that accesses an object such as a file or folder. Subjects can be users, programs, processes, services, computers, or anything else that can access a resource.
 
+The GDPR defines a data subject (not just a subject) as a person who can be identified through an identifier, such as a name, identification number, or other means.
+As an example, if a file includes PII on Sally Smith, Sally Smith is the data subject.
+
+### Data Collection
+
+The data lifecycle (refer to Figure 2.5) begins with data collection.
+This phase may include data creation, acquisition, aggregation, or any circumstance where data is “new” to your system.
+New data may be freshly generated content, data that is newly introduced to your environment, or content that has been updated/modified into a new state.
+
+One of the easiest ways to prevent the loss of data is to simply not collect it.
+The guideline is clear. If the data doesn’t have a clear purpose for use, don’t collect it and
+store it. This is also why many privacy regulations mention limiting data collection.
+
+### Data Location
+
+With the growth of cloud-based storage, data location is an increasingly discussed topic.
+Many jurisdictions or governments have laws that require a citizen’s (or resident’s) data be collected, processed, or stored inside the country.
+The data may still be transferred internationally, but it has to originate from the country and can be transferred only after local privacy or data protection laws are met.
+
+An example of these conditions is notifying a user how the information will be used and obtaining their consent. This is data localization or residency before the data is exchanged outside of the jurisdiction.
+In some cases, data localization or residency mandates that data about a nation’s citizens or residents must be deleted from foreign systems before being removed from systems in the data subject’s nation.
+Some regulations prohibit certain data (like military secrets, for example) from leaving the country of origin under any circumstances.
+
+With the use of a cloud provider, data localization or residency highlights several important considerations, including knowing where your data will reside (or where it might travel) and the contractual obligations the cloud provider has to support the data owner’s requirements.
+Data localization or residency is another valid reason to mandate that the data controller holds the encryption keys to cloud data stores.
+If the nation requires international organizations to destroy data before the nation does, deleting the encryption key can be a compensating control to make sensitive data unreadable and unusable.
+
+Data location refers to the location of data backups or data copies. Imagine a small organization’s primary business location is in Norfolk, Virginia. The organization stores all the data on site. However, they regularly perform backups of the data.
+
+A best practice is to keep a backup copy on site and another backup copy off site. If a disaster, such as a fire, destroys the primary business location, the organization would still have a backup copy stored off site.
+
+The decision of how far off site to store the backup needs to be considered.
+If it’s stored in a business located in the same building, it could be destroyed in the same fire.
+Even if the backup was stored 5 miles away, it is possible a hurricane or flood could destroy both locations.
+
+Some organizations maintain data in large data centers. It’s common to replicate this data to one or more other data centers to maintain the availability of the critical data.
+These data centers are typically located in separate geographical locations.
+When using cloud storage for backups, some organizations may need to verify the location of the cloud storage to ensure it is in a separate geographical location.
