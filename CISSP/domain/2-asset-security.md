@@ -655,3 +655,162 @@ The environmental controls maintain proper conditions and suppression of fire fo
 
 #### Compensating Security Controls
 
+In some cases, the prescribed or recommended security controls are applicable but cannot be scoped or tailored sufficiently to meet the control objective.
+When baseline controls have potential to degrade or obstruct business operations or are cost-prohibitive, we have to explore compensating controls.
+Compensating controls augment a primary control’s ability to achieve a control objective or replace the primary control to meet the given control objective.
+
+### Standards Selection
+
+Many organizations find that laws, regulations, contracts, and market requirements force them to comply with a set of standards.
+Those organizations that are not required to be compliant have the flexibility to choose a recognized framework or a combination of parts of recognized frameworks to establish their baseline requirements.
+
+#### Leading Security Frameworks
+
+A security framework is a collection of documented policies and procedures that define how to manage an enterprise’s security.
+In general, security frameworks focus less on specific controls and more on overall processes and best practices.
+The use of a framework to establish the security baseline is appropriate to assess and improve the organization’s ability to prevent, detect, and respond to cyber attacks.
+
+The following are some of the most common security frameworks used by organizations:
+
+A few examples that can be used in government and private organizations are included here:
+
+* **U.S. Department of Defense Instruction (DoDI): DoDI 8510.01, “Risk Management Framework (RMF) for DoD Information Technology (IT)”:**
+This directive applies to DoD information systems and manages the lifecycle cybersecurity risk to all DoD IT.
+The use of this framework assists DoD security professionals in establishing a baseline and tailoring security controls as it relates to the DoD mission.
+
+* **NIST SP 800-37, “Risk Management Framework”:**
+Similar to the DoD RMF, the NIST RMF has broader access and applicability to both public and private-sector organizations.
+Federal government agencies outside of the DoD are subject to the FISMA framework, of which NIST SP 800-37 is a cornerstone directive.
+
+* **NIST Cybersecurity Framework (CSF):**
+This provides security and privacy guidelines that are primarily targeted at helping private-sector companies improve their security.
+The NIST CSF is broken into five functions: identify, protect, detect, respond, and recover.
+
+* **UK 10 Steps to Cyber Security:**
+This is an example of a government-published advice document that is meant to help organizations focus on the main threats to reduce the greatest amount of risk.
+This document is intended for UK organizations and is considered official.
+It is insufficient alone but is valuable in a portfolio of security controls to make up the baseline control set.
+
+#### Security Standards
+
+* U.S. National Institute of Standards and Technology Special Publications:
+  * NIST SP 800-53 Rev 5, “Security and Privacy Controls for Federal Information Systems and Organizations”:
+  This is a catalog of security controls for all U.S. federal information systems except those related to national security (e.g., DoD).
+  It is used by organizations to establish the baseline security controls, tailor security controls, and supplement security controls based on assessment of risk for the organization.
+  
+  * NIST SP 800-53A Rev 4, “Assessing Security and Privacy Controls in Federal Information Systems and Organizations: Building Effective Assessment Plans”:
+  Used as a complementary guide, it provides a set of procedures for conducting assessments of security controls and privacy controls employed within U.S. federal information systems and organizations.
+  The assessment procedures, executed at various phases of the system development lifecycle, are consistent with the security and privacy controls in NIST SP 800-53, Revision 5.
+  It is applicable to private-sector organizations too.
+
+* U.S. NIST Federal Information Processing Standards:
+  * FIPS Publication 199, “Standards for Security Categorization of Federal Information and Information Systems”:
+  This provides a standard for categorizing U.S. federal information and information systems according to a government agency’s level of concern for confidentiality, integrity, and availability and the potential impact on agency assets and operations, should their information and information systems be compromised through unauthorized access, use, disclosure, disruption, modification, or destruction.  
+  This is another directive primarily aimed at U.S. government agencies, but it can be applicable and useful for private-sector organizations.
+  
+  * FIPS Publication 200, “Minimum Security Requirements for Federal Information and Information Systems”:
+  An integral part of the NIST RMF, this standard emphasizes more security during the development, implementation, and operation of more secure information systems.  
+  FIPS 200 defines the 17 families of security controls covered under confidentiality, integrity, and availability of U.S. federal information systems and the information processed, stored, and transmitted by those systems.  
+  This is another U.S. government standard that is a useful reference for any country or industry.
+
+* International Organization for Standardization (ISO):
+  * ISO 27001, “Information technology – Security techniques – Information security management systems – Requirements”:
+  This specifies the requirements for establishing, implementing, maintaining, and continually improving an information security management system within the context of the organization.  
+  It also includes requirements for the assessment and treatment of information security risks tailored to the needs of the organization. The requirements set out in ISO/IEC 27001 are generic and are intended to be applicable to all organizations, regardless of type, size, or nature.  
+  It is applicable to global organizations independent of national jurisdiction and industry.  
+  For example, although not focused on HIPAA, the information security management system framework in ISO 27001 is relevant for use in U.S. healthcare organizations.
+  
+  * ISO 27002, “Information Technology: Security techniques – Code of practice for information security controls”:
+  This gives guidelines for organizational information security standards and information security management practices including the selection, implementation, and management of controls, taking into consideration the organization’s information security risk environment(s).  
+  The code of practice is designed to be used by organizations that intend to select controls within the process of implementing an information security management system based on ISO 27001.  
+  It can also be tailored for organizations that want to implement commonly accepted information security controls and develop their own information security management guidelines, but as a modification of the ISO 270001 framework.
+
+### Data Protection Methods
+
+Generally speaking, protecting data and assuring confidentiality, integrity, and availability are central not only for IT teams, but to the entire business.
+Several commonly used methods may suit different needs your organization has.
+
+#### Digital Rights Management
+
+**Digital rights management (DRM)** is a set of tools and processes focused on controlling the use, modification, and distribution of intellectual property (IP) throughout its lifecycle.
+DRM allows you to restrict access, editing, copying, and printing of your digital assets.
+
+Here is one common use case: DRM technology allows movie studios and music producers to prevent pirated content from being viewed on a device that isn’t associated with a legitimate purchase of that content.
+The technology became hugely relevant in the early 2000s, amidst the growth of peer-to-peer filesharing applications like Napster and LimeWire.
+
+**Information rights management (IRM)** is a related technology that more broadly protects data from unauthorized access by controlling who can view, copy, delete, or otherwise modify data.
+IRM technologies can be used to protect files, emails, web pages, and other forms of information.
+
+#### Data Loss Prevention
+
+Data loss prevention (DLP), sometimes referred to as data leakage prevention, is the set of technologies and practices used to ensure that sensitive data is not lost or accessed by unauthorized parties.
+DLP technologies can be used to identify and classify sensitive data and apply protections that prevent the data from being “lost” or stolen.
+
+DLP is a foundational component of data protection programs, and it can help restrict the flow of both structured and unstructured data to authorized users, locations, and devices.
+Simply put, DLP analyzes data storage, identifies sensitive data elements, and prevents users from accidentally or intentionally sending that sensitive data to the wrong recipient.
+
+DLP implementations generally consist of three core stages: discovery and classification, monitoring, and enforcement.
+
+* **Discovery and classification:**
+
+  The first stage of DLP is discovery and classification. Discovery is the process of finding all instances of data, while classification is the act of categorizing that data based on its sensitivity and value to the organization.  
+  While you should have classified your data as part of your information asset inventory, many DLP tools are capable of applying signature-based logic that determines the classification of data.
+  In many cases, your existing classification information can be used to “tune” the DLP to know what you consider sensitive.  
+  Examples of classifications might include “PCI data” (or “cardholder data”), “Social Security numbers,” “PHI,” and so on.
+  Comprehensive discovery and proper classification is critical to the effectiveness of the remaining stages and to the success of your overall DLP implementation.
+
+* **Monitoring:**
+
+  The monitoring stage involves inspecting data as it moves throughout the data lifecycle. During this stage, DLP technologies seek to identify data that is being misused or mishandled.  
+  DLP monitoring should happen on workstations, servers, networking devices, and other endpoints, and it should evaluate traffic across all potential exfiltration paths (such as email, internet browsers, messaging applications, etc.).  
+  Be mindful that standard DLP implementations cannot monitor encrypted traffic. (See “DLP in transit” in the following list for more details on these limitations.
+ 
+* **Enforcement:**
+
+  The final DLP stage, enforcement, is where action is taken to prevent policy violations identified during the monitoring stage.  
+  These actions are configured based on the data classification and the potential impact of its loss.  
+  For less sensitive data, violations may be automatically logged and/or alerted on, while more sensitive data can actually be blocked from unauthorized exposure or loss.  
+  As with any monitoring tool, you must monitor for false negatives and false positives, and constantly tune your DLP implementation to avoid enforcement issues, such as blocking legitimate/authorized data sharing.
+
+DLP considerations for each of the data states are discussed here:
+
+* **DLP at rest:**
+
+  For data at rest, the DLP implementation is located wherever the data is stored. This can include workstations, file servers, or just about any other endpoint with storage.  
+  Because data at rest is static, it does not require data loss prevention, in the purest sense. Data in this state is most commonly protected via encryption, access control, and other mechanisms.  
+  Although DLP monitoring is still important in this state, it is most effective when combined with other DLP technologies.
+
+* **DLP in transit:**
+
+  Network-based DLP is data loss prevention that involves monitoring outbound network traffic, typically near the perimeter. This DLP implementation monitors traffic over HTTP, FTP, SMTP, and other network protocols.  
+  It’s important to note here that one limitation of standard DLP implementations is that they cannot effectively monitor encrypted traffic, such as HTTPS.
+  If attempting to monitor encrypted network traffic, organizations must integrate encryption and key management technologies into the overall DLP solution; this may significantly increase the complexity of a DLP implementation but is required for certain use-cases.
+
+* **DLP in use:**
+
+  Host-based (or endpoint-based) DLP is data loss prevention that involves installation of a DLP application on a workstation or other endpoint device.  
+  This DLP implementation allows monitoring of all data in use on the endpoint and provides insights that network-based DLP systems are not able to provide (such as attempts to transfer data to removable media).  
+  DLP systems that monitor data in use can protect against unauthorized copy/paste, screen capture, and other operations that involve active use of sensitive data.
+
+#### Cloud Access Security Broker
+
+A cloud access security broker (CASB) is a software application that sits between cloud users and cloud services and applications; CASBs actively monitor all cloud activity and implement centralized controls to enforce security.
+
+A CASB may be used to enforce security policies, stop malware, and alert security teams of potential security events - all important contributions to an organization’s data security program.
+
+Generally speaking, a CASB aims to serve four primary functions:
+* **Visibility:** Provide insight into an organization’s cloud usage, including which users use which cloud applications, and which devices are used to connect to cloud resources. CASBs can also help detect, monitor, and secure shadow IT.
+* **Data security:** Monitor an organization’s data security and help prevent data exfiltration through cloud services. They can also help enforce specific security policies based on the data being used.
+* **Threat protection:** Guard against insider threats by providing a comprehensive view of cloud usage.
+* **Compliance:** Help organizations demonstrate compliance with regulatory requirements like GDPR, HIPAA, and PCI DSS.
+
+There are three primary types of CASB solutions:
+* **Forward proxy:**
+This type of CASB generally resides on a user’s device (e.g., a computer or mobile device) and uses an encrypted man-in-the-middle technique to securely inspect and forward all cloud traffic for the user.
+This type of CASB requires you to install certificates on every endpoint that needs to be monitored, making it difficult or tedious to deploy in large, distributed organizations.
+* **Reverse proxy:**
+This type of CASB integrates into identity services, such as Okta, to force all traffic through the CASB for inline monitoring.
+This removes the need to individually install certificates on user endpoints but poses compatibility challenges for client-server applications that have hard-coded hostnames.
+* **API-based:**
+This type of CASB allows organizations to protect any user accessing cloud resources from any device, from any location. API-based CASBs monitor data within the cloud itself, rather than on a perimeter-based proxy.
+There’s no need to install anything on user devices, but a potential drawback is that not all cloud applications provide API support for these types of CASBs.
