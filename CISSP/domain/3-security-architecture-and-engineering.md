@@ -640,3 +640,288 @@ These primitives include adding or removing access rights, subjects, and/or obje
 
 There are also integrity rules, such as: in order to create or add a subject or object to the matrix, it must not already exist; in order to remove a subject or object from the matrix, it must already exist; and if several commands are performed at once, they must all operate successfully or none of the commands will be applied.
 
+## SELECT CONTROLS BASED UPON SYSTEMS SECURITY REQUIREMENTS
+
+Selecting the security controls appropriate for an information system starts with an analysis of the security requirements. The security requirements are determined by the following:
+
+* An analysis of any regulatory or compliance requirements placed on the system 
+(e.g., regulatory frameworks such as the Federal Information Security Management Act (FISMA) in the United States; 
+privacy legislation such as GDPR in the EU or the Health Insurance Portability and Accountability Act (HIPAA) in the United States; 
+contractual obligations such as Payment Card Industry Data Security Standard (PCI DSS); 
+or voluntary compliance programs such as ISO 27001 certification or Service Organization Control (SOC) 1/2/3 audits)
+* An analysis of the threats the system is likely to face (see the “Understand and Apply Threat Modeling Concepts and Methodologies” section in Chapter 1)
+* A risk assessment of the system (see the “Understand and Apply Risk Management Concepts” section in Chapter 1)
+
+If an organization has not yet adopted a certain framework, it is beneficial to start with an established information security framework such as ISO 27001, NIST Special Publication 800-37 “Risk Management Framework,” or the NIST Cybersecurity Framework (CSF), ISA624443, or COBIT 5 (to name a few), as this will help ensure that you have considered the full spectrum of controls and that your process is defined, repeatable, and consistent.
+
+There are a few things to understand about these security frameworks:
+* They are not mandatory.
+* They are not mutually exclusive of each other.
+* They are not exhaustive (i.e., they don’t cover all security concerns).
+* They are not the same as a standard or a control list.
+
+Of course, selecting controls is just the beginning. You need to do the following:
+* Consider the control and how to implement and adapt it to your specific circumstances (the “Plan” phase)
+* Implement the control (the “Do” phase)
+* Assess the effectiveness of the control (the “Check” phase)
+* Remediate the gaps and deficiencies (the “Act” phase)
+
+In addition to the periodic review of the control selection, the following specific events warrant taking a fresh look at your security controls:
+* A security incident or breach
+* A significant change in organization structure or major staffing change
+* A new or retired product or service
+* A new or significantly changed threat or threat actor
+* A significant change to an information system or infrastructure
+* A significant change to the type of information being processed
+* A significant change to security governance, the risk management framework, or policies
+* A widespread social, economic, or political change (e.g., COVID-19)
+
+## UNDERSTAND SECURITY CAPABILITIES OF INFORMATION SYSTEMS
+
+Some of the most foundational information system security (ISS) capabilities include the following:
+* Memory protection
+* Trusted Platform Modules (TPMs)
+* Cryptographic modules
+* Hardware Security Modules (HSMs)
+
+### Memory Protection
+
+One of the basic foundational security controls on all systems that allows multiple programs to run simultaneously is memory protection.
+This feature enables the operating system to load multiple programs into main memory at the same time and prevent one program from referencing memory not specifically assigned to it.
+If a program attempts to reference a memory address it is not permitted to access, the system blocks the access, suspends the program, and transfers control to the operating system.
+In most cases, the operating system will terminate the offending program.
+
+A related hardware feature that is required to support memory protection is dual-mode operation.
+This means the processor can operate in one of (at least) two modes: privileged (or kernel) mode and unprivileged (or user) mode.
+The operating system runs in privileged mode, which grants it permission to set up and control the memory protection subsystem.
+Privileged mode also permits the operating system to execute special privileged instructions that control the processor environment.
+
+Once a program has been loaded into memory and the memory protection is configured to limit that program’s access to those areas of memory assigned to it by the operating system, the operating system transfers control to the program and simultaneously transitions to unprivileged mode.
+
+The program runs in unprivileged mode, which limits it to accessing only the specific memory area dictated by the operating system.
+Should it make an illegal memory reference, attempt to execute a privileged CPU instruction, or use up the time slice granted to it by the operating system, control is returned to the operating system (running in privileged mode).
+
+The operating system determines if control has been returned to the operating system because of an illegal operation by the user program, and decides how to handle the transgression (i.e., returning control to the user program with an error indication or terminating the program).
+
+Another security control, address space layout randomization (ASLR), seeks to mitigate the risks of predictable memory address location.
+The location in memory for a known instruction becomes a risk when there is a threat of exploiting that location for an attack.
+For example, a buffer overflow attack requires knowing two things: the exact amount by which to overflow the memory to facilitate executing malicious code, and where exactly to send the overflow. ASLR defeats the second item by randomizing the location.
+
+#### Potential Weaknesses
+
+Proper memory protection relies upon both the correct operation of the hardware and the correct design of the operating system that uses the underlying memory protection hardware to prevent programs from accessing memory they have not been given permission to access.
+A defect in either can compromise the security provided by memory protection.
+
+Note that this protection prevents the direct disclosure of memory contents that are blocked from an unauthorized program, but does not necessarily prevent side-channel exploits from revealing information about memory that is protected from access.
+
+Attacks that leverage ineffective isolation and memory protection can have catastrophic effects.
+As the Spectre and Meltdown exploits in 2018 revealed, flaws in the design of Intel and some other CPU chips permitted clever programming techniques to deduce the contents of memory locations that those programs were not permitted to access directly.
+
+### Secure Cryptoprocessor
+
+The challenge with standard microprocessors is that code running with the highest privilege can access any device and any memory location, meaning that the security of the system depends entirely on the security of all the software operating at that privilege level.
+If that software is defective or can be compromised, then the fundamental security of everything done on that processor becomes suspect.
+
+To address this problem, hardware modules called secure cryptoprocessors have been developed that are resistant to hardware tampering and that have a limited interface (i.e., attack surface), making it easier to verify the integrity and secure operation of the (limited) code running on the cryptoprocessor.
+
+Cryptoprocessors are used to provide services such as the following:
+* Hardware-based true random number generators (TRNGs)
+* Secure generation of keys using the embedded TRNG
+* Secure storage of keys that are not externally accessible
+* Encryption and digital signing using internally secured keys
+* High-speed encryption, offloading the main processor from the computational burden of cryptographic operations
+
+The following are features of cryptoprocessors that enhance their security over standard microprocessors (that could do most of the above in software):
+* Tamper detection with automatic destruction of storage in the event of tampering, and a design that makes it difficult to tamper with the device without leaving obvious traces of the physical compromise.
+These protections can range from tamper-evident stickers that clearly show attempts to access the device’s internal components to secure enclosures that detect unauthorized attempts to open the device and automatically erase or destroy sensitive key material.
+* Chip design features such as shield layers to prevent eavesdropping on internal signals using ion probes or other microscopic devices.
+* A hardware-based cryptographic accelerator (i.e., specialized instructions or logic to increase the performance of standard cryptographic algorithms such as AES, SHA, RSA, ECC, DSA, and ECDSA, which are discussed in detail later in this chapter).
+* A trusted boot process that validates the initial boot firmware and operating system load.
+
+There are many types of secure cryptoprocessors such as:
+* Proprietary, such as Apple’s “Secure Enclave” found in iPhones
+* Open standard, such as the TPM as specified by the ISO/IEC 11889 standard and used in some laptops and servers
+* Standalone (e.g., separate standalone device with external communications ports)
+* Smartcards
+
+#### Trusted Platform Module
+
+A TPM is a secure cryptoprocessor that provides secure storage and cryptographic services as specified by ISO/IEC 11889.
+
+A TPM is essentially a security chip that is hardwired into a system (e.g., on a motherboard).
+At its core, a TPM is responsible for the following functions:
+* **Attestation:** Creates a cryptographic hash of the system’s known good hardware and software state, allowing third-party verification of the system’s integrity
+* **Binding:** Encrypts data using a cryptographic key that is uniquely associated with (or bound to) the system
+* **Sealing:** Ensures that ciphertext can be decrypted only if the system is attested to be in a known good state
+
+A TPM can be used by the operating system, processor BIOS, or application (if the OS provides access to the TPM) to provide a number of cryptographic and security services such as:
+* Generate private/public key pairs such that the private key never leaves the TPM in plaintext, substantially increasing the security related to the private key.
+* Digitally sign data using a private key that is stored on the TPM and that never leaves the confines of the TPM, significantly decreasing the possibility that the key can become known by an attacker and used to forge identities and launch man-in-the-middle (MITM) attacks.
+* Encrypt data such that it can only be decrypted using the same TPM.
+* Verify the state of the machine the TPM is installed on to detect certain forms of tampering (i.e., with the BIOS) and ensure platform integrity.
+
+##### Potential Weaknesses
+
+The **endorsement key (EK)** is a fundamental component of a TPM’s security. This key is generated by the TPM manufacturer and burned into the TPM hardware during the manufacturing process.
+Because of this, the user/system owner depends upon the security of the TPM manufacturer to ensure that the PEK remains confidential.
+
+#### Cryptographic Module
+
+A cryptographic module is typically a hardware device that implements key generation and other cryptographic functions and is embedded in a larger system.
+
+The advantages of using a cryptographic module as opposed to obtaining the equivalent functionality from a cryptographic software library include the following:
+
+* By performing critical cryptographic functions on a separate device that is dedicated to that purpose, it is much harder for malware or other software-based attacks to compromise the security of the cryptographic operation.
+* By isolating security-sensitive functionality in an isolated device with limited interfaces and attack surfaces, it is easier to provide assurances about the secure operation of the device.
+It also makes it easier to provide secure functions to larger systems by embedding a cryptographic module within the larger system.
+* By separating cryptographic functions into a separate module, you gain increased availability of noncryptographic dedicated resources.
+* Most secure cryptographic modules contain physical security protections including tamper resistance and tamper detection, making it difficult to compromise the security of the device even if the device has been physically compromised.
+* Some cryptographic modules can enforce separation of duties so that certain sensitive operations, such as manipulating key storage, can be done only with the cooperation of two different individuals who authenticate to the cryptographic module separately.
+
+#### Hardware Security Module
+
+A Hardware Security Module (HSM) is a type of cryptographic module designed to stand alone as an appliance and to provide cryptographic services over an externally accessible API (typically over a network or USB connection).
+
+HSMs are frequently found in certificate authorities (CAs) that use them to protect their root private keys, and payment processors that use them to protect the symmetric encryption keys used to protect cardholder data.
+
+HSMs are also used in many national security applications or other environments where proper management of cryptographic material is critical to the business process.
+
+In addition, HSMs are used by enterprise network backbones as part of encryption management of archives, east-west data movement, and even VPN traffic.
+
+
+## ASSESS AND MITIGATE THE VULNERABILITIES OF SECURITY ARCHITECTURES, DESIGNS, AND SOLUTION ELEMENTS
+
+### Client-Based SystemsClient-Based Systems
+
+Broadly speaking, software vulnerabilities in client-based systems involve weaknesses in client-side code that is present in browsers and applications.
+
+Client-based vulnerabilities may fall into the following categories:
+* Vulnerabilities related to the insecure operation of the client:
+  * Storing temporary data on the client system in a manner that is insecure (i.e., accessible to unauthorized users through, for example, direct access to the client device’s filesystem)
+  * Running insecure (e.g., out-of-date or unpatched) software versions
+* Vulnerabilities related to communications with the server, such as client software that connects to remote servers but does not take appropriate steps to do the following:
+  * Validate the identity of the server
+  * Validate or sanitize the data received from the server
+  * Prevent eavesdropping of data exchanged with the server
+  * Detect tampering with data exchanged with the server
+  * Validate commands or code received from the server before executing or taking action based on information received from the server
+
+To address these vulnerabilities, one can consider the following:
+* Evaluate your operating systems and applications for unpatched software or insecure configurations
+* Using a recognized secure protocol (e.g., transport layer security (TLS)) to validate the identity of the server and to prevent eavesdropping of, and tampering with, data communicated with the server
+* Using appropriate coding techniques to ensure that the data or commands received from the server are valid and consistent
+* Using digital signing to verify executable code received from the server prior to execution
+
+In many cases, the client may use software libraries, applets, or applications to process data received from the server. For example, the client may rely upon image display components to permit the viewing of files.
+These components (e.g., Flash, Java Development Kit, etc.) will typically be provided by third parties and, as such, will need to be part of a vulnerability management program so that vulnerabilities that are discovered later can be patched in a timely manner.
+
+If the client is a browser, then the browser ought to be configured in accordance with hardening guidelines available for the major web browsers.
+Similarly, the appropriate steps to protect and patch the underlying system that runs the client software need to be taken.
+
+Excellent sources of such guidance for browsers and client operating systems include The Center for Internet Security (CIS) and the Defense Information Systems Agency’s Security Technical Implementation Guides.
+
+The client system also needs to be protected from other threats as appropriate, based on the risk assessment and threat modeling. This could include firewalls, physical security controls, full-disk encryption, and so on.
+
+If the software has been developed specifically for this application, then the appropriate secure software development process as described in Chapter 8 must be employed.
+
+### Server-Based Systems
+
+Server vulnerabilities mirror many of the same vulnerabilities described earlier, just from the server’s perspective.
+It’s important to remember that client and server systems are usually similar; the terms client and server only indicate the role a system plays in the overall system operations.
+
+The server needs to validate the identity of the client and/or the identity of the user of the client. This can be done using a combination of Identity and Access Management (IAM) techniques along with a secure communications protocol such as TLS, using client-side certificates.
+
+TLS will also protect the server from eavesdropping and tampering, such as might happen from a MITM attack. The server also must validate all inputs and not assume that simply because the commands and data coming from the client are originating from (and have been validated by) the corresponding client-side software, they are valid and have been sanitized.
+The client must be considered untrusted, and it must be assumed that the client-end can insert or modify commands or data before being encrypted and transmitted over the secure (e.g., TLS) link.
+
+Depending on the nature of the environment, it might be appropriate to protect the server from DoS attacks by using techniques such as rate-limiting, CAPTCHA, and other approaches.
+
+Certainly, a vulnerability management program is needed to ensure that updates and patches are applied in a timely fashion.
+This holds true regardless of whether the server-side software is developed in-house or is based in part or completely on software obtained from a third party (such as commercial off-the-shelf software, or COTS).
+
+If the software has been developed specifically for this application, then the appropriate secure software development process must be employed.
+This includes ensuring that the server application runs only with the minimum permissions necessary, commonly understood as the “principle of least privilege.”
+If and when privilege escalation is needed, the period during which the server operates with elevated privileges is minimized.
+Best practices include the server using filesystem ownership and permissions to avoid data leakage, logging and monitoring appropriate information (such as successful and failed login attempts, privileged access, etc.), and capturing forensic information to permit analysis of a possible or actual security incident.
+
+Finally, threats to the server itself need to be addressed.
+This may include physical and environmental threats, threats to the communications infrastructure, and server hardening as per industry recommendations such as those promulgated by the CIS (www.cisecurity.org/cis-benchmarks) or collected and indexed in NIST’s National Checklist Program Repository (nvd.nist.gov/ncp/repository).
+
+#### Server Hardening Guidelines
+The details of the specific issues that need to be addressed when hardening a specific
+operating system will vary slightly depending on the OS, but generally involves the
+following:
+* Installing updates and patches
+* Removing or locking unnecessary default accounts
+* Changing default account passwords
+* Enabling only needed services, protocols, daemons, etc. (conversely, disabling any not needed)
+* Enabling logging and auditing
+* Implementing only one primary function per server
+* Changing default system, filesystem, service, and network configurations as needed to improve security (including full-disk encryption if appropriate)
+* Removing (or disabling) unneeded drivers, executables, filesystems, libraries, scripts, services, etc.
+
+### Database Systems
+
+Securing database systems is a special case of the more general server-based system security discussed in the previous section.
+If the database is accessible over a network, then all the security controls discussed there apply as well as those outlined below.
+If the database is not network accessible, then there are fewer risks, and some server security controls may not be necessary.
+
+Database-specific security controls include the following:
+* Consult the CIS’s hardening guidelines for the database system being used. These guidelines include several of the recommendations below, and many others.
+* Only install or enable those components of the database system that are needed for your application.
+* Place data stores and log files on nonsystem partitions.
+* Set appropriate filesystem permissions on database directories, data stores, logs, and certificate files.
+* Run database services using a dedicated unprivileged account on a dedicated server.
+* Disable command history.
+* Do not use environment variables, command line, or database configuration files to pass authentication credentials.
+* Do not reuse database account names across different applications.
+* Disable “anonymous” accounts (if supported by the database).
+* Mandate that all connections use TLS if access or replication traffic travels over untrusted networks.
+* Use unique certificates for each database instance.
+* Use restricted views.
+* Ensure that all DBMS vendor-provided sample or test databases are removed or not accessible from user endpoints and clients.
+* Change all default passwords, ensure all accounts have secure passwords, and consider enabling multifactor or certificate-based authentication (where supported).
+* Ensure user account permissions have been assigned using the principle of least privilege and in alignment with enterprise-wide access control policies and procedures.
+Database privileges can be complex and interact in unexpected ways - avoid default roles and define those you need with only the permissions needed for each.
+* Disable or remove unneeded accounts, especially those with administrative permissions.
+* Manage all accounts according to best practices (see Chapter 5).
+* Enable logging of sensitive operations and route logs to your log monitoring and alerting system.
+* Use bind variables where possible to minimize injection attack surfaces.
+* Assign unique admin accounts for each administrator (i.e., do not share admin accounts between more than one admin).
+Carefully consider a risk-based, role-based approach that supports a least-privilege and separation-of-duties model in which each admin only has those admin permissions necessary to discharge their specific responsibilities.
+Where possible, ensure that critical operations require the cooperation of two admins.
+* Enable logging at a sufficiently detailed level to provide the forensic information needed to identify the cause of events related to security incidents (but ensure logging does not include passwords), and protect the logs from tampering by database admins, either through permissions on the database system itself or by transmitting the log data in real time to a separate secure logging system.
+* Consult vendor database documentation for database-specific security controls.
+For example, Oracle supports a control known as data dictionary protection, which provides an additional level of least-privilege control, restricting certain operations to a subset of those with database admin privileges.
+* For databases that are only accessed through application software (e.g., the typical n-tier web server application), run the database on private networks only accessible to the business logic servers that need access.
+
+Database encryption deserves special attention. The encryption of data at rest can happen at any (or all) of several different levels:
+* Full-disk encryption (FDE) at the lowest level protects all the data on the storage media, protecting against the physical theft or loss of the drive itself.
+It provides no protection from threat actors who have logical access to the system, as the operating system or drive itself will decrypt all data that is read from the storage media before it is passed to the application without regard to the identity of the requester (other than the permission to access the file).
+This can be implemented through firmware (self-encrypting drives) or through the operating system (e.g., BitLocker).
+* Filesystem-level encryption allows the encryption to occur at the filesystem level.
+This can be done at the volume, directory, or file level, depending on the capabilities of the operating system.
+* Transparent data encryption (TDE) protects the data from those who have direct access to the filesystem (i.e., the “root” user), but do not have permission to access the database system and the specific database item.
+It does not protect against malicious database administrators or attacks, such as SQL injection, that are able to bypass the application-level controls and issue database access commands directly.
+While TDE provides protection beyond FDE, there are significant vulnerabilities it does not mitigate, so it is not meant to be used alone.
+Note also that with some database systems, if the attacker can obtain both the operating system image and the TDE-protected database, the unencrypted contents can be extracted.
+Cell-level encryption (CLE) or application-level encryption (covered next) are necessary to protect against threats that TDE does not address.
+* CLE encrypts database information at the cell or column level. With this approach, data remains encrypted when read from the database and is decrypted only when requested.
+It also permits the user to exert very granular control over the cryptographic keys.
+This additional security and flexibility is not without its drawbacks.
+Key management, and handling the decryption/encryption requests can add considerable complexity to the application, and depending on the types of queries (and whether they include CLE-protected data), the performance can be affected, sometimes drastically.
+
+Application-level encryption is a high-level approach that provides protection even if access to the database system is compromised.
+In this case, the business-logic or application layer is responsible for encrypting the data to be protected before it is passed to the database and for decrypting it once it has been retrieved.
+The database itself sees only binary data and does not have any access to the encryption keys. This approach is the most complex, but provides greater security (if properly implemented and managed) than the other approaches.
+
+To maximize the benefit of this approach, applications ought to encrypt as early as possible and decrypt as late as possible. Or to put it another way, handle the encryption/decryption as close to the point of use as possible.
+For example, if your server-side application has a number of layers (refer to Figure 3.1), then the cryptographic component ought to be called from the business-logic layer, not the storage management layer.
+
+Note, however, that performing the decryption completely externally to the database will make certain database functions unavailable (certain types of search, for example).
+
+The decision as to which combination of database encryption approaches to use will be influenced by considerations such as the following:
+* Performance, especially if searches reference data encrypted using CLE.
+* Backups, which will be protected using TDE or CLE, but not necessarily when using FDE (unless the backup is on another FDE-protected drive).
+* Compression as encrypted data does not compress, so the use of encryption may significantly increase the size of backups. Some databases support decrypting the data prior to compression, and then re-encrypting so the backup is compressed and encrypted. That may, however, introduce other vulnerabilities in the process.
+
