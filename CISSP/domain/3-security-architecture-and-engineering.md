@@ -925,3 +925,186 @@ The decision as to which combination of database encryption approaches to use wi
 * Backups, which will be protected using TDE or CLE, but not necessarily when using FDE (unless the backup is on another FDE-protected drive).
 * Compression as encrypted data does not compress, so the use of encryption may significantly increase the size of backups. Some databases support decrypting the data prior to compression, and then re-encrypting so the backup is compressed and encrypted. That may, however, introduce other vulnerabilities in the process.
 
+### Cryptographic Systems
+
+As American cryptologist Bruce Schneier famously stated, “All cryptography can eventually be broken - the only question is how much effort is required.”
+The challenge then becomes one of weighing the value of the encrypted information to the attacker against the level of effort required to compromise the cryptographic system.
+
+In making this decision, the potential attacker has a number of avenues that can be followed to compromise a cryptographic system. These include the following:
+* Algorithm and protocol weaknesses
+* Implementation weakness
+* Key management vulnerabilities
+
+#### Algorithm and Protocol Weaknesses
+
+Designing a secure cryptographic algorithm or protocol is difficult, and only those algorithms that have been carefully examined by many experts and have stood the test of time ought to be used.
+
+Next, realize that as computing power increases and more time is spent analyzing algorithms and protocols, weaknesses in what were previously robust approaches to cryptology will be found.
+Cryptology never gets stronger; it only gets weaker with the passage of time, so managing cryptologic products through their lifecycle is essential.
+
+These are the conclusions to be drawn:
+* Cryptology is hard, and even the experts get it wrong.
+* The cryptographic attack surface includes not only the algorithm, but the people, processes, and technology that implement the cryptographic protections, all of which are potentially vulnerable to attack.
+* Cryptanalysis becomes more effective over time, owing to advances in computing, mathematical breakthroughs, and other improvements in cryptanalytic methods.
+
+#### Implementation Weaknesses
+
+Not only is designing a secure cryptographic algorithm or protocol hard, securely implementing an algorithm is no easier. Use industry-standard and tested algorithms, implemented in published libraries.
+Don’t invent or implement algorithms yourself.
+
+A **side-channel attack** is the analysis of artifacts related to the implementation of the algorithm, such as the time the algorithm takes to execute, the electrical power consumed by the device running the cryptographic implementation, or the electromagnetic radiation released by the device.
+
+Defeating side-channel attacks is often difficult since detecting an attack that does not interfere with the operation of the cryptosystem is difficult.
+The best defense is to use standard cryptographic libraries that have been tested over time for side-channel information leakage.
+
+There are also a number of steps one can take to minimize the possibility of leaking information via side channels.
+For example (and this is only a partial list of implementation traps lying in wait for the unsuspecting developer):
+* Compare secret strings (e.g., keys, plaintext, unhashed passwords) using constant-time comparison routines
+* Avoid branching or loop counts that depend upon secret data
+* Avoid indexing lookup tables or arrays using secret data
+* Use strong (i.e., “cryptographic grade”) random number generators
+
+One also needs to be aware that compiler optimizations can change or remove code to introduce side-channel vulnerabilities.
+The system security requirements need to identify these possible weaknesses, and the testing and code validation need to verify that they have been adequately addressed.
+
+Vulnerabilities can also be introduced by misusing an otherwise securely implemented, sound cryptographic algorithm.
+
+Block ciphers can be used in a number of different modes (discussed later in this chapter), some of which may leak significant information when used with certain types of data.
+Selecting the correct mode is as important as selecting the block cipher itself.
+
+#### Key Management Vulnerabilities
+
+There are a number of vulnerabilities that can be introduced through the incorrect use, storage, and management of cryptographic keys.
+
+Keys should be generated in a manner appropriate for the cryptographic algorithm being used. The proper method to generate a symmetric key is different from a public/private key pair.
+NIST SP 800-133, “Recommendation for Cryptographic Key Generation,” provides specific guidance.
+
+Keys should not be reused and should be rotated (replaced) periodically to ensure that the amount of data encrypted using a single key is limited, and the lifetime of data encrypted using a given key is likewise limited.
+
+Symmetric and private keys depend upon confidentiality to be effective. This means great care must be taken with how the keys are stored to reduce the possibility of their becoming known to unauthorized entities.
+
+There are a number of approaches to secure key storage. These are some common examples:
+* Key management software
+* Key management services provided by cloud service providers
+* Dedicated hardware devices that keep the keys stored internally in a tamper-resistant secure device
+
+Keys that have reached the end of their lifetime (and all properly managed keys ought to have a defined lifetime) must be securely destroyed to prevent their misuse in the future.
+
+Another vulnerability can arise from insider threats. A rogue employee with access to key material can use that access to defeat the security of encrypted material (or enable another to do the same).
+Dual control or segregation of duties can be employed to ensure that at least two people must be actively involved before any key management operation that might compromise the security of the keys or the system can be completed.
+
+The final leg of the CIA Triad must also be considered: availability. If the key management system cannot provide access to the key material to authorized processes when required, then access to the encrypted material will be denied, even if the encrypted data is readily accessible.
+
+Key operations must be logged in a manner that ensures accountability and traceability so that should a compromise be suspected, the forensic evidence will be available to analyze the possible breach.
+
+Finally, where possible, key management functions ought to be automated. Manual processes are more prone to error (either of commission or omission), leading to weaknesses in the system that depends upon the keys for security.
+
+### Industrial Control Systems
+
+Industrial control systems (ICSs) are used to automate industrial processes and cover a range of control systems and related sensors.
+Security in this context concentrates mostly on the integrity and availability aspects of the CIA Triad: integrity of the data (e.g., sensor inputs and control setpoints) used by the control system to make control decisions, and availability of the sensor data and the control system itself.
+
+There are a number of organizations that provide guidance or regulations related to ICS security:
+* ISA/IEC-62443 is a series of standards, technical reports, and related information that define procedures for implementing electronically secure Industrial Automation and Control Systems (IACS).
+* The North American Electric Reliability Corporation (NERC) provides a series of guides referred to as the Critical Infrastructure Protection (CIP) standards.
+NERC CIP standards are mandatory in the United States and Canada for entities involved in power generation/distribution.
+* The European Reference Network for Critical Infrastructure Protection (ERNCIP) is an EU project with similar aims to those of NERC CIP.
+* NIST and the UK National Centre for the Protection of National Infrastructure (CPNI). See, for example, NIST publication SP800-82.
+
+ICS security shares many of the same threats, vulnerabilities, and risks as any information system, and a review of the controls outlined in the standards described earlier shows strong similarities to other information security frameworks.
+
+These are the challenges specific to industrial control:
+* The difficulty of patching device firmware to address vulnerabilities in the software discovered after placing the device into production in the field
+* Failure to change factory-default settings, especially those related to access controls and passwords
+* The long production lifetime of industrial systems as compared to IT systems
+* The reliance on air-gapped networks as a compensating control without proper supervision of network connections
+
+With ICSs, patching can be difficult or impossible:
+* With industrial systems operating nonstop, it may not be feasible to remove an ICS device from operation to update its firmware.
+* Similarly, with continuous production being important, the risk of an update breaking something (such as patching the underlying operating system and interfering with the ICS app running on that OS) can be too great (and greater than the perceived risk of running obsolete software).
+Consider an air traffic control system or an oil and gas pipeline, for example.
+These systems are hugely important and rely on nearly 100 percent uptime. Often, organizations must weigh the risk of operating an unpatched system with the risk of a patch disrupting service.
+* Finally, the location of the ICS device in the field may make the simple matter of reaching the device physically to connect a laptop to install the firmware update a significant undertaking.
+
+Many IT departments plan to replace systems every three to five years. Most computer vendors stop supporting devices five to seven years after their first release, and no longer provide patches to address security issues.
+Most industrial process equipment is designed to operate for 10 to 20 years and longer.
+Further, the greater reliance on commercial off-the-shelf operating systems increases the known attack surface for many ICS implementations, especially once those COTS operating systems have reached end-of-life while the ICS remains in service.
+
+If the physical security of the ICS is adequate, then the primary threats are from the internet. In that case, a reasonable and common compensating control is to air-gap the networks used by the industrial control devices.
+This can provide adequate security if properly enforced, but keeping the air-gapped network safe requires careful diligence and technical controls to prevent foreign equipment from being connected.
+If external equipment must be connected periodically, say for maintenance purposes, consider using a firewall or proxy between the maintenance laptop and ICS network to provide an additional layer of security.
+
+At a minimum, computers used to maintain and manage industrial systems must ever be used for any other purpose (or removed from the facility). They must be regularly updated, employ anti-malware protection, and carefully scan any removable media (e.g., USB thumb drives) before being used.
+See the guidance published by the organizations listed earlier for more specifics.
+
+If complete isolation from the corporate LAN and the internet is not an option, then it is essential to limit and screen permitted traffic accessing the ICS network through the use of carefully configured firewalls and network proxies.
+Consideration ought to be given to further segmenting the ICS network itself to limit the lateral spread of a compromise.
+
+For ICSs that must be remotely accessible, compensating controls such as installing a web proxy or VPN should be considered to add an additional layer of security on top of whatever access controls are implemented on the ICS itself.
+
+Security awareness training is also particularly important, and advocating security principles among all the technicians and plant operators is critically important.
+If those personnel burdened with the need to observe security controls understand the importance and rationale associated with those controls, they are less likely to view them as an impediment to their job of running the plant and something to be avoided or circumvented.
+
+### Cloud-Based Systems
+
+According to NIST, “Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.”
+In short,cloud-based systems are remotely located, separately managed systems that are accessible by the internet.
+
+NIST SP 800-145 and ISO/IEC 17788 define a number of characteristics that describe cloud computing:
+* Broad network access: Resources (physical and virtual) are accessible and managed over the network.
+* Measured service: Users pay only for the services they use.
+* On-demand self-service: Users can provision and manage services using automated tools without requiring human interaction.
+* Rapid elasticity and scalability: Services can be rapidly and automatically scaled up or down to meet demand.
+* Resource pooling and multitenancy: Physical or virtual resources are aggregated to serve multiple users while keeping their data isolated and inaccessible to other tenants.
+
+There are three primary cloud service models, as shown in Table 3.2.
+
+| CLOUD SERVICE MODEL                | SERVICE PROVIDED                                                                                                        | SERVICE PROVIDER RESPONSIBILITIES                                                                                                          | CUSTOMER RESPONSIBILITIES                                                                           |
+|------------------------------------|-------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Software as a service (SaaS)       | Software application accessible to the customer over the internet (via a browser or API)                                | Provide and manage all infrastructure from server and network hardware to applications software                                            | Provide the client device and manage user-specific configuration settings                           |
+| Platform as a service (PaaS)       | Web-based framework for developers to create customized applications                                                    | Provide and manage all infrastructure from server and network hardware to the libraries and runtime services necessary to run applications | Provide the application and manage the hosting environment                                          |
+| Infrastructure as a service (IaaS) | Infrastructure, including servers, network, storage, and operating systems, delivered through virtualization technology | Provide network and server infrastructure to support VMs and other virtualized resources                                                   | Provide and manage all components that run on the VM as well as limited aspects of network services |   
+
+
+#### Software as a Service (SaaS)
+
+Software as a service (SaaS) models provide fully functional applications typically accessible via a web browser.
+For example, Google’s Gmail is an SaaS application. The vendor (Google in this example) is responsible for all maintenance of the SaaS services. Customers do not manage or control any of the cloud-based assets.
+
+#### Platform as a Service (PaaS)
+
+Platform as a service (PaaS) models provide consumers with a computing platform, including hardware, operating systems, and a runtime environment.
+The runtime environment includes programming languages, libraries, services, and other tools supported by the vendor. Customers deploy applications that they’ve created or acquired, manage their applications, and possibly modify some configuration settings on the host.
+However, the vendor is responsible for maintenance of the host and the underlying cloud infrastructure.
+
+#### Infrastructure as a Service (IaaS)
+
+Infrastructure as a service (IaaS) models provide basic computing resources to customers. This includes servers, storage, and networking resources.
+Customers install operating systems and applications and perform all required maintenance on the operating systems and applications.
+The vendor maintains the cloud-based infrastructure, ensuring that consumers have access to leased systems.
+
+The cloud deployment model also affects the breakdown of responsibilities of the cloud-based assets. The four cloud deployment models available are as follows:
+* A public cloud model includes assets available for any consumers to rent or lease and is hosted by an external CSP.
+Service-level agreements can effectively ensure that the CSP provides the cloud-based services at a level acceptable to the organization.
+* The private cloud deployment model is used for cloud-based assets for a single organization.
+Organizations can create and host private clouds using their own on-premises resources. If so, the organization is responsible for all maintenance.
+However, an organization can also rent resources from a third party for exclusive use of the organization.
+Maintenance requirements are typically split based on the service model (SaaS, PaaS, or IaaS).
+* A community cloud deployment model provides cloud-based assets to two or more organizations that have a shared concern, such as a similar mission, security requirements, policy, or compliance considerations.
+Assets can be owned and managed by one or more of the organizations. Maintenance responsibilities are shared based on who is hosting the assets and the service models.
+* A hybrid cloud model includes a combination of two or more clouds that are bound together by a technology that provides data and application portability.
+Similar to a community cloud model, maintenance responsibilities are shared based on who is hosting the assets and the service models in use.
+
+In particular, the cloud service provider is exclusively responsible for the following:
+* Physical security
+* Environmental security
+* Hardware (i.e., the servers and storage devices)
+* Networking (i.e., cables, switches, routers, firewalls, and internet connectivity)
+
+The cloud service provider and the customer share responsibility for the following:
+* Vulnerability and patch management: Using Figure 3.9 as a guide to determine which organization is responsible for which activities, the cloud service provider is responsible for patching the software below the responsibility dividing line, the customer is responsible for everything above the line (i.e., in the case of SaaS, the customer is responsible only for the computers and browsers used to access the cloud).
+* Configuration management: The cloud service provider is responsible for the infrastructure, the customer for everything above.
+Network configuration and security is a special case, as the customer of an IaaS provider typically has configuration control over significant aspects of the network routing and firewalls through APIs and web-based management consoles.
+As these network controls are a key component of the security of an IaaS cloud deployment, the customer must take great care in ensuring their proper configuration.
+* Training: Both the cloud provider and customer are responsible for the specific training required for their own personnel.
+
