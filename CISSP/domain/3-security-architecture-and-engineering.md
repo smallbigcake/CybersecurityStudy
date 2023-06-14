@@ -1084,15 +1084,15 @@ Customers install operating systems and applications and perform all required ma
 The vendor maintains the cloud-based infrastructure, ensuring that consumers have access to leased systems.
 
 The cloud deployment model also affects the breakdown of responsibilities of the cloud-based assets. The four cloud deployment models available are as follows:
-* A public cloud model includes assets available for any consumers to rent or lease and is hosted by an external CSP.
+* A **public cloud** model includes assets available for any consumers to rent or lease and is hosted by an external CSP.
 Service-level agreements can effectively ensure that the CSP provides the cloud-based services at a level acceptable to the organization.
-* The private cloud deployment model is used for cloud-based assets for a single organization.
+* The **private cloud** deployment model is used for cloud-based assets for a single organization.
 Organizations can create and host private clouds using their own on-premises resources. If so, the organization is responsible for all maintenance.
 However, an organization can also rent resources from a third party for exclusive use of the organization.
 Maintenance requirements are typically split based on the service model (SaaS, PaaS, or IaaS).
-* A community cloud deployment model provides cloud-based assets to two or more organizations that have a shared concern, such as a similar mission, security requirements, policy, or compliance considerations.
+* A **community cloud** deployment model provides cloud-based assets to two or more organizations that have a shared concern, such as a similar mission, security requirements, policy, or compliance considerations.
 Assets can be owned and managed by one or more of the organizations. Maintenance responsibilities are shared based on who is hosting the assets and the service models.
-* A hybrid cloud model includes a combination of two or more clouds that are bound together by a technology that provides data and application portability.
+* A **hybrid cloud** model includes a combination of two or more clouds that are bound together by a technology that provides data and application portability.
 Similar to a community cloud model, maintenance responsibilities are shared based on who is hosting the assets and the service models in use.
 
 In particular, the cloud service provider is exclusively responsible for the following:
@@ -1108,3 +1108,245 @@ Network configuration and security is a special case, as the customer of an IaaS
 As these network controls are a key component of the security of an IaaS cloud deployment, the customer must take great care in ensuring their proper configuration.
 * Training: Both the cloud provider and customer are responsible for the specific training required for their own personnel.
 
+### Distributed Systems
+
+A distributed system is a collection of systems designed to appear as a single system to users. Distributed systems are built to achieve a number of objectives, including reliance, performance, and scalability.
+
+Because a distributed system, by definition, involves multiple subsystems, possibly distributed geographically, and interconnected in some manner, the attack surface is much larger than that of a single system.
+
+It is important to model threats to the overall system and identify the relative risks that need to be addressed.
+
+Consider the following:
+* The need for encryption and authentication on the connections between the subsystems to ensure attackers cannot intercept, eavesdrop, or spoof communications between subsystems
+* The need to protect against DoS attacks against the communications links or the subsystems themselves
+* The risks from a lack of homogeneity across subsystems (e.g., different versions and patch levels of operating systems, middleware, and application software; difficulty of maintaining consistent configurations across disparate and distributed systems) and mechanisms to mitigate those risks
+* The need to maintain consistency should communications be disrupted (delayed or interrupted) between groups of (normally) connected subsystems (sometimes referred to as the “split-brain” problem)
+* The challenge of ensuring comparable security controls in the case of geographically distributed components (e.g., physical, environmental, and personnel)
+* The requirements of privacy and data sovereignty regulations that may limit the transfer of personal data across international borders
+
+These risks are not unique to distributed systems, but the nature of distributed systems can make their mitigation much more complex than for nondistributed systems.
+
+### Internet of Things
+
+The term Internet of Things (IoT) describes a network of physical objects that are embedded with technologies (e.g., sensors and software) that enable them to connect to and exchange data with other devices over the internet.
+These physical objects - or “things” - include all manner of devices in business, government, and commercial use.
+
+#### IoT Security from an Equipment Manufacturer’s Perspective
+
+During development, you will want to conduct threat modeling to determine likely vulnerabilities and to ensure that appropriate mitigations are deployed.
+You must review their product’s security architecture to determine if the general guidelines outlined earlier in this section have been observed in the design of the firmware.
+
+The development team will need to pay particular attention to secure software development guidelines such as those from the open web application security project (OWASP) and SANS.
+And the quality assurance (QA) team will need to perform active white-and black-box penetration testing.
+
+Many of the vulnerabilities that have been exploited in IoT devices in the past could have been mitigated through basic security hygiene such as changing default credentials and updating the firmware to patch known vulnerabilities.
+
+As an IoT product developer, apart from trying to design and develop as secure an IoT device as you can, you need to make implementing the previous two security controls as easy as possible.
+You can make your device the most secure IoT device on the planet, but once it’s in your customers’ hands, it is out of your control.
+You need to make it as easy as possible for them to properly secure and maintain the device.
+
+While ease of use is a key factor in the commercial success of IoT devices, one has to draw the line where ease of use is directly connected to ease of compromise.
+
+#### IoT Security from a User’s Perspective
+
+As a user of IoT devices, there are steps you can take to mitigate the risks related to devices with poor design or support so that you do not become part of a botnet used to attack others, and your IoT devices are not used as a beachhead from which your other information systems can be attacked.
+
+To start, you can protect yourself (and others that might be a target of your compromised devices) through the same two basic security controls previously mentioned:
+* Change default credentials as soon as possible, and before you connect the device to the internet.
+* Keep your device updated with the current firmware release, either by enabling auto-update (if supported by your device) or by periodically checking with the manufacturer’s website for firmware updates.
+
+In addition, you can employ security in depth through additional controls:
+* Do not place IoT devices on the open internet, but rather behind a firewall so that they are not directly accessible externally.
+* Segment your network so that your IoT devices do not have access to other sensitive devices or servers on your internal networks.
+* If you have to be able to access your IoT device externally, then at the very least put the device behind a router that does reverse NAT mapping.
+Recall that reverse NAT provides network address translation, but from an external source to an internal private address. Hence, it is NAT but in reverse.
+Preferably, put the device behind a proxy that can perform its own user authentication before providing access to the IoT device.
+
+Note, of course, that the router or proxy is also a potential vulnerability and must itself be operated securely: it must be properly configured (change default credentials) and maintained (patched and updated).
+
+Relying on the security of an IoT device is unwise given the history of unpatched vulnerabilities in such devices.
+By placing the device behind another that acts as an access gateway, one implements security in depth and security layering, requiring the compromise of two different devices before the IoT device can be breached.
+
+And if you have properly segmented your network, even the compromise of your IoT devices will have limited impact on the confidentiality and integrity of your information systems (the availability of those systems in the face of an IoT DDoS attack is another matter).
+In fact, taking network segmentation to the extreme leads to Google’s BeyondCorp paradigm: a network in which access to resources is not granted based on network location but by user privileges.
+
+### Microservices
+
+Microservice architecture is a modular software development style that involves developing a single application as a collection of loosely coupled smaller applications or services (microservices), each running its own processes.
+The microservices are built to be independently deployable and work together through lightweight communications protocols.
+Microservices can be contrasted with the more traditional monolithic architecture, which involves developing an application as a single, indivisible unit, typically with a large codebase that lacks modularity.
+
+Microservice architectures are highly distributed and dynamic and present unique security concerns that must be considered from the first stages of design and throughout the entire development lifecycle.
+Two key principles to consider when securing microservices are: isolation and defense in depth.
+
+Isolation is a core principle of microservices, and each microservice must be able to be deployed, modified, maintained, and destroyed without impacting the other microservices around it.
+By architecting microservices with the principle of isolation in mind, you can better ensure that weaknesses in one microservice are contained and cannot negatively affect other microservices in the application.
+
+The principle of defense in depth, while important in any architecture, is particularly critical when dealing with microservices.
+Defense in depth is a security strategy that calls for multiple layers of security controls to be implemented throughout an application or system.
+It is essential in a microservice architecture to independently monitor and protect each microservice and the communications between each microservice in the overall environment.
+
+### Containerization
+
+A container is unit of software that packages up an application and its dependencies so that the application can be decoupled from its environment and developed, deployed, and run consistently across multiple environments (e.g., public cloud, private cloud, local systems, etc.).
+Instead of running an entire operating system (like a VM does), a container uses the operating system’s kernel and only the resources required to operate the given application.
+Thus, by design, containers are lightweight and flexible, allowing faster application development than noncontainerized applications.
+
+Containers were made popular with the development of the open-source Kubernetes platform.
+Kubernetes and other container platforms are particularly useful in hybrid cloud environments, as they allow developers and users to seamlessly move applications from one cloud to another, or even between cloud and on-prem environments.
+
+#### Security Concerns
+
+Containerization comes with its own set of security challenges, as container technology is inherently flexible and open.
+Because containers allow you to rapidly scale up and down resources, asset management and configuration management are perhaps even bigger security concerns than traditional systems.
+
+Container security risks generally fall into two major categories:
+* Compromise of a container image or the entire container repository
+* Misuse of a container to attack other containers or the host OS
+
+Careful management of your container images is the key to container security. Your base container image is the most important, because it is used as a starting point for derivative images.
+Container security begins with using signed base images from trusted sources. Follow careful configuration management practices when adding applications or other variables to your images.
+In addition, all container images should adhere to strict vulnerability scanning and patching requirements.
+
+In addition to managing secure image baselines, you must also ensure proper access controls to all of your container images. Use role-based access controls, where possible, to manage access to your container images.
+
+Securing the host OS that runs your containers is a foundational part of securing your containers.
+Host operating systems should run only the minimally required services necessary to operate the containers and exclude applications like web servers, databases, and others that increase the attack surface.
+Proper configuration is also important, and host OSs must be included in your configuration management plans.
+
+In addition, communications between containers should be restricted based on the principle of least privilege - only allow containers to communicate with those containers that are absolutely required for operation.
+Container orchestration and management tools, like Kubernetes, allow you to implement network controls that restrict communication paths, where appropriate.
+
+### Serverless
+
+Serverless computing is a cloud computing model that involves the cloud provider managing servers, and dynamically allocating machine resources, as needed.
+With serverless computing, infrastructure management tasks like provisioning and patching are handled by the cloud provider, leaving the customer primarily responsible for writing the code that executes on these servers.
+AWS Lambda, Azure Functions, and Google Cloud Functions are popular serverless frameworks available from public cloud providers.
+
+Serverless computing comes with some notable security benefits.
+
+To start, serverless functions are typically ephemeral (i.e., short lived). These functions typically spin up for a few seconds, run their code, and then die.
+This short-lived nature creates a moving target that adds a high degree of difficulty for attackers to compromise.
+
+In addition, serverless functions are commonly much smaller codebases than even the smallest containers.
+Given this fact, you are able to apply much more granular access control rules to each function, rather than relying on container-level rules that might require granting excessive permissions to achieve the same functionality.
+
+Finally, with serverless architecture, your responsibility (as a cloud customer) for security is drastically reduced, and largely transferred to the cloud provider, who is responsible for all OS hardening, patching, and runtime security.
+Of course, this is only a security benefit if the cloud provider executes these tasks reliably.
+
+#### Security Concerns
+
+Despite its benefits, serverless computing is not without its security challenges.
+
+Effective serverless security is built on ensuring code integrity, tight access permissions, and proper monitoring.
+You should maintain least-privileged access for serverless functions, as you do other services - serverless functions should be granted only the access and permissions necessary to execute their task.
+Code should be routinely scanned for vulnerabilities and configuration issues.
+In addition, runtime protection should be used to detect suspicious events or errors that may lead to unexpected behavior or compromise.
+Most large cloud providers offer features to achieve these goals, and there are various third-party vendors with additional support for serverless security.
+
+### Embedded Systems
+
+Embedded systems are dedicated information processing components built into larger mechanical or electrical systems, intended to provide a limited set of functions.
+
+Embedded systems can be found in a wide range of technologies, including the following:
+* Domestic appliances (e.g., dishwashers, clothes washers and dryers, refrigerators, and televisions)
+* Office equipment (e.g., printers, scanners, and fax machines)
+* Networking devices (e.g., routers, switches, and firewalls)
+* Cars and other automobiles
+* ATMs
+* Medical devices (e.g., heart monitors, glucose meters, and IV infusion pumps)
+* Mass transit vehicles, stations, and systems
+* Building automation and control systems
+* Traffic control and monitoring systems
+
+Assessing the vulnerabilities in an embedded system ought to start with an enumeration of the attack surfaces available and then examining each.
+As described in greater detail earlier in this chapter, this examination can be done in a number of ways, including code inspection, threat modeling, and white-or black-box penetration testing.
+
+Generally, these attack surfaces will fall into the following categories:
+* User interface (UI, which are buttons or other methods of user input)
+* Physical attacks
+* Sensor attacks
+* Output attacks
+* Processor attacks
+
+### High-Performance Computing Systems
+
+High-performance computing (HPC) refers to the use of one or more supercomputers, generally for the purpose of highly complex computational science and other mathematically involved applications.
+
+Generally speaking, HPC systems experience many of the same security concerns as traditional systems and other cloud-based systems (as discussed in earlier sections).
+They typically run Linux-based operating systems and are subject to software vulnerabilities, configuration issues, and compromised credentials.
+All of the traditional security measures should be considered here.
+
+A distinction, however, may come in the form of highly specialized, purpose-built hardware and software that supports the HPC environment.
+Any customized hardware and software present an added threat vector that must be secured.
+In the case of high-performance computing, the challenge becomes ensuring secure operation without adversely impacting performance.
+
+As a best practice, HPC systems should be moved to their own physical enclave or logical security zone that is separate from traditional systems.
+Doing so segregates HPC systems from other types of computing systems that may have different security needs or regulations.
+The separate enclave provides a single point for ingress and egress monitoring of the HPC environment.
+
+Accommodating the high volume of data traffic that passes through HPC systems requires a modified approach to network monitoring.
+Instead of using stateful firewalls for deep packet inspection, it’s typically best to use firewalls that inspect packet headers, but not the payloads themselves.
+Separately, deep packet inspection may be used for intrusion detection, because stateful IDSs are not used inline, thus not introducing throughput delays.
+Here, using separate tools allows achieving traditional security intentions that accommodate for the uniqueness of HPC systems.
+
+### Edge Computing Systems
+
+Edge computing is a distributed computing model that brings compute and storage resources closer to the location where it is needed, improving response times and reducing bandwidth.
+
+Today, edge computing helps manage the tremendous growth we’re seeing with IoT devices. Edge computing allows pseudo-local data processing to minimize data sent over the internet.
+
+#### Security Concerns
+
+From a security standpoint, edge computing presents a few challenges.
+
+Devices located at the edge, rather than centrally managed in a data center or other tightly managed facility, may not always receive the same diligence as their peers.
+You must be sure to apply the same security rigor to edge devices as your centrally managed devices.
+This includes hardening, patching, and providing the right level of physical security for edge computing systems.
+SOAR (covered in Chapter 7) can help organizations observe and harden their devices, including those located at the edge.
+
+Data must be encrypted when in transit between edge devices and centralized systems (or the cloud), and VPN tunneling may also be advisable for sensitive data when managing remote systems.
+
+There are also availability concerns for edge devices. Redundancy and failover management of edge computing systems is important to ensure that data continues to be processed and transmitted in the event a single edge node fails.
+In addition, edge devices must be monitored for such failures so that errors and failures can be remedied as quickly as possible.
+
+### Virtualized Systems
+
+Operating systems provide programs with a set of services to enable them to operate more efficiently (and to be more easily designed and run) than if the program had to run on the computer directly.
+
+In some sense, an operating system provides a type of virtual computer, a computer that does not exist in reality (i.e., hardware) but that is much easier for applications to use than the physical hardware and that makes more efficient use of the hardware by sharing it among different programs (see Figure 3.12).
+
+Virtualization takes this concept a step further. Virtualization is the act of creating virtual (i.e., not real) compute, storage, and network resources - in other words, virtualization allows you to create software versions of hardware.
+VMs, for instance, are software instances of actual computers.
+Likewise, software-defined networks (SDNs) are software instances of physical networks.
+
+Instead of just one operating system enabling multiple application programs running on the same hardware, virtualization enables multiple operating systems to run on the same computer, each unaware of and unable (in a properly designed system) to affect the other operating systems.
+Virtualization is the primary technology behind cloud computing (discussed earlier in this section).
+
+The most common implementation of virtualization is a **hypervisor**. A hypervisor is a computing layer that allows multiple operating systems to run simultaneously on a single piece of hardware, with each operating system viewing the machine’s resources as its own dedicated resources.
+A hypervisor allows multiple guest virtual machines to run on a single physical host.
+
+A **type I hypervisor** is a native or bare-metal hypervisor (Figure 9.3, top). In this configuration, there is no host OS; instead, the hypervisor installs directly onto the hardware where the host OS would normally reside.
+Type 1 hypervisors are often used to support server virtualization. This allows for maximization of the hardware resources while eliminating any risks or resource reduction caused by a host OS.
+
+A **type II hypervisor** is a hosted hypervisor (Figure 9.3, bottom). In this configuration, a standard regular OS is present on the hardware, and then the hypervisor is installed as another software application.
+Type II hypervisors are often used in relation to desktop deployments, where the guest OSs offer safe sandbox areas to test new code, allow the execution of legacy applications, support apps from alternate OSs, and provide the user with access to the capabilities of a host OS.
+
+Virtualization is the foundation upon which cloud providers such as AWS or Google Cloud Platform (GCP) provide VMs to different clients who may well end up running on the same physical computer, unknown to each other.
+
+The advantages of virtualization include the following:
+* More efficient use of the underlying hardware (just as operating systems permitted a single computer to be shared by multiple programs and users)
+* Dynamic scaling of infrastructure in response to demand
+* Additional separation and isolation between programs and applications running on different operating systems (as opposed to running on the same OS) - supporting the security principles of defense in depth and layers of security outlined earlier
+
+#### Potential Weaknesses
+
+As with memory protection, virtualization depends on the correct operation of both the hardware and the hypervisor (which may include hardware and/or software).
+Hardware defects such as Meltdown break the underlying assumption that the hardware will prevent an unauthorized program (and possibly a completely unrelated client) from accessing memory assigned to another program (and client).
+
+Similarly, software defects in hypervisors can improperly permit software running on one VM to access data on a different VM on the same computer.
+An exploit known as virtual machine escape, for example, occurs when a program is able to break out of its VM and directly interact with the underlying host operating system; once able to access the host OS, an attacker may be able to pivot into other VMs or cause service outages for tenants of the host system.
+When such defects are discovered, they are usually disclosed to the largest cloud service providers so that they can be patched before the vulnerability becomes widely known.
+
+There is always the possibility that these unpatched defects in the hardware or hypervisor might be known to a threat actor who is then able to compromise the protections that are supposed to prevent unrelated clients on VMs from interacting.
+To mitigate this risk, some IaaS cloud providers offer dedicated hosts that guarantee that only VMs assigned to your account will be permitted to run on the dedicated host.
