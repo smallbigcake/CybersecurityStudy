@@ -1350,3 +1350,293 @@ When such defects are discovered, they are usually disclosed to the largest clou
 
 There is always the possibility that these unpatched defects in the hardware or hypervisor might be known to a threat actor who is then able to compromise the protections that are supposed to prevent unrelated clients on VMs from interacting.
 To mitigate this risk, some IaaS cloud providers offer dedicated hosts that guarantee that only VMs assigned to your account will be permitted to run on the dedicated host.
+
+## SELECT AND DETERMINE CRYPTOGRAPHIC SOLUTIONS
+
+Cryptography can be used across your environment to accomplish several objectives of information security, including two of three core principles from the CIA Triad (confidentiality and integrity), among others (namely, privacy, authenticity, nonrepudiation):
+* **Confidentiality (and privacy):** One of the main uses of cryptography is to protect the confidentiality of information, both at rest and in transit.
+This offers the critical feature of “privacy” when applied to personally identifiable information (PII) and protected health information (PHI).
+* **Integrity:** Another common application of cryptography is the use of hashing algorithms and message digest to provide assurance of data integrity (or accuracy).
+These cryptographic applications help ensure that data being accessed is intact and as expected.
+* **Authenticity (and nonrepudiation):** Cryptography can also be used for authentication services as well as nonrepudiation through digital signatures and digital certificates.
+
+### Cryptography Basics
+
+The following definitions from (ISC)2 are core to the topic of cryptography, and you will see (and likely use) them frequently:
+* Plaintext: The message in its natural format, which has not been turned into a secret.
+* Cleartext: The message in readable, usable form that is not intended to be obscured by cryptographic means.
+* Ciphertext: The altered form of a plaintext message, so as to be unreadable for anyone except the intended recipients (in other words, something that has been turned into a secret).
+* Encryption: The process of converting the message from its plaintext to ciphertext.
+* Decryption: The reverse process from encryption - it is the process of converting a ciphertext message back into plaintext through the use of the cryptographic algorithm and the appropriate key that was used to do the original encryption.
+* Cryptographic algorithm: A mathematical function that is used in the encryption and decryption process.
+* Key: The input that controls the operation of the cryptographic algorithm; it determines the behavior of the algorithm and permits the reliable encryption and decryption of the message.
+Symmetric/private keys (discussed later in this chapter) must be kept private, while public keys (also discussed later in this chapter) are shared to enable authentication and other use cases.
+
+### Cryptographic Lifecycle
+
+The cryptographic lifecycle involves algorithm selection, key management, and the management of encrypted data at rest, in transit, and in use.
+
+Algorithm selection involves a number of choices:
+* The type of cryptography appropriate for the purpose (e.g., symmetric, public key, hashing, etc.)
+* The specific algorithm (e.g., AES, RSA, SHA, etc.)
+* The key length (e.g., AES-256, RSA-2048, SHA-512, etc.)
+* The operating mode (ECB, CBC, etc.)
+
+### Cryptographic Methods
+
+| USE CASE                                   | TYPE OF CRYPTOGRAPHY                        |
+|--------------------------------------------|---------------------------------------------|
+| Protect confidentiality of stored data     | Symmetric                                   |
+| Protect confidentiality of data in transit | Symmetric (possibly aided by asymmetric)    |
+| Verify identity                            | Public key infrastructure                   |
+| Protect integrity (detect tampering)       | Hashing (e.g., Message Authentication Code) |
+| Protect passwords                          | Hashing (with salt and pepper)              |
+| Nonrepudiation                             | Digital signature                           |
+
+
+### Symmetric Encryption
+
+Symmetric encryption is the most common approach and the one most people think of when speaking of cryptography.
+Symmetric encryption takes a message (referred to as the plaintext) and an encryption key and produces output (called the ciphertext) that does not reveal any of the information in the original plaintext.
+The output can be converted back into the original plaintext if a person has the encryption key that was used to perform the original encryption.
+
+For symmetric encryption to work, both the sender and the receiver must share the key. For the message to remain confidential, the key must be kept secret.
+For these reasons, symmetric cryptography is sometimes referred to as secret-key or shared-secret encryption.
+
+A stream cipher is an encryption algorithm that works one character or bit at a time (instead of a block).
+They are typically used to encrypt serial communication links and cell-phone traffic and specifically designed to be computationally efficient so that they can be employed in devices with limited CPU power, or in dedicated hardware or field programmable gate arrays (FPGAs).
+
+Block ciphers use a deterministic algorithm that takes a fixed-sized block of bits (the plaintext) and a key value, and produces an encrypted block (the ciphertext) of the same size as the plaintext block.
+Different key values will produce different ciphertexts from the same plaintext.
+
+#### Stream Ciphers
+
+American cryptographer Claude Shannon proved in 1949 that if the key is truly random, the same length as the plaintext, and used only once, then the system is secure and unbreakable (assuming the key remains secret).
+This type of encryption is called a **one-time pad** because the key is used for only one round of encrypting and decrypting.
+The problem with this approach is that the key must be the same length as the message and cannot be reused, making the method completely impractical except for the shortest of messages or for situations (typically government) in which the cost of securely delivering large amounts of key material can be justified.
+
+Practical ciphers use a fixed-length key to encrypt many messages of variable length.
+As we will see in the section on cryptanalysis, some ciphers can be broken if the attacker comes into possession of enough ciphertexts that have been encrypted with the same key.
+Changing the key periodically so that the amount of ciphertext produced with each unique key is limited can increase the security of the cipher.
+
+**Synchronous ciphers** require the sender and receiver to remain in perfect synchronization in order to decrypt the stream. Should characters (bits) be added or dropped from the stream, the decryption will fail from that point on.
+The receiver needs to be able to detect the loss of synchronization and either try various offsets to resynchronize or wait for a distinctive marker inserted by the sender to enable the receiver to resync.
+
+**Self-synchronizing stream ciphers**, as the name implies, have the property that after at most N characters (N being a property of the particular self-synchronizing stream cipher), the receiver will automatically recover from dropped or added characters in the ciphertext stream.
+While they can be an obvious advantage in situations in which data can be dropped or added to the ciphertext stream, self-synchronizing ciphers suffer from the problem that should a character be corrupted, the error will propagate, affecting up to the next N characters.
+With a synchronous cipher, a single-character error in the ciphertext will result in only a single-character error in the decrypted plaintext.
+
+#### Block Ciphers
+
+Block ciphers process blocks of n bits at a time, using a key of size k. The output of the processed block then becomes the input for the next iteration of the cipher function. The number of iterations that occur are referred to as rounds.
+
+| BLOCK CIPHER | BLOCK SIZE (N) | KEY SIZE (K) | ROUNDS |
+|--------------|----------------|--------------|--------|
+| DES          | 64             | 56           | 16     |
+| AES-128      | 128            | 128          | 10     |
+| AES-192      | 128            | 192          | 12     |
+| AES-256      | 128            | 256          | 14     |
+
+The DES cipher is no longer considered secure because of its short key size, but it introduced the modern age of cryptography and so is historically important.
+Because DES was no longer secure, finding its replacement was crucial. AES was selected after a five-year process to evaluate and select an algorithm from over a dozen candidates.
+Triple DES (3DES) is an important evolution of DES and is discussed later in this section.
+
+Most block ciphers, including DES and AES, are built from multiple rounds of mathematical functions, as illustrated in Figure 3.17.
+While more rounds mean greater security, it also slows down the algorithmic process, so the choice is a trade-off between security and speed.
+
+The differences between different block ciphers are in the transformations performed during each round, and the manner in which the encryption key is stretched and then divided to provide a unique key for each round.
+
+There are a couple of standard building blocks used to construct block ciphers:
+* Substitution or S-boxes
+* Permutations or P-boxes
+
+AES uses multiple rounds of substitutions and permutations, while DES uses a 16-round Feistel network.
+
+#### Block Cipher Modes of Operation
+
+To handle messages that are not a multiple of the cipher’s block length, one mechanism is to add padding before encryption and remove the padding after encryption.
+There are many ways to do this, but one approach is to add bytes to the end of the message, with each byte containing the count of the number of bytes that have been added (see Figure 3.20).
+Because the decryption process will examine the last byte of the last block to determine how many padding bytes have been added (and thus need to be removed), if the plaintext is a multiple of the block size, then a final block that just contains padding must be added.
+
+##### Electronic Code Book Mode
+
+Electronic Code Book (ECB) mode is the simplest mode to understand and the least secure. Each time the algorithm processes a 64-bit block, it simply encrypts the block using the chosen secret key.
+This means that if the algorithm encounters the same block multiple times, it will produce the same encrypted block.
+If an enemy were eavesdropping on the communications, they could simply build a “code book” of all the possible encrypted values.
+After a sufficient number of blocks were gathered, cryptanalytic techniques could be used to decipher some of the blocks and break the encryption scheme.
+
+This vulnerability makes it impractical to use ECB mode on any but the shortest transmissions.
+In everyday use, ECB is used only for exchanging small amounts of data, such as keys and parameters used to initiate other cryptographic modes as well as the cells in a database.
+
+##### Cipher Block Chaining Mode
+
+In Cipher Block Chaining (CBC) mode, each block of unencrypted text is XORed with the block of ciphertext immediately preceding it before it is encrypted.
+The decryption process simply decrypts the ciphertext and reverses the XOR operation.
+CBC implements an IV and XORs it with the first block of the message, producing a unique output every time the operation is performed.
+The IV must be sent to the recipient, perhaps by tacking the IV onto the front of the completed ciphertext in plain form or by protecting it with ECB mode encryption using the same key used for the message.
+One important consideration when using CBC mode is that errors propagate - if one block is corrupted during transmission, it becomes impossible to decrypt that block and the next block as well.
+
+##### Cipher Feedback Mode
+
+Cipher Feedback (CFB) mode is the streaming cipher version of CBC. In other words, CFB operates against data produced in real time.
+However, instead of breaking a message into blocks, it uses memory buffers of the same block size. As the buffer becomes full, it is encrypted and then sent to the recipients.
+Then the system waits for the next buffer to be filled as the new data is generated before it is in turn encrypted and then transmitted.
+Other than the change from preexisting data to real-time data, CFB operates in the same fashion as CBC. It uses an IV, and it uses chaining.
+
+##### Output Feedback Mode
+
+In Output Feedback (OFB) mode, ciphers operate in almost the same fashion as they do in CFB mode.
+However, instead of XORing an encrypted version of the previous block of ciphertext, OFB XORs the plaintext with a seed value.
+For the first encrypted block, an initialization vector is used to create the seed value. Future seed values are derived by running the algorithm on the previous seed value.
+The major advantages of OFB mode are that there is no chaining function and transmission errors do not propagate to affect the decryption of future blocks.
+
+##### Counter Mode
+
+Counter (CTR) mode uses a stream cipher similar to that used in CFB and OFB modes.
+However, instead of creating the seed value for each encryption/decryption operation from the results of the previous seed values, it uses a simple counter that increments for each operation.
+As with OFB mode, errors do not propagate in CTR mode.
+
+##### Galois/Counter Mode
+
+Galois/Counter Mode (GCM) takes the standard CTR mode of encryption and adds data authenticity controls to the mix, providing the recipient assurances of the integrity of the data received.
+This is done by adding authentication tags to the encryption process.
+
+##### Counter with Cipher Block Chaining Message Authentication Code Mode
+
+Similar to GCM, the Counter with Cipher Block Chaining Message Authentication Code Mode (CCM) combines a confidentiality mode with a data authenticity process.
+In this case, CCM ciphers combine the Counter (CTR) mode for confidentiality with the Cipher Block Chaining Message Authentication Code (CBC-MAC) algorithm for data authenticity.
+CCM is used only with block ciphers that have a 128-bit block length and require the use of a nonce that must be changed for each transmission.
+
+#### Data Encryption Standard
+
+The U.S. government published the Data Encryption Standard in 1977 as a proposed standard cryptosystem for all government communications. Because of flaws in the algorithm, cryptographers and the federal government no longer consider DES secure.
+It is widely believed that intelligence agencies routinely decrypt DES-encrypted information. DES was superseded by the Advanced Encryption Standard in December 2001.
+
+It is still important to understand DES because it is the building block of Triple DES (3DES), a stronger (but still not strong enough) encryption algorithm discussed in the next section.
+DES is a 64-bit block cipher that has five modes of operation: Electronic Code Book (ECB) mode, Cipher Block Chaining (CBC) mode, Cipher Feedback (CFB) mode, Output Feedback (OFB) mode, and Counter (CTR) mode.
+All of the DES modes operate on 64 bits of plaintext at a time to generate 64-bit blocks of ciphertext. The key used by DES is 56 bits long.
+
+DES uses a long series of exclusive OR (XOR) operations to generate the ciphertext. This process is repeated 16 times for each encryption/decryption operation.
+Each repetition is commonly referred to as a round of encryption, explaining the statement that DES performs 16 rounds of encryption. Each round generates a new key that is then used as the input to subsequent rounds.
+
+#### Triple DES
+
+As mentioned in previous sections, the Data Encryption Standard’s (DES) 56-bit key is no longer considered adequate in the face of modern cryptanalytic techniques and supercomputing power.
+However, an adapted version of DES, Triple DES (3DES), uses the same algorithm to produce encryption that is stronger but that is no longer considered adequate to meet modern requirements.
+For this reason, 3DES encryption should be avoided, although it is still supported by many products.
+
+There are several different variants of 3DES that each use different numbers of independent keys.
+The first two, DES-EDE3 and DES EEE-3, use three independent keys: K1, K2, and K3.
+The difference between the two are the operations used, which are represented by the letter E for encryption and D for decryption.
+
+DES-EDE3 encrypts the data with K1, decrypts the resulting ciphertext with K2, and then encrypts that text with K3.
+DES-EDE3 can be expressed using the following notation, where E(K,P) represents the encryption of plaintext P with key K, and D(K,P) represents the decryption of ciphertext C with key K: E(K1,D(K2,E(K3,P)))
+
+DES-EEE3, on the other hand, encrypts the data with all three keys in sequential order, and may be represented as follows: E(K1,E(K2,E(K3,P)))
+
+Mathematically, DES-EEE3 and DES-EDE3 should have an effective key length of 168 bits. However, known attacks against this algorithm reduce the effective strength to 112 bits.
+
+DES-EEE3 is the only variant of 3DES that is currently considered secure by NIST.
+The other variants, DES-EDE1, DES-EEE2, and DES-EDE2, use either one or two keys, repeating the same key multiple times, but these modes are no longer considered secure.
+
+It is also important to note that NIST recently deprecated the use of all 3DES variants and will disallow their use in federal government applications at the end of 2023.
+
+#### International Data Encryption Algorithm
+
+The International Data Encryption Algorithm (IDEA) block cipher was developed in response to complaints about the insufficient key length of the DES algorithm.
+Like DES, IDEA operates on 64-bit blocks of plaintext/ciphertext. However, it begins its operation with a 128-bit key.
+This key is broken up in a series of operations into 52 16-bit subkeys. The subkeys then act on the input text using a combination of XOR and modulus operations to produce the encrypted/decrypted version of the input message.
+IDEA is capable of operating in the same five modes used by DES: ECB, CBC, CFB, OFB, and CTR.
+
+The IDEA algorithm was patented by its Swiss developers. However, the patent expired in 2012, and it is now available for unrestricted use.
+One popular implementation of IDEA is found in Phil Zimmerman’s popular Pretty Good Privacy (PGP) secure email package.
+
+#### Blowfish
+
+Bruce Schneier’s Blowfish block cipher is another alternative to DES and IDEA. Like its predecessors, Blowfish operates on 64-bit blocks of text.
+However, it extends IDEA’s key strength even further by allowing the use of variable-length keys ranging from a relatively insecure 32 bits to an extremely strong 448 bits.
+Obviously, the longer keys will result in a corresponding increase in encryption/decryption time.
+However, time trials have established Blowfish as a much faster algorithm than both IDEA and DES.
+Also, Schneier released Blowfish for public use with no license required. Blowfish encryption is built into a number of commercial software products and operating systems. A number of Blowfish libraries are also available for software developers.
+
+#### Skipjack
+
+The Skipjack algorithm was approved for use by the U.S. government in Federal Information Processing Standard (FIPS) 185, the Escrowed Encryption Standard (EES).
+Like many block ciphers, Skipjack operates on 64-bit blocks of text. It uses an 80-bit key and supports the same four modes of operation supported by DES.
+
+Skipjack was quickly embraced by the U.S. government and provides the cryptographic routines supporting the Clipper and Capstone encryption chips.
+
+However, Skipjack has an added twist-it supports the escrow of encryption keys. Two government agencies, the National Institute of Standards and Technology (NIST) and the Department of the Treasury, hold a portion of the information required to reconstruct a Skipjack key.
+When law enforcement authorities obtain legal authorization, they contact the two agencies, obtain the pieces of the key, and are able to decrypt communications between the affected parties.
+
+Skipjack and the Clipper chip were not embraced by the cryptographic community at large because of its mistrust of the escrow procedures in place within the U.S. government.
+
+#### Rivest Ciphers
+
+Ron Rivest, of Rivest-Shamir-Adleman (RSA) Data Security, created a series of symmetric ciphers over the years known as the Rivest Ciphers (RC) family of algorithms.
+Several of these, RC4, RC5, and RC6, have particular importance today.
+
+##### Rivest Cipher 4 (RC4)
+
+RC4 is a stream cipher developed by Rivest in 1987 and very widely used during the decades that followed. It uses a single round of encryption and allows the use of variable-length keys ranging from 40 bits to 2,048 bits.
+RC4’s adoption was widespread because it was integrated into the Wired Equivalent Privacy (WEP), Wi-Fi Protected Access (WPA), Secure Sockets Layer (SSL), and Transport Layer Security (TLS) protocols.
+A series of attacks against this algorithm render it insecure for use today. WEP, WPA, and SSL no longer meet modern security standards for both this and other reasons. TLS no longer allows the use of RC4 as a stream cipher.
+
+##### Rivest Cipher 5 (RC5)
+
+RC5 is a block cipher of variable block sizes (32, 64, or 128 bits) that uses key sizes between 0 (zero) length and 2,040 bits.
+It is important to note that RC5 is not simply the next version of RC4. In fact, it is completely unrelated to the RC4 cipher. Instead, RC5 is an improvement on an older algorithm called RC2 that is no longer considered secure.
+RC5 is the subject of brute-force cracking attempts. A large-scale effort leveraging massive community computing resources cracked a message encrypted using RC5 with a 64-bit key, but this effort took more than four years to crack a single message.
+
+##### Rivest Cipher 6 (RC6)
+
+RC6 is a block cipher that was developed as the next version of RC5. It uses a 128-bit block size and allows the use of 128-, 192-, or 256-bit symmetric keys.
+This algorithm was one of the candidates for selection as the Advanced Encryption Standard (AES) discussed in the next section, but it was not selected and is not widely used today.
+
+#### Advanced Encryption Standard
+
+In October 2000, the National Institute of Standards and Technology announced that the Rijndael (pronounced “rhine-doll”) block cipher had been chosen as the replacement for DES.
+In November 2001, NIST released FIPS 197, which mandated the use of AES/Rijndael for the encryption of all sensitive but unclassified data by the U.S. government.
+
+The Advanced Encryption Standard (AES) cipher allows the use of three key strengths: 128 bits, 192 bits, and 256 bits. AES only allows the processing of 128-bit blocks, but Rijndael exceeded this specification, allowing cryptographers to use a block size equal to the key length.
+
+The number of encryption rounds depends on the key length chosen:
+* 128-bit keys require 10 rounds of encryption.
+* 192-bit keys require 12 rounds of encryption.
+* 256-bit keys require 14 rounds of encryption.
+
+#### CAST
+
+The CAST algorithms are another family of symmetric key block ciphers that are integrated into some security solutions. The CAST algorithms use a Feistel network and come in two forms:
+* CAST-128 uses either 12 or 16 rounds of Feistel network encryption with a key size between 40 and 128 bits on 64-bit blocks of plaintext.
+* CAST-256 uses 48 rounds of encryption with a key size of 128, 160, 192, 224, or 256 bits on 128-bit blocks of plaintext.
+
+The CAST-256 algorithm was a candidate for the Advanced Encryption Standard but was not selected for that purpose.
+
+#### Twofish
+
+The Twofish algorithm developed by Bruce Schneier (also the creator of Blowfish) was another one of the AES finalists. Like Rijndael, Twofish is a block cipher. It operates on 128-bit blocks of data and is capable of using cryptographic keys up to 256 bits in length.
+
+Twofish uses two techniques not found in other algorithms:
+* Prewhitening involves XORing the plaintext with a separate subkey before the first round of encryption.
+* Postwhitening uses a similar operation after the 16th round of encryptio
+
+#### Comparison of Symmetric Encryption Algorithms
+
+| Name                               | Block size          | Key size                   |
+|------------------------------------|---------------------|----------------------------|
+| Advanced Encryption Standard (AES) | 128                 | 128, 192, 256              |
+| Rijndael                           | Variable            | 128, 192, 256128, 192, 256 |
+| Blowfish (often used in SSH)       | 64                  | 32-448                     |
+| Data Encryption Standard (DES)     | 64                  | 56                         |
+| IDEA (used in PGP)                 | 64                  | 128                        |
+| Rivest Cipher 4 (RC4)              | N/A (Stream cipher) | 40–2,048                   |
+| Rivest Cipher 5 (RC5)              | 32, 64, 128         | 0–2,040                    |
+| Rivest Cipher 6 (RC6)              | 128                 | 128, 192, 256              |
+| Skipjack                           | 64                  | 80                         |
+| Triple DES (3DES)                  | 64                  | 112 or 168                 |
+| CAST-128                           | 64                  | 40–128                     |
+| CAST-256                           | 128                 | 128, 160, 192, 224, 256    |
+| Twofish                            | 128                 | 1–256                      |
+
+
