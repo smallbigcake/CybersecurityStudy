@@ -1394,7 +1394,7 @@ Algorithm selection involves a number of choices:
 | Nonrepudiation                             | Digital signature                           |
 
 
-### Symmetric Encryption
+#### Symmetric Encryption
 
 Symmetric encryption is the most common approach and the one most people think of when speaking of cryptography.
 Symmetric encryption takes a message (referred to as the plaintext) and an encryption key and produces output (called the ciphertext) that does not reveal any of the information in the original plaintext.
@@ -1409,7 +1409,7 @@ They are typically used to encrypt serial communication links and cell-phone tra
 Block ciphers use a deterministic algorithm that takes a fixed-sized block of bits (the plaintext) and a key value, and produces an encrypted block (the ciphertext) of the same size as the plaintext block.
 Different key values will produce different ciphertexts from the same plaintext.
 
-#### Stream Ciphers
+##### Stream Ciphers
 
 American cryptographer Claude Shannon proved in 1949 that if the key is truly random, the same length as the plaintext, and used only once, then the system is secure and unbreakable (assuming the key remains secret).
 This type of encryption is called a **one-time pad** because the key is used for only one round of encrypting and decrypting.
@@ -1426,7 +1426,7 @@ The receiver needs to be able to detect the loss of synchronization and either t
 While they can be an obvious advantage in situations in which data can be dropped or added to the ciphertext stream, self-synchronizing ciphers suffer from the problem that should a character be corrupted, the error will propagate, affecting up to the next N characters.
 With a synchronous cipher, a single-character error in the ciphertext will result in only a single-character error in the decrypted plaintext.
 
-#### Block Ciphers
+##### Block Ciphers
 
 Block ciphers process blocks of n bits at a time, using a key of size k. The output of the processed block then becomes the input for the next iteration of the cipher function. The number of iterations that occur are referred to as rounds.
 
@@ -1452,13 +1452,13 @@ There are a couple of standard building blocks used to construct block ciphers:
 
 AES uses multiple rounds of substitutions and permutations, while DES uses a 16-round Feistel network.
 
-#### Block Cipher Modes of Operation
+##### Block Cipher Modes of Operation
 
 To handle messages that are not a multiple of the cipher’s block length, one mechanism is to add padding before encryption and remove the padding after encryption.
 There are many ways to do this, but one approach is to add bytes to the end of the message, with each byte containing the count of the number of bytes that have been added (see Figure 3.20).
 Because the decryption process will examine the last byte of the last block to determine how many padding bytes have been added (and thus need to be removed), if the plaintext is a multiple of the block size, then a final block that just contains padding must be added.
 
-##### Electronic Code Book Mode
+###### Electronic Code Book Mode
 
 Electronic Code Book (ECB) mode is the simplest mode to understand and the least secure. Each time the algorithm processes a 64-bit block, it simply encrypts the block using the chosen secret key.
 This means that if the algorithm encounters the same block multiple times, it will produce the same encrypted block.
@@ -1468,7 +1468,7 @@ After a sufficient number of blocks were gathered, cryptanalytic techniques coul
 This vulnerability makes it impractical to use ECB mode on any but the shortest transmissions.
 In everyday use, ECB is used only for exchanging small amounts of data, such as keys and parameters used to initiate other cryptographic modes as well as the cells in a database.
 
-##### Cipher Block Chaining Mode
+###### Cipher Block Chaining Mode
 
 In Cipher Block Chaining (CBC) mode, each block of unencrypted text is XORed with the block of ciphertext immediately preceding it before it is encrypted.
 The decryption process simply decrypts the ciphertext and reverses the XOR operation.
@@ -1476,38 +1476,38 @@ CBC implements an IV and XORs it with the first block of the message, producing 
 The IV must be sent to the recipient, perhaps by tacking the IV onto the front of the completed ciphertext in plain form or by protecting it with ECB mode encryption using the same key used for the message.
 One important consideration when using CBC mode is that errors propagate - if one block is corrupted during transmission, it becomes impossible to decrypt that block and the next block as well.
 
-##### Cipher Feedback Mode
+###### Cipher Feedback Mode
 
 Cipher Feedback (CFB) mode is the streaming cipher version of CBC. In other words, CFB operates against data produced in real time.
 However, instead of breaking a message into blocks, it uses memory buffers of the same block size. As the buffer becomes full, it is encrypted and then sent to the recipients.
 Then the system waits for the next buffer to be filled as the new data is generated before it is in turn encrypted and then transmitted.
 Other than the change from preexisting data to real-time data, CFB operates in the same fashion as CBC. It uses an IV, and it uses chaining.
 
-##### Output Feedback Mode
+###### Output Feedback Mode
 
 In Output Feedback (OFB) mode, ciphers operate in almost the same fashion as they do in CFB mode.
 However, instead of XORing an encrypted version of the previous block of ciphertext, OFB XORs the plaintext with a seed value.
 For the first encrypted block, an initialization vector is used to create the seed value. Future seed values are derived by running the algorithm on the previous seed value.
 The major advantages of OFB mode are that there is no chaining function and transmission errors do not propagate to affect the decryption of future blocks.
 
-##### Counter Mode
+###### Counter Mode
 
 Counter (CTR) mode uses a stream cipher similar to that used in CFB and OFB modes.
 However, instead of creating the seed value for each encryption/decryption operation from the results of the previous seed values, it uses a simple counter that increments for each operation.
 As with OFB mode, errors do not propagate in CTR mode.
 
-##### Galois/Counter Mode
+###### Galois/Counter Mode
 
 Galois/Counter Mode (GCM) takes the standard CTR mode of encryption and adds data authenticity controls to the mix, providing the recipient assurances of the integrity of the data received.
 This is done by adding authentication tags to the encryption process.
 
-##### Counter with Cipher Block Chaining Message Authentication Code Mode
+###### Counter with Cipher Block Chaining Message Authentication Code Mode
 
 Similar to GCM, the Counter with Cipher Block Chaining Message Authentication Code Mode (CCM) combines a confidentiality mode with a data authenticity process.
 In this case, CCM ciphers combine the Counter (CTR) mode for confidentiality with the Cipher Block Chaining Message Authentication Code (CBC-MAC) algorithm for data authenticity.
 CCM is used only with block ciphers that have a 128-bit block length and require the use of a nonce that must be changed for each transmission.
 
-#### Data Encryption Standard
+##### Data Encryption Standard
 
 The U.S. government published the Data Encryption Standard in 1977 as a proposed standard cryptosystem for all government communications. Because of flaws in the algorithm, cryptographers and the federal government no longer consider DES secure.
 It is widely believed that intelligence agencies routinely decrypt DES-encrypted information. DES was superseded by the Advanced Encryption Standard in December 2001.
@@ -1519,7 +1519,7 @@ All of the DES modes operate on 64 bits of plaintext at a time to generate 64-bi
 DES uses a long series of exclusive OR (XOR) operations to generate the ciphertext. This process is repeated 16 times for each encryption/decryption operation.
 Each repetition is commonly referred to as a round of encryption, explaining the statement that DES performs 16 rounds of encryption. Each round generates a new key that is then used as the input to subsequent rounds.
 
-#### Triple DES
+##### Triple DES
 
 As mentioned in previous sections, the Data Encryption Standard’s (DES) 56-bit key is no longer considered adequate in the face of modern cryptanalytic techniques and supercomputing power.
 However, an adapted version of DES, Triple DES (3DES), uses the same algorithm to produce encryption that is stronger but that is no longer considered adequate to meet modern requirements.
@@ -1541,7 +1541,7 @@ The other variants, DES-EDE1, DES-EEE2, and DES-EDE2, use either one or two keys
 
 It is also important to note that NIST recently deprecated the use of all 3DES variants and will disallow their use in federal government applications at the end of 2023.
 
-#### International Data Encryption Algorithm
+##### International Data Encryption Algorithm
 
 The International Data Encryption Algorithm (IDEA) block cipher was developed in response to complaints about the insufficient key length of the DES algorithm.
 Like DES, IDEA operates on 64-bit blocks of plaintext/ciphertext. However, it begins its operation with a 128-bit key.
@@ -1551,7 +1551,7 @@ IDEA is capable of operating in the same five modes used by DES: ECB, CBC, CFB, 
 The IDEA algorithm was patented by its Swiss developers. However, the patent expired in 2012, and it is now available for unrestricted use.
 One popular implementation of IDEA is found in Phil Zimmerman’s popular Pretty Good Privacy (PGP) secure email package.
 
-#### Blowfish
+##### Blowfish
 
 Bruce Schneier’s Blowfish block cipher is another alternative to DES and IDEA. Like its predecessors, Blowfish operates on 64-bit blocks of text.
 However, it extends IDEA’s key strength even further by allowing the use of variable-length keys ranging from a relatively insecure 32 bits to an extremely strong 448 bits.
@@ -1559,7 +1559,7 @@ Obviously, the longer keys will result in a corresponding increase in encryption
 However, time trials have established Blowfish as a much faster algorithm than both IDEA and DES.
 Also, Schneier released Blowfish for public use with no license required. Blowfish encryption is built into a number of commercial software products and operating systems. A number of Blowfish libraries are also available for software developers.
 
-#### Skipjack
+##### Skipjack
 
 The Skipjack algorithm was approved for use by the U.S. government in Federal Information Processing Standard (FIPS) 185, the Escrowed Encryption Standard (EES).
 Like many block ciphers, Skipjack operates on 64-bit blocks of text. It uses an 80-bit key and supports the same four modes of operation supported by DES.
@@ -1571,29 +1571,29 @@ When law enforcement authorities obtain legal authorization, they contact the tw
 
 Skipjack and the Clipper chip were not embraced by the cryptographic community at large because of its mistrust of the escrow procedures in place within the U.S. government.
 
-#### Rivest Ciphers
+##### Rivest Ciphers
 
 Ron Rivest, of Rivest-Shamir-Adleman (RSA) Data Security, created a series of symmetric ciphers over the years known as the Rivest Ciphers (RC) family of algorithms.
 Several of these, RC4, RC5, and RC6, have particular importance today.
 
-##### Rivest Cipher 4 (RC4)
+###### Rivest Cipher 4 (RC4)
 
 RC4 is a stream cipher developed by Rivest in 1987 and very widely used during the decades that followed. It uses a single round of encryption and allows the use of variable-length keys ranging from 40 bits to 2,048 bits.
 RC4’s adoption was widespread because it was integrated into the Wired Equivalent Privacy (WEP), Wi-Fi Protected Access (WPA), Secure Sockets Layer (SSL), and Transport Layer Security (TLS) protocols.
 A series of attacks against this algorithm render it insecure for use today. WEP, WPA, and SSL no longer meet modern security standards for both this and other reasons. TLS no longer allows the use of RC4 as a stream cipher.
 
-##### Rivest Cipher 5 (RC5)
+###### Rivest Cipher 5 (RC5)
 
 RC5 is a block cipher of variable block sizes (32, 64, or 128 bits) that uses key sizes between 0 (zero) length and 2,040 bits.
 It is important to note that RC5 is not simply the next version of RC4. In fact, it is completely unrelated to the RC4 cipher. Instead, RC5 is an improvement on an older algorithm called RC2 that is no longer considered secure.
 RC5 is the subject of brute-force cracking attempts. A large-scale effort leveraging massive community computing resources cracked a message encrypted using RC5 with a 64-bit key, but this effort took more than four years to crack a single message.
 
-##### Rivest Cipher 6 (RC6)
+###### Rivest Cipher 6 (RC6)
 
 RC6 is a block cipher that was developed as the next version of RC5. It uses a 128-bit block size and allows the use of 128-, 192-, or 256-bit symmetric keys.
 This algorithm was one of the candidates for selection as the Advanced Encryption Standard (AES) discussed in the next section, but it was not selected and is not widely used today.
 
-#### Advanced Encryption Standard
+##### Advanced Encryption Standard
 
 In October 2000, the National Institute of Standards and Technology announced that the Rijndael (pronounced “rhine-doll”) block cipher had been chosen as the replacement for DES.
 In November 2001, NIST released FIPS 197, which mandated the use of AES/Rijndael for the encryption of all sensitive but unclassified data by the U.S. government.
@@ -1605,7 +1605,7 @@ The number of encryption rounds depends on the key length chosen:
 * 192-bit keys require 12 rounds of encryption.
 * 256-bit keys require 14 rounds of encryption.
 
-#### CAST
+##### CAST
 
 The CAST algorithms are another family of symmetric key block ciphers that are integrated into some security solutions. The CAST algorithms use a Feistel network and come in two forms:
 * CAST-128 uses either 12 or 16 rounds of Feistel network encryption with a key size between 40 and 128 bits on 64-bit blocks of plaintext.
@@ -1613,7 +1613,7 @@ The CAST algorithms are another family of symmetric key block ciphers that are i
 
 The CAST-256 algorithm was a candidate for the Advanced Encryption Standard but was not selected for that purpose.
 
-#### Twofish
+##### Twofish
 
 The Twofish algorithm developed by Bruce Schneier (also the creator of Blowfish) was another one of the AES finalists. Like Rijndael, Twofish is a block cipher. It operates on 128-bit blocks of data and is capable of using cryptographic keys up to 256 bits in length.
 
@@ -1621,7 +1621,7 @@ Twofish uses two techniques not found in other algorithms:
 * Prewhitening involves XORing the plaintext with a separate subkey before the first round of encryption.
 * Postwhitening uses a similar operation after the 16th round of encryptio
 
-#### Comparison of Symmetric Encryption Algorithms
+##### Comparison of Symmetric Encryption Algorithms
 
 | Name                               | Block size          | Key size                   |
 |------------------------------------|---------------------|----------------------------|
@@ -1640,3 +1640,917 @@ Twofish uses two techniques not found in other algorithms:
 | Twofish                            | 128                 | 1–256                      |
 
 
+#### Asymmetric Encryption (Public Key Cryptography)
+
+A trapdoor function, as they are called, is one for which computing f(x) is easy, but calculating the inverse function (e.g., determining x if one only knows the value of f(x)) is extremely difficult unless one knows the value of a second variable, y.
+
+##### Diffie–Hellman–Merkle Key Exchange
+
+Diffie–Hellman–Merkle key exchange is a method of securely exchanging cryptographic keys.
+Developed in 1976 by Whitfield Diffie and Martin Hellman, this is the first known implementation of public key cryptography.
+Like many of the asymmetric key algorithms that came after it, the Diffie–Hellman–Merkle algorithm is based on logarithmic mathematics.
+Unlike the encryption algorithms before it, the Diffie–Hellman–Merkle algorithm is not used for encryption or decryption, but instead is used to enable two parties to securely generate a shared secret key to use for their (symmetric-key) encrypted communications.
+
+##### RSA
+
+RSA (Rivest-Shamir-Adleman) is an asymmetric-key algorithm used for encrypting and signing data. The security of the algorithm is based on the difficulty of factoring two large prime numbers.
+The RSA algorithm was first developed by Dr. Ron Rivest, Adi Shamir, and Len Adleman in 1978, and continues to be one of the most commonly used public key encryption algorithms.
+
+##### ElGamal
+
+ElGamal is an asymmetric-key algorithm used for transmitting digital signatures and key exchanges.
+The ElGamal algorithm is derived from the Diffie–Hellman–Merkle algorithm (discussed earlier) and is again based on discrete logarithmic problem solving.
+
+##### Elliptic Curve Cryptography
+
+ECC is an approach to public key cryptography that is based on far more complex computations than other public key algorithmic approaches.
+Whereas the security of earlier public key systems was based on the difficulty of factoring sets of large prime integers, ECC is based on the algebraic structure of elliptic curves (see Figure 3.25), which can become quite complex.
+
+A key benefit of ECC is that it allows smaller keys to be used for equivalent security.
+For example, a 256-bit ECC key would be equivalent to a 3,072-bit RSA key.
+Using smaller keys leads to faster computations; as such, ECC is more efficient than other public key algorithms, allowing it to be used in more applications - particularly applications with resource constraints.
+
+Several discrete logarithm-based algorithms have been adapted to ECC.
+While it is often discussed with RSA, there is the Elliptic Curve Diffie–Hellman–Merkle (ECDH) scheme based on the traditional Diffie–Hellman–Merkle scheme, the Elliptic Curve Digital Signature Algorithm (ECDSA) based on the Digital Signature Algorithm, and several others.
+
+##### Quantum Cryptography
+
+One property of quantum mechanics that lends itself to cryptography is that any attempt to observe or measure a quantum system will disturb it.
+This provides a basis to transmit a secret encryption key such that if it is intercepted by an eavesdropper, it can be detected.
+So, Alice first sends Bob a secret key using quantum key distribution (QKD), and Bob checks to see if it has been intercepted. If it has, he asks for another key.
+If it hasn’t, he signals Alice to start sending messages encrypted using a symmetric cipher or a one-time pad and the key, knowing that only Alice and he have access to the key and therefore the communications will remain secret.
+QKD infrastructures continue to grow in popularity around the globe.
+
+### Public Key Infrastructure
+
+#### Certificates
+
+Digital certificates provide communicating parties with the assurance that the people they are communicating with truly are who they claim to be.
+Digital certificates are essentially endorsed copies of an individual’s public key. When users verify that a certificate was signed by a trusted certificate authority (CA), they know that the public key is legitimate.
+
+The standard for public key certificates (also known as digital certificates) is X.509, defined by the International Telecommunications Union (ITU).
+An X.509 certificatecontains the following:
+* Version number
+* Serial number
+* Signature algorithm ID
+* Issuer (CA) name
+* Validity period (not before, not after)
+* Subject name
+* Subject public key (algorithm, public key)
+* Key usage
+* Optional extensions
+* Certificate signature (algorithm, signature)
+
+In PKI certificates used for encrypted email, code signing, or digital signatures, the subject of the certificate is an individual or organization.
+For PKI certificates used to secure TLS (the protocol that protects secure HTTPS browser connections), the subject is the server (e.g., domain name of the website).
+
+Certificates may be issued for a variety of purposes. These include providing assurance for the public keys of
+* Computers/machines
+* Individual users
+* Email addresses
+* Developers (code-signing certificates)
+
+For web certificates, the owner of the website generates a public/private key pair and then prepares a key signing request that contains the folowing:
+* The domain name of the website (with or without wildcards)
+* The identity of the website owner
+* The public key of the website owner
+* A digital signature of the website owner
+
+
+#### Certificate Authorities
+
+Certificate authorities (CAs) are the glue that binds the public key infrastructure together.
+These neutral organizations offer notarization services for digital certificates. To obtain a digital certificate from a reputable CA, you must prove your identity to the satisfaction of the CA.
+
+The following list includes some of the major CAs who provide widely accepted digital certificates:
+* Symantec
+* IdenTrust
+* Amazon Web Services
+* GlobalSign
+* Comodo
+* Certum
+* GoDaddy
+* DigiCert
+* Secom
+* Entrust
+* Actalis
+* Trustwave
+
+#### Certificate Lifecycle
+
+The technical concepts behind the public key infrastructure are relatively simple.
+In the following sections, we’ll cover the processes used by certificate authorities to create, validate, and revoke client certificates.
+
+##### Enrollment
+
+Enrollment When you want to obtain a digital certificate, you must first prove your identity to the CA in some manner; this process is called enrollment.
+As mentioned in the previous section, this sometimes involves physically appearing before an agent of the certificate authority with the appropriate identification documents.
+Some certificate authorities provide other means of verification, including the use of credit report data and identity verification by trusted community leaders.
+
+Once you’ve satisfied the certificate authority regarding your identity, you provide them with your public key in the form of a certificate signing request (CSR).
+The CA next creates an X.509 digital certificate containing your identifying information and a copy of your public key.
+The CA then digitally signs the certificate using the CA’s private key and provides you with a copy of your signed digital certificate.
+You may then safely distribute this certificate to anyone with whom you want to communicate securely.
+
+Certificate authorities issue different types of certificates depending upon the level of identity verification that they perform.
+The simplest, and most common, certificates are Domain Validation (DV) certificates, where the CA simply verifies that the certificate subject has control of the domain name.
+Extended Validation (EV) certificates provide a higher level of assurance and the CA takes steps to verify that the certificate owner is a legitimate business before issuing the certificate.
+
+##### Verification
+
+When you receive a digital certificate from someone with whom you want to communicate, you verify the certificate by checking the CA’s digital signature using the CA’s public key.
+You then must check the validity period of the certificate to ensure that the current date is after the starting date of the certificate and that the certificate has not yet expired.
+Finally, you must check and ensure that the certificate was not revoked using a certificate revocation list (CRL) or the Online Certificate Status Protocol (OCSP).
+
+At this point, you may assume that the public key listed in the certificate is authentic, provided that it satisfies the following requirements:
+* The digital signature of the CA is authentic.
+* You trust the CA.
+* The certificate is not listed on a CRL.
+* The certificate actually contains the data you are trusting.
+
+**Certificate pinning** approaches instruct browsers to attach a certificate to a subject for an extended period of time.
+When sites use certificate pinning, the browser associates that site with their public key. This allows users or administrators to notice and intervene if a certificate unexpectedly changes.
+
+##### Revocation
+
+Occasionally, a certificate authority needs to revoke a certificate. This might occur for one of the following reasons:
+* The certificate was compromised (for example, the certificate owner accidentally gave away the private key).
+* The certificate was erroneously issued (for example, the CA mistakenly issued a certificate without proper verification).
+* The details of the certificate changed (for example, the subject’s name changed).
+* The security association changed (for example, the subject is no longer employed by the organization sponsoring the certificate).
+
+You can use three techniques to verify the authenticity of certificates and identify revoked certificates:
+
+**Certificate Revocation Lists**
+
+Certificate revocation lists (CRLs) are maintained by the various certificate authorities and contain the serial numbers of certificates that have
+been issued by a CA and that have been revoked, along with the date and time the revocation went into effect.
+The major disadvantage to certificate revocation lists is that they must be downloaded and cross-referenced periodically, introducing a period of latency between the time a certificate is revoked and the time end users are notified of the revocation.
+
+**Online Certificate Status Protocol (OCSP)**
+
+This protocol eliminates the latency inherent in the use of certificate revocation lists by providing a means for real-time certificate verification.
+When a client receives a certificate, it sends an OCSP request to the CA’s OCSP server. The server then responds with a status of valid, invalid, or unknown.
+The browser uses this information to determine whether the certificate is valid.
+
+**Certificate Stapling**
+
+The primary issue with OCSP is that it places a significant burden on the OCSP servers operated by certificate authorities.
+These servers must process requests from every single visitor to a website or other user of a digital certificate, verifying that the certificate is valid and not revoked.
+
+Certificate stapling is an extension to the Online Certificate Status Protocol that relieves some of the burden placed on certificate authorities by the original protocol.
+When a user visits a website and initiates a secure connection, the website sends its certificate to the end user, who would normally then be responsible for contacting an OCSP server to verify the certificate’s validity.
+In certificate stapling, the web server contacts the OCSP server itself and receives a signed and timestamped response from the OCSP server, which it then attaches, or staples, to the digital certificate.
+Then, when a user requests a secure web connection, the web server sends the certificate with the stapled OCSP response to the user.
+The user’s browser then verifies that the certificate is authentic and also validates that the stapled OCSP response is genuine and recent.
+Because the CA signed the OCSP response, the user knows that it is from the certificate authority, and the timestamp provides the user with assurance that the CA recently validated the certificate. From there, communication may continue as normal.
+
+#### Certificate Formats
+
+Digital certificates are stored in files, and those files come in a variety of different formats, both binary and text-based:
+* The most common binary format is the Distinguished Encoding Rules (DER) format. DER certificates are normally stored in files with the .der, .crt, or .cer extension.
+* The Privacy Enhanced Mail (PEM) certificate format is an ASCII text version of the DER format. PEM certificates are normally stored in files with the .pem or .crt extension.
+* The Personal Information Exchange (PFX) format is commonly used by Windows systems. PFX certificates may be stored in binary form, using either .pfx or .p12 file extensions.
+* Windows systems also use P7B certificates, which are stored in ASCII text format.
+
+| Standard                            | Format | File extension(s) |
+|-------------------------------------|--------|-------------------|
+| Distinguished Encoding Rules (DER)  | Binary | .der, .crt, .cer  |
+| Privacy Enhanced Mail (PEM)         | Text   | .pem, .crt        |
+| Personal Information Exchange (PFX) | Binary | .pfx, .p12        |
+| P7B                                 | Text   | .p7b              |
+
+### Key Management Practices
+
+Secure use of cryptography depends on keeping symmetric and private keys confidential.
+Attackers who can obtain or guess a secret key can compromise the confidentiality and integrity of the data protected by that key.
+
+Proper cryptographic key management includes the following:
+* Secure key generation
+* Secure key storage and use
+* Separation of duties, dual control, and split knowledge
+* Timely key rotation and key change
+* Key destruction
+
+#### Secure Key Generation
+
+There are two factors that make for a secure cryptographic key: length and randomness. Long, random keys have a higher “key strength,” as discussed earlier in this section.
+
+Generally, the longer the key, the more difficult it is to attack encrypted messages - but what constitutes a secure key length changes with time as computer power increases and cryptanalysis techniques become more sophisticated.
+In 1977, the U.S. government selected a symmetric block cipher it dubbed the DES, which was considered secure for nonclassified use (e.g., banking, e-commerce, etc.).
+In 1999, it was demonstrated that DES-encrypted messages could be cracked in less than 24 hours.
+
+Estimates are that, using modern computers, a brute-force attack on a 128-bit key would take longer than the age of the universe (~14 billion years) to crack.
+Of course, as computing power continues to increase, and with the growing maturity of quantum computing, these estimates will someday be shattered, and the need for additional key length will surface.
+
+The strength of a symmetric key also depends on its being unpredictable (i.e., unguessable). Even if only some of the bits can be guessed, that can significantly reduce the strength of the cipher.
+Using a mechanism that will generate high-quality (i.e., cryptographically secure) random numbers is essential for key generation.
+The best method is to use hardware-based true random number generators that rely on physical phenomena known to be truly random.
+Such devices are embedded in various cryptographic hardware devices such as TPMs and HSMs, discussed earlier, as well as some microprocessors.
+
+Software-based random number generators (RNGs), best referred to as pseudorandom number generators, are hard to get right.
+For example, from 2006 until 2008, a defect introduced into the OpenSSL package in the Debian and Ubuntu Linux distributions caused all keys generated to be weak because of a bug in the random number generator (CVE-2008-0166).
+
+#### Secure Key Storage and Use
+
+Once you have generated a nice long and random key, how do you keep it secret?
+Obviously, the first step is to encrypt your data encryption key (DEK) with another key, the key encryption key (KEK).
+That solves the problem but creates another: how do you secure your KEK? This depends on the sensitivity of the underlying data being encrypted and the mechanisms that are appropriate for the system you are designing.
+
+An HSM is specifically designed to securely generate and store KEKs and is among the more secure methods of protecting keys.
+HSMs also provide for secure ways of replicating the KEKs between redundant HSMs and for enforcing controls so that no one individual can use the KEK to decrypt a data encryption key.
+Compliance regimes on banks, payment processors, and other highly regulated organizations often require the use of an HSM.
+
+For less demanding applications, the approach must be tailored to the specific requirements and risks. One could store the master key in any of the following:
+* A hardware-encrypted USB key
+* A password management app
+* A secrets management package
+
+#### Separation of Duties, Dual Control, and Split Knowledge
+
+Some keys and data are so sensitive that the risk of an insider threat (e.g., a rogue or disgruntled employee) is too great to permit a single individual to have access to the key encryption key, the data encryption key, and the encrypted data, or sole access to administrative functions of the HSM.
+
+These are three types of controls used to mitigate the risk of a rogue employee:
+* Separation of duties
+* Dual control
+* Split knowledge
+
+These three concepts are related but different.
+
+**Separation of duties** (sometimes called **segregation of duties**) means that certain processes should require at least two different individuals to complete from beginning to end.
+In the financial world, this might involve ensuring that the person who has authority to write checks is not the person who reconciles the bank statements.
+In the cryptography world, it might dictate that the person with access to the encryption keys does not have access to the encrypted data.
+Another form of separation of duties is ensuring that the people who administer a system do not have the authority to interfere with the logging system or tamper with the logs.
+
+**Dual control** means that a specific step in a process requires two or more individuals.
+In the financial world, this would be the requirement that two signatures be present on every check.
+In the cryptography world, it might require that two or more individuals present their credentials to be able to use the key encryption key to decrypt a data encryption key.
+
+For access to a system that supports multifactor authentication, dual control could involve entrusting the password to one individual, and the MFA device to a different individual.
+
+Note that dual control is often incorrectly referred to as the separation of duties. Be aware of the difference and examine the control to determine if it is truly separation of duties or dual control.
+
+**Split knowledge** is when a key (or password) is split into two or more pieces such that each piece is unusable by itself, and it requires that two (or more) pieces be brought together to decrypt the data (or access the system).
+
+For example, a vendor might generate a large key and split it into (say _m_) multiple pieces.
+In this model, a minimum of _n_ pieces are required to recreate the key encryption key. The numbers _n_ and _m_ are configurable so that one can, for example, split the key into a dozen pieces, but only require any three of the key holders to come together to unlock the key.
+
+#### Timely Key Rotation and Key Change
+
+Keys should have a limited lifespan. If there is evidence or even suspicion that a key has been compromised, it ought to be rotated as soon as feasible.
+Even if the confidentiality of the key has been maintained, it ought to be replaced periodically.
+Further, best practice is to also perform key rotation when essential personnel with access to cryptographic material leave their positions.
+
+Why rotate keys?
+* To limit the damage should the key be discovered by an attacker
+* To limit the amount of data encrypted by the same key (the more data encrypted using the same key, the easier it is to crack the encryption)
+* To limit the time available to the attacker to crack the cipher (if none of your data is encrypted with the same key for longer than one year, then any brute-force attack must be able to be completed within a year of the key’s generation)
+
+#### Key Destruction
+
+Once a key has been retired and it has been determined that there is no data that has been encrypted using that key that will need to be decrypted, then the key must be securely destroyed.
+This involves locating every copy of the key and deleting it in a manner appropriate for the media on which it was stored to ensure that it cannot be recovered.
+
+Depending on the media and the risk of it becoming accessible to unauthorized individuals, this may require overwriting the storage, degaussing of the media, or physical destruction of the media or device containing the media.
+
+Records ought to be kept that document the locations of the destroyed keys and the means used to ensure secure destruction.
+
+### Digital Signatures and Digital Certificates
+
+**Digital signatures** use cryptographic techniques to replicate the intent of a signature: authentication (to give the recipient confidence that the message originated with a specific entity), nonrepudiation (evidence that the originator did, in fact, compose the message), and integrity (confidence the message has not been altered after it was signed).
+
+The message to be signed is passed through a cryptographically secure hash function that produces a fixed-length output (typically between 160 and 512 bits) called a **Message Digest**.
+This hash value is then encrypted using the message author’s private key to produce a digital signature. The digital signature is transmitted as an appendix to the message.
+
+When a recipient wants to verify the document, they compute the Message Digest for the message, as received.
+They then decrypt the digital signature using the author’s public key to produce the originator’s Message Digest. If the two are identical, then the recipient knows the following:
+1. The message has not been tampered with (i.e., integrity has been preserved).
+2. The message has originated with the owner of the public/private key pair (i.e., authentication and nonrepudiation).
+
+To protect the security of digital signatures, it is strongly recommended that the private key used to sign messages only be used for digital signing and not for any other purpose (such as general message encryption).
+
+There are a number of possible vulnerabilities with digital signatures:
+* Hash collision
+* Private key disclosure
+* CA compromise
+
+#### HMAC
+
+The hashed message authentication code (HMAC) algorithm implements a partial digital signature - it guarantees the integrity of a message during transmission, but it does not provide for nonrepudiation.
+
+HMAC can be combined with any standard message digest generation algorithm, such as MD5, SHA-2, or SHA-3, by using a shared secret key.
+Therefore, only communicating parties who know the key can generate or verify the digital signature.
+If the recipient decrypts the message digest but cannot successfully compare it to a message digest generated from the plaintext message, that means the message was altered in transit.
+
+Because HMAC relies on a shared secret key, it does not provide any nonrepudiation functionality (as previously mentioned).
+However, it operates in a more efficient manner than the digital signature standard described in the following section and may be suitable for applications in which symmetric key cryptography is appropriate.
+In short, it represents a halfway point between unencrypted use of a message digest algorithm and computationally expensive digital signature algorithms based on public key cryptography.
+
+#### Digital Signature Standard
+
+The National Institute of Standards and Technology specifies the digital signature algorithms acceptable for federal government use in Federal Information Processing Standard (FIPS) 186-4, also known as the Digital Signature Standard (DSS).
+This document specifies that all federally approved digital signature algorithms must use the SHA-3 hashing functions.
+
+DSS also specifies the encryption algorithms that can be used to support a digital signature infrastructure. There are three currently approved standard encryption algorithms:
+* The Digital Signature Algorithm (DSA) as specified in FIPS 186-4. This algorithm is a variant of an algorithm developed by Dr. Taher Elgamal, the creator of the ElGamal asymmetric cryptosystem discussed earlier in this chapter.
+* The Rivest–Shamir–Adleman (RSA) algorithm, as specified in ANSI X9.31.
+* The Elliptic Curve DSA (ECDSA), as specified in ANSI X9.62.
+
+As this book went to press in 2021, the next version of the Digital Signature Standard, FIPS 186-5, remained in draft form.
+The draft proposal removes DSA as an approved algorithm, retains RSA and ECDSA, and adds the Edwards-Curve Digital Signature Algorithm (EdDSA) to DSS.
+
+### Nonrepudiation
+
+Nonrepudiation is the ability to prove that a message must have originated from a specific entity.
+This can be critically important, for example, with contracts or other legal documents, as well as instructions to banks or orders to suppliers.
+Only with the ability to demonstrate nonrepudiation of the received communication can the recipient act on the message with confidence that the originator is accountable for the content of the message.
+
+Nonrepudiation is accomplished by the originator’s signing the message using a private key known only to the originator, and which the originator commits to protecting.
+Protecting a private signing key means keeping it confidential and, if the key is compromised, promptly revoking the matching public key.
+
+#### Blockchain and Nonrepudiation
+
+Another approach to nonrepudiation is to use a blockchain.
+Blockchain is a form of a decentralized and distributed ledger in which records are recorded and linked together, using cryptographic hashes, meaning that to change any record in the blockchain, one must change every subsequent block.
+Since the blockchain is distributed (i.e., stored by multiple systems), it requires the collusion of a majority of the blockchain participants.
+For a sufficiently widely (and independently) operated blockchain, this is infeasible. For example, Bitcoin currently (early 2021) has approximately 12,000 nodes across 100 countries.
+
+### Integrity
+
+Cryptographic methods can do more than just protect the confidentiality of messages and help prove the identity of the originator. They can also be used to protect the integrity of messages by detecting tampering.
+
+A hash function is an algorithm that takes a block of data (i.e., a message or file) and computes a derived value such that any change to the data will result in a change to the hash value.
+Effective hashing functions need additional properties too, as will be covered in this chapter.
+
+This function can be used to verify the integrity of the data by comparing the hash value of the original data with the hash value of the data at some later point in time.
+
+Using a cryptographic hash to detect tampering of a message involves the following three steps (as illustrated in Figure 3.28):
+1. Generate the hash value (H1) by applying the hash function to the original block of data or message (M1).
+2. Generate the hash value (H2) by applying the hash function to the block of data or message (M2) to be verified.
+3. If (H1) is the same as (H2), then that indicates that the two messages are likely to be identical and have not been tampered with.
+As we shall shortly see, however, the key question is “how likely?” What degree of confidence should we have that two messages are identical if their hash values are identical?
+
+When two different messages generate the same hash value, it is called a collision, so we need a hashing function that makes it almost impossible to create an intentional collision.
+
+In our previous example, two factors made it trivial to create a collision:
+* The simplicity of the algorithm made it easy to determine what changes need to be made to the modified message to change the hash (checksum) to match the original message’s.
+* Even if the algorithm had been complex, the shortness of the hash (16 bits) means that, with only 65,536 possible hash values, it would not take long to repeatedly make random changes to the end of the message until one happened upon a collision.
+
+Cryptographically secure hash algorithms must therefore be sufficiently complex that it is not possible to determine what changes need to be made to a message to create a specific hash result, and the length of the hash value (i.e., number of bits) must be sufficiently large to make brute-force attacks computationally infeasible.
+
+According to RSA Security, there are five basic requirements for a cryptographic hash function:
+* The input can be of any length.
+* The output has a fixed length.
+* The hash function is relatively easy to compute for any input.
+* The hash function is one-way (meaning that it is extremely hard to determine the input when provided with the output). One-way functions and their usefulness in cryptography are described in Chapter 6.
+* The hash function is collision resistant (meaning that it is extremely hard to find two messages that produce the same hash value).
+
+#### SHA
+
+The Secure Hash Algorithm (SHA) and its successors, SHA-1, SHA-2, and SHA-3, are government standard hash functions promoted by the National Institute of Standards and Technology (NIST) and are specified in an official government publication - the Secure Hash Standard (SHS), also known as Federal Information Processing Standard (FIPS) 180.
+
+SHA-1 takes an input of virtually any length (in reality, there is an upper bound of approximately 2,097,152 terabytes on the algorithm) and produces a 160-bit message digest.
+The SHA-1 algorithm processes a message in 512-bit blocks. Therefore, if the message length is not a multiple of 512, the SHA algorithm pads the message with additional data until the length reaches the next highest multiple of 512.
+
+Cryptanalytic attacks demonstrated that there are weaknesses in the SHA-1 algorithm, and therefore, NIST deprecated SHA-1 and no longer recommends its use for any purpose, including digital signatures and digital certificates.
+Web browsers dropped support for SHA-1 in 2017.
+
+As a replacement, NIST announced the SHA-2 standard, which has four major variants:
+* SHA-256 produces a 256-bit message digest using a 512-bit block size.
+* SHA-224 uses a truncated version of the SHA-256 hash that drops 32 bits to produce a 224-bit message digest using a 512-bit block size.
+* SHA-512 produces a 512-bit message digest using a 1,024-bit block size.
+* SHA-384 uses a truncated version of the SHA-512 hash that drops 128 bits to produce a 384-bit digest using a 1,024-bit block size.
+
+The cryptographic community generally considers the SHA-2 algorithms secure, but they theoretically suffer from the same weakness as the SHA-1 algorithm.
+In 2015, the federal government announced the release of the Keccak algorithm as the SHA-3 standard.
+The SHA-3 suite was developed to serve as drop-in replacement for the SHA-2 hash functions, offering the same variants and hash lengths using a different computational algorithm.
+SHA-3 provides the same level of security as SHA-2, but it is slower than SHA-2, so SHA-3 is not commonly used outside of some specialized cases where the algorithm is efficiently implemented in hardware.
+
+#### MD5
+
+The Message Digest 2 (MD2) hash algorithm was developed by Ronald Rivest (the same Rivest of Rivest, Shamir, and Adleman fame) in 1989 to provide a secure hash function for 8-bit processors.
+In 1990, Rivest enhanced his message digest algorithm to support 32-bit processors and increase the level of security with a version called MD4.
+
+In 1991, Rivest released the next version of his message digest algorithm, which he called MD5. It also processes 512-bit blocks of the message, but it uses four distinct rounds of computation to produce a digest of the same length as the MD2 and MD4 algorithms (128 bits).
+MD5 has the same padding requirements as MD4 - the message length must be 64 bits less than a multiple of 512 bits.
+
+MD5 implements additional security features that reduce the speed of message digest production significantly. Unfortunately, cryptanalytic attacks demonstrated that the MD5 protocol is subject to collisions, preventing its use for ensuring message integrity.
+Specifically, Arjen Lenstra and others demonstrated in 2005 that it is possible to create two digital certificates from different public keys that have the same MD5 hash.
+
+Some tools and systems still rely on MD5, so you may see it in use today, but it is now far better to rely on more secure hashing algorithms, such as SHA-2.
+
+#### RIPEMD
+
+The RIPE Message Digest (RIPEMD) series of hash functions is an alternative to the SHA family that is used in some applications, such as Bitcoin cryptocurrency implementations.
+
+The family contains a series of increasingly sophisticated functions:
+* RIPEMD produced a 128-bit digest and contained some structural flaws that rendered it insecure.
+* RIPEMD-128 replaced RIPEMD, also producing a 128-bit digest, but it is also no longer considered secure.
+* RIPEMD-160 is the replacement for RIPEMD-128 that remains secure today and is the most commonly used of the RIPEMD variants. It produces a 160-bit hash value.
+
+#### Comparison of Hash Algorithm Value Lengths
+
+| Name              | Hash value length                         |
+|-------------------|-------------------------------------------|
+| HAVAL             | 128, 160, 192, 224, and 256 bits          |
+| HMAC              | Variable                                  |
+| MD5               | 128                                       |
+| SHA-1             | 160                                       |
+| SHA2-224/SHA3-224 | 224                                       |
+| SHA2-256/SHA3-256 | 256                                       |
+| SHA2-384/SHA3-384 | 384                                       |
+| SHA2-512/SHA3-512 | 512                                       |
+| RIPEMD-128        | 128                                       |
+| RIPEMD-160        | 160                                       |
+| RIPEMD-256        | 256 (but with equivalent security to 128) |
+| RIPEMD-320        | 320 (but with equivalent security to 160) |
+
+## UNDERSTAND METHODS OF CRYPTANALYTIC ATTACKS
+
+### Brute Force
+
+In a brute-force attack, the attacker tries all possible key values until they find the one that works.
+In the case of a symmetric cipher, this means the attacker tries all possible keys until they have decrypted the ciphertext into something that matches the known plaintext.
+In many cases, full knowledge of the plaintext is not needed.
+If one knows the general format of the message or the language of the message, one can check the output of the decryption against certain heuristics to determine if the output is likely to be the original plaintext (i.e., reading the output to see if it makes sense).
+
+Obviously, the primary defense against brute-force attacks on symmetric ciphers is key length, which is why the minimum key length for AES is 128 bits.
+
+In the case of cryptographically secure hashes (such as are used for securing passwords), the attack scenario assumes one has a dump of the system’s password file containing all the passwords encrypted using a secure hash.
+The attacker then tries to compare the password hashes with guesses to see which passwords can be determined.
+
+There are two defenses against such attacks, neither of which was used by LinkedIn at the time:
+* Hashing complexity
+* Salting
+
+When it comes to password hashing, slower is better . . . much better.
+One of the currently recommended algorithms is the Password-Based Key Derivation Function 2 (PBKDF2) - using the same eight-GPU engine, one can generate only 10,000 hashes per second (i.e., roughly 7 million times slower).
+
+The counterattack to slow hashing is a precomputed database of hashes.
+The attacker takes a dictionary of common passwords (hundreds of millions of passwords from past breaches are freely available online) and every possible password up to, say, eight characters, and runs it through the hashing algorithm in advance.
+When coming into possession of a breached password file, there is no need to lumber through 10,000 hashes per second; if the password hashes are already known, all that is needed is just to look up each hash.
+
+If the storage space it would take to store these hashes is too large, to compress the hashes at the cost of slightly longer lookup times, the technique called rainbow tables can be used.
+
+The defense against stored dictionary or rainbow table attacks is to combine the password with a unique large random number (called the salt) and then store the combined hash of the password and salt.
+In this manner, one would have to precompute 2<sup>n</sup> rainbow tables (if the salt has n bits), so the attack is not feasible.
+
+So, the password file contains two fields (in addition to the user’s login name and other metadata):
+* The salt
+* The output of HASH (salt + password)
+
+To be secure, the salt must be the following:
+* Long (at least 16 bytes, and preferably 32 or 64 bytes)
+* Random (i.e., the output of a cryptographically secure pseudo-random number generator)
+* Unique (calculate a new salt for every user’s password, and a new salt every time the password is changed)
+  
+Some go one step further and encrypt the hash using a symmetric cipher, but this is considered to be unnecessary and adds little additional security.
+In keeping with the nomenclature used in password cryptography, this step is called **pepper**.
+
+### Ciphertext Only
+
+In this situation, an attacker only has access to the encrypted traffic (ciphertext).
+In many cases, some information about the plaintext can be guessed (such as the language of the message, which can lead to knowledge of the character probability distribution or the format of the message, which can give clues to parts of the plaintext).
+
+WEP, the original security algorithm for WiFi, is vulnerable to a number of ciphertext-only attacks.
+By capturing a sufficient number of packets (which typically can be gathered within minutes on a busy network), it is possible to derive the key used in the RC4 stream cipher.
+
+### Known Plaintext
+
+In this situation, the attacker knows some or all of the plaintext of one or more messages (as well as the ciphertext).
+This frequently happens when parts of the message tend to be fixed (such as protocol headers or other relatively invariant parts of the messages being communicated).
+
+An example of a known-plaintext attack is the famous German Enigma cipher machine, which was cracked in large part by relying upon known plaintexts.
+Many messages contained the same word in the same place, or contained the same text (e.g., “Nothing to report”), making deciphering the messages possible.
+
+### Chosen Plaintext Attack
+
+In this situation, the attacker is able to submit any plaintext the attacker chooses and obtain the corresponding ciphertext.
+
+The classic example of a chosen-plaintext attack occurred during WWII when the U.S. intercepted messages indicating the Japanese were planning an attack on a location known as “AF” in code.
+The United States suspected this might be Midway Island, and to confirm their hypothesis, they arranged for a plaintext message to be sent from Midway Island indicating that the island’s water purification plant had broken down.
+When the Japanese intercepted the message and then transmitted a coded message referring to “AF,” the United States had the confirmation it needed.
+
+### Frequency Analysis
+
+In cryptanalysis, frequency analysis is the study of the frequency of characters (letters, numbers, or groups of either) in ciphertext.
+This attack works best against rudimentary cryptographic approaches such as substitution ciphers that map each character in a given set (e.g., alphabet) to another character (for example, a = z, b = y, and so on).
+By understanding the typical distribution of characters in a given language, frequency analysis can help a cryptanalyst deduce plaintext equivalents of commonly occurring ciphertext characters.
+Most modern cryptographic algorithms are not susceptible to frequency analysis.
+
+### Chosen Ciphertext
+
+In this situation, the attacker is able to submit any ciphertext and obtain the corresponding plaintext.
+
+An example of this was the attack on SSL 3.0 developed by Bleichenbacher of Bell Labs, which could obtain the RSA private key of a website after trying between 300,000 and 2 million chosen ciphertexts.
+
+### Implementation Attacks
+
+Implementation attack is a broad term used to describe any attack that exploits implementation weaknesses, such as in software, hardware, or the encryption algorithm itself.
+
+### Side-Channel Attacks
+
+Side-channel attacks involve measuring artifacts of the cryptographic process to deduce information to assist with compromising encrypted information. These artifacts can include the following:
+* Timing
+* Cache access
+* Power consumption
+* Electromagnetic emanations
+* Error information
+
+The time taken to encrypt or decrypt a block of data can vary depending on the key or plaintext, and a careful analysis of the time taken to encrypt or decrypt the data can reveal information.
+The time to perform a cryptographic operation can vary for a number of reasons:
+* Conditional branches within the code, which can change the time of execution depending on the branches taken, which in turn depend on the value of the key or plaintext
+* CPU instructions that take variable time to complete depending on the operands (e.g., multiplication and division)
+* Memory access, which can vary depending on where the data is located (type of memory) or the access history (thus affecting the cache and thus the speed of memory access)
+
+Cache attacks typically involve processes running on different virtual machines on the same physical processor.
+As the VM performing the encryption is time sliced with the VM running the attacker’s processes, the attacker can probe the processor’s cache to deduce information about the plaintext and the key, and thus compromise the encryption process.
+
+The power consumed by the device performing the cryptographic operation may vary depending on the instructions executed, which in turn depend on the key and data being encrypted.
+By carefully monitoring the power consumed by the device, it can sometimes be possible to extract information about the key or plaintext.
+This type of attack has been most successfully demonstrated against smartcards because of the relative ease with which the device’s power consumption can be monitored, but the attack mechanism has wide applicability.
+
+All electronic systems emit electromagnetic radiation, and it is possible to capture this, sometimes at some distance from the device.
+These radio signals can sometimes be analyzed to reveal information about the data being processed by the device.
+Early examples of this type of attack involved analyzing the emanations of cryptographic devices that printed the decrypted message on teletypewriters to determine which characters were being printed.
+
+Countermeasures exist, but in some cases, they can be very difficult to implement or can exact a considerable performance penalty.
+In the case of timing attacks, it is necessary to modify the algorithm so that it is isochronous, which is to say it runs in constant time regardless of the key and data being processed.
+
+Error information provided (or leaked) by decryption software can provide useful information for attackers.
+In the Padding Oracle Attack, a system that can be sent any number of test messages, and which generates a distinctive error for encrypted messages that are not properly padded, can be used to decrypt messages without knowing the key.
+The defense is to report generic errors and not to distinguish between padding errors and other errors.
+
+### Fault Injection
+
+Fault injection attacks are side-channel attacks that involve deliberately injecting faulty or erroneous inputs and observing the errors and outputs. See the “Side-Channel Attacks” section for more detail.
+
+### Timing Attacks
+
+A timing attack is a side-channel attack that involves the attacker attempting to compromise a cryptosystem by monitoring the time taken to execute algorithmic functions. See the “Side-Channel Attacks” section for more detail.
+
+### Man-in-the-Middle
+
+An MITM attack requires that the attacker be able to intercept and relay messages between two parties.
+
+To defend against such attacks, Alice needs to have confidence that the message containing Bob’s key actually originated from Bob (and not the MITM attacker, Michelle).
+In the case of encrypted HTTPS web traffic, this is done by relying upon public key certificates attested to by a CA (as described earlier in the “Public Key Infrastructure” section). But if the CA is compromised, the attacker can circumvent the identity authentication protections of HTTPS.
+
+### Pass the Hash
+
+Pass the hash is an attack that occurs when an attacker obtains a password hash and passes it through for authentication.
+With this type of attack, the attacker does not need to decrypt the hash or otherwise obtain the plaintext password.
+This type of attack targets the authentication protocol, as opposed to the hash or any other cryptographic elements.
+
+A least privilege security model can help limit the likelihood and impact of a potential pass-the-hash attack by reducing an attacker’s ability to gain and use elevated privileges.
+Password management processes and tools that rotate passwords (preferably automatically) can also help fight against this attack.
+
+### Kerberos Exploitation
+
+Kerberos is a network authentication protocol that uses symmetric-key encryption to provide strong authentication for client/server environments.
+The protocol operates on the basis of tickets that allow nodes (systems) on a network to prove their identity to one another.
+
+As with any widely used protocols, hackers have sought and found ways to compromise Kerberos.
+Most of successful Kerberos exploits take advantage of system vulnerabilities (such as using weak algorithms), malware, or weak passwords.
+A common exploit, called pass the ticket, is the process of an attacker forging a ticket and passing it along to authenticate to a resource.
+
+Multifactor authentication should be used to defeat phishing attacks and password weaknesses in Kerberos implementations.
+Logging and monitoring of your Active Directory domains should also be enabled to detect access to resources without proper authentication (e.g., via pass the ticket).
+
+### Ransomware
+
+Ransomware is malicious software that infects a system, encrypts the victim’s files, and renders them unavailable until a ransom is paid.
+In a typical ransomware attack, the victim is given instructions on how to pay a fee to get the decryption key required to recover their data.
+Attackers will often request payment in Bitcoin, due to its anonymity.
+
+Protection against ransomware is similar to best practices for protecting your systems against any type of malware.
+Keep your operating systems and applications patched and up-to-date, limit use of administrative privileges (i.e., least privilege), and use trusted antimalware software with updated signatures, among the other system hardening best practices.
+
+Aside from maintaining overall good security hygiene, backing up your data frequently is the best way to recover from a ransomware attack - without paying the fee!
+With routine backups stored securely, you will be able to revert to a known good state, should you be faced with such an attack.
+
+
+## APPLY SECURITY PRINCIPLES TO SITE AND FACILITY DESIGN
+
+The general security principles outlined earlier for information security also have application to site and facility design.
+The CIA Triad and supporting security principles apply here and guide our application of security principles to this challenge:
+* **Confidentiality and Integrity:** The primary physical threat to confidentiality and integrity is unauthorized access (e.g., intruders and theft).
+* **Availability:** In addition to the threat to availability from unauthorized access, availability can also be compromised intentionally or accidentally by a range of events:
+  * Environmental events such as fire, floods, storms, or earthquakes
+  * Infrastructure events such as power outages, cooling (HVAC) failure, floods (from burst water pipes)
+
+
+## DESIGN SITE AND FACILITY SECURITY CONTROLS
+
+### Wiring Closets/Intermediate Distribution Facilities
+
+The vulnerabilities related to networking distribution differ slightly between a data center and an office.
+
+In a data center owned and managed for a single company (or cloud-hosting provider), usually the network distribution will be within the same perimeter as the servers themselves, so the physical and environmental security controls will apply to both.
+
+In a colocation facility, different clients will have access to different areas of the facility (to access the equipment owned by or assigned to them for their exclusive use).
+In this situation, the wiring closets are managed by the hosting provider and must not be accessible to clients, as it would permit even authorized clients to access or affect service to other clients.
+
+In an office, intermediate distribution facilities need to be protected from both malicious outsiders and insider threats, not to mention environmental risks.
+
+Not all insider threats are malicious - well-meaning staff trying to troubleshoot a networking problem can wreak havoc in a wiring closet.
+
+Too often, network switches and other pieces of intermediate distribution equipment are placed in any convenient out-of-the-way location, sharing space with other building infrastructure (e.g., electrical, plumbing, heating, or ventilation).
+When this is being contemplated, consider the additional risks from environmental impacts (flooding, overheating, or electromagnetic interference from electrical equipment).
+A small wiring closet full of network switches with poor (or no) ventilation can overheat, at a minimum shortening the life of your equipment, causing random resets, errors, and even total failure in the worst case.
+
+Wiring closets can also be at risk from threats such as burst or leaking pipes that pass through or near the space or overflowing washrooms on the floors above.
+Again, if the obvious solution (moving the location of the wiring closet) is not an option, one must consider compensating controls - in this case a shield over the top of the equipment to deflect any falling water, and a rack (to keep all equipment and wiring sufficiently high off the floor) to prevent any pooling of water from affecting the equipment.
+
+One must consider not just network infrastructure that you install for your internal purposes, but also cabling for other services (telephone, alarm, electronic door locks, etc.) that may transit spaces outside of your control.
+How useful are your electronic door locks if the cables powering them are in the suspended ceiling in the hallway outside your office?
+What good is your alarm going to be if the signal is carried on telephone wires that can be found behind an unlocked panel in the public hallway and easily tampered with?
+
+
+### Server Rooms/Data Centers
+
+Just as with office space, the physical security of your data center can span a wide range of controls. You need to determine the risks in order to ensure you secure, but do not over-secure, your data center.
+
+Security controls need to be selected to address the following:
+* Physical access risks (see the “Apply Security Principles to Site and Facility Design” section)
+* HVAC (see the “Utilities and Heating, Ventilation, and Air Conditioning” section)
+* Environmental risks (see the “Environmental Issues” section)
+* Fire risks (see the “Fire Prevention, Detection, and Suppression” section)
+
+It is not enough to design and build your server room or data center properly, one must also have the proper procedures in place to ensure the data center continues to operate properly and securely.
+These controls should cover, at a minimum, the following:
+* Personnel (e.g., background checks, training, or access procedures)
+* Maintenance
+* Logging, monitoring, and alerting
+* Control testing and auditing
+
+The art and science of data center design is well understood. Anyone charged with the responsibility of working on such a project (or selecting a vendor to provide hosting or colocation) ought to review the guidance available from organizations such as the following:
+* American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE)
+* ANSI / BICSI: ANSI/BICSI 002-2014, Data Center Design and Implementation Best Practices
+* Electronic Industries Association and Telecommunications Industries Association (EIA/TIA): ANSI/TIA-942, Telecommunications Infrastructure Standard for Data Centers
+* European Union (EU): EN 50600 series of standards
+* International Organization for Standardization (ISO): ISO/IEC 30134 series, “Information technology – Data centres – Key performance indicators”
+* Uptime Institute: Tier Standards
+
+### Media Storage Facilities
+
+In addition to the usual threats to confidentiality, integrity, and availability faced by any facility containing information technology equipment, media storage facilities must implement additional environmental controls to ensure that the stored media do not degrade over time (or at least degrade as slowly as can reasonably be provided for).
+
+The specific controls will depend on the media being stored, the manufacturer’s recommendations, and the specific threats anticipated, but typically they will include the following:
+* Controlled and stable temperature and humidity
+* Air filtration and positive air pressure to minimize infiltration by airborne dust and microfine particulate matter or contaminants (such as corrosive fumes and engine exhaust from diesel generators or nearby vehicles)
+* Appropriate floor covering to minimize static electricity
+* Careful siting of the media storage facilities to avoid magnetic fields that might arise from electrical equipment (e.g., transformers or motors)
+
+Other considerations with respect to media storage include the following:
+* If the environment of the media storage facility is different (in temperature or humidity) than the production environment in which the tape will be read, then time must be allowed for the tape to acclimate to the different environment before being processed.
+* Some tape media needs to be “retensioned” (i.e., unspooled and respooled), depending on the tape manufacturer’s recommendations (e.g., every three years).
+* For longer archival storage, it is advisable to read the data from the stored media and rerecord on new media. Again, the tape manufacturer’s recommendations ought to be followed with respect to the appropriate frequency (e.g., every six years).
+* Appropriate procedures are necessary for the tracking of media that are placed in, and removed from, storage. This may include bar code scanning and separation-of-duties controls requiring two people to sign in and sign out media items.
+* Fire detection and suppression systems may need to be installed.
+* Proper housekeeping is required to reduce the possibility of fire and to reduce the fuel available should a fire break out.
+On a related note, media storage facilities ought to be used only to store media and should not be shared with other general storage.
+* Depending on the risk analysis and costs associated with managing on-premises media storage, it may be appropriate to retain the services of an off-site media storage service that will handle the physical security and environmental concerns related to secure long-term storage of media.
+This can be used for all media, or a portion, in order to provide disaster recovery should the primary media storage facility be damaged by fire or other calamity.
+* Appropriate media end-of-life procedures must be enforced to sanitize (e.g., by degaussing magnetic media) and securely destroy media before disposal so that sensitive information cannot be extracted from the media once it leaves the control of the organization.
+
+### Evidence Storage
+
+In addition to the security controls appropriate for other facilities (including media storage, should you be storing evidence in the form of magnetic media), evidence storage requires attention to physical controls that can assist in protecting the chain of custody necessary to prove that evidence used in court has not been tampered with or contaminated.
+
+These controls include, at a minimum, a logbook that indelibly records every item that has been placed in, or removed from, evidence storage.
+Additional controls that can increase the confidence in the chain-of-custody log with respect to the evidence storage room include the following:
+* Strict policies surrounding who is permitted access to the evidence storage room, the information that is to be entered into the log, and procedures governing the management of the access keys to the evidence storage room
+* Video monitoring
+* Double locks on the evidence storage room doors, or a locked storage cabinet inside the locked evidence storage room, with separation of duties surrounding the control of the keys, so that two people are required to access the evidence storage
+
+### Restricted and Work Area Security
+
+Work area security must be designed in response to a risk assessment (including threat modeling) and in accordance with security principles and the appropriate controls to mitigate risk.
+The considerations to be addressed include least privilege, need-to-know, separation of duties, dual control, defense in depth, and compliance obligations.
+This is especially important in the context of implementing facility security controls. No other facet of site security controls more directly affects the people of an organization.
+
+#### Least Privilege and Need-to-Know
+
+Access to restricted and secure areas must be granted only to the extent necessary for individuals to carry out their responsibilities, in accordance with formally approved policies and procedures.
+Access also must be periodically reviewed to ensure that the justification
+for access has not changed. Furthermore, detailed auditable records attesting to the
+previous must be maintained.
+
+#### Separation of Duties and/or Dual Control
+
+Depending on the risk assessment, it may be appropriate to require more than one
+authenticated staff member to be present in order to obtain access to the secure work
+area. This can be an administrative control, verified through guard records or video sur
+
+#### Defense in Depth
+
+The facility ought to be designed with layers of security controls supporting a hierarchy of security levels, from public on the exterior of the building (and possibly including common entrance areas), to low security areas such as reception, all the way to the highest security zones where the most sensitive or high-risk assets or work are located.
+
+Passing from an area of lower security to an area of higher security ought to be obvious to the knowledgeable insider and must require successfully authenticating with an access control system (be it a receptionist/guard, door lock, card reader, biometric scanner, or other device for identifying the individual transitioning the security boundary).
+The appropriate rigor and tolerable rate of false positives depend on the security level of the area being protected.
+
+Furthermore, different types of security controls ought to be considered for the higher security zones.
+For example, in addition to preventive controls such as door locks, detective controls such as video monitoring and corrective controls such as motion detectors and alarms can be used as compensating controls should the primary preventive control (e.g., the door lock) fail or be compromised.
+
+Multifactor authentication techniques are as valuable for physical access as for logical (e.g., login) access.
+Requiring a user to have an access card as well as enter a personal identification number (PIN) to unlock the door to higher security zones protects against loss of the access card and its use by an impostor.
+Requiring the card (and not the PIN alone) protects against shoulder-surfing by a threat actor observing staff enter their PINs.
+
+#### Compliance Obligations
+
+Organizations handling government or military classified data will have to institute such security controls as required to meet the obligations of their facility security clearance.
+The organization responsible for certifying compliance will provide detailed documentation on the controls that are necessary for the level of security clearance being sought, including requirements for the following:
+* Personnel identification
+* Guards
+* Electronic access control
+* Electronic intrusion detection
+* Video monitoring
+* Interior access controls
+
+One solution for having confidential discussions is the Sensitive Compartmented Information Facility (SCIF). SCIF is a common term among U.S. and British military and governmental agencies with a need for isolated space to preserve confidentiality.
+Typically, at least a room, if not a secured, hardened building, the SCIF can be temporary or permanent.
+If you watch any movie where the military leaders are briefing the president on an important and sensitive situation, they are in a SCIF.
+
+### Utilities and Heating, Ventilation, and Air Conditioning
+
+Utilities (such as power) and HVAC are equally important to the reliable operation of your data center.
+It matters little if you can maintain power to your server racks if your cooling system fails and the room temperature passes 105° F (40° C).
+As with all aspects of data center design, you start with a risk assessment and then consider the relevant controls that can be used to reduce the risk to an acceptable level.
+You also need to balance building a single particularly resilient data center versus two geographically separated, less resilient data centers.
+
+There are many types of UPS systems that vary in their design and features. Battery UPS systems can differ in a number of important aspects:
+* Load: The capacity of the unit to deliver a specified level of continuous power
+* Capacity: The time during which the unit can maintain the load
+* Filtering: The ability of the unit to isolate the equipment from noise, surges, and other problems with the utility power
+* Reliability: Some designs trade low cost for reliability
+
+Nonbattery UPS systems exist that use large-mass rotating flywheels connected to provide short-term backup.
+These are appropriate for larger loads (> 200KW) and can provide higher reliability and lower lifetime costs than comparable battery UPS systems.
+
+Typically, a UPS is intended only to carry the load during short outages, and for the short time it takes for a backup generator to start and be able to take the full load.
+So, most data centers or server rooms will need a generator to handle the load, should the power interruption last longer than that which the UPS can handle.
+
+Generators are available in a wide range of capacities and use different fuels (gasoline, diesel, natural gas, and hydrogen).
+The advantage of natural gas is the elimination of the need to store fuel. The risk is that certain natural disasters can cause both power and gas distribution outages.
+
+Ideally, power is consistently clean without any fluctuations, but in reality, commercial power suffers from a wide assortment of problems.
+Here is a list of terms associated with power issues you should know:
+* Fault: A momentary loss of power
+* Blackout: A complete loss of power
+* Sag: Momentary low voltage
+* Brownout: Prolonged low voltage
+* Spike: Momentary high voltage
+* Surge: Prolonged high voltage
+* Inrush: An initial surge of power usually associated with connecting to a power source, whether primary or alternate/secondary
+* Ground: The wire in an electrical circuit that provides an alternate pathway for electricity to flow to the earth (i.e., the ground)
+
+Cooling systems must be designed so that there are multiple units with sufficient capacity so that the data center not only can be maintained below the maximum safe operating temperature even in the face of the failure (or maintenance) of one or more units, but also the maximum rate of temperature change is kept within permitted limits (for example, less than 5°C/hour if magnetic tapes are being used, 20°C/hour otherwise), even if a unit is taken out of service for maintenance.
+
+Finally, humidity also needs to be managed. Low humidity leads to increased static electricity, and high humidity can lead to condensation. Both conditions will lead to lower equipment reliability.
+
+With both power (UPS and generator) and HVAC systems, due consideration has to be made for the following:
+* Regularly scheduled maintenance
+* Regular testing under full load (of UPS and generators, and backup HVAC equipment if not used in production)
+* System fault detection and alerting (and regular tests of those subsystems)
+* Periodic checks and audits to ensure all of the above are being properly and regularly performed
+
+A variety of industry, national, and international standards cover HVAC, utilities, and environmental systems.
+* The Uptime Institute’s Data Center design certification tiers assess areas including facility mechanical and electrical systems, as well as environmental and design considerations. Specifications for the tiers can be found at uptimeinstitute.com/resources/.
+* The International Data Center Authority (IDC) provides open standards for data centers, facilities, and infrastructure at www.idc-a.org/data-center-standards.
+* The ASHRAE standards for ventilation, refrigeration, building automation, and a variety of other related topics can be found at www.ashrae.org/technical-resources/standards-and-guidelines.
+
+### Environmental Issues
+
+Environmental issues that need to be considered include the likelihood of the following:
+* Major storms (hurricanes, lightning, blizzards, ice storms, typhoons, tornadoes, blizzards, etc.)
+* Earthquakes
+* Floods and tsunamis
+* Forest fires
+* Internal building risks
+* Vermin and wildlife
+* Volcanoes
+
+### Fire Prevention, Detection, and Suppression
+
+There are a range of fire suppression technologies that can be deployed to protect technology infrastructure, facilities, and people.
+The process, as with selecting any set of security controls, is to perform a risk assessment to determine the appropriate mitigation strategy.
+
+As always, human safety is paramount, and any fire safety system must be designed first and foremost to protect the lives and health of those who work in the facility.
+Enabling occupants to safely exit the building and ensuring that fire suppression systems are unlikely to compromise health or safety are more important than protecting systems and buildings.
+
+Next, one has to balance the costs of the following:
+* Downtime
+* Restoration costs
+* Fire suppression system costs (capital and ongoing maintenance)
+
+Fire needs three things to start: heat, fuel, and oxygen (more generally, an oxidizing agent).
+Fire prevention and suppression involves reducing one or more of these three elements such that fire cannot start or be sustained.
+A more complete model adds the chemical reaction between the fuel and the oxidizing agent, creating the fire “tetrahedron.”
+This model is useful in that some fire suppression systems block the chemical reaction itself rather than reducing one of the three components necessary for that reaction.
+
+Most jurisdictions have standards and guidelines for the fire protection systems for IT equipment:
+* Canada and the United States: NFPA 75, “Standard for the Fire Protection of Information Technology Equipment,” and NFPA 76, “Fire Protection of Telecommunications Facilities.”
+* UK: BS 6266:2011, “Fire protection for electronic equipment installations.” Code of practice.
+* Germany: The VdS series of guidelines for fire protection and suppression.
+
+#### Wet-Pipe Water Sprinkler Systems
+
+The simplest and most widely used system is the wet-pipe water sprinkler system.
+These systems have water in the pipes at all times, and the sprinkler heads each have valves held closed either by a heat-sensitive glass bulb or a metal link, both designed to release the water at a specific temperature.
+The advantages of wet-pipe systems include low installation and maintenance costs and relatively high reliability.
+These systems also only release water through those sprinkler heads closest to the fire, thus limiting water damage.
+The risk from wet-pipe water sprinklers is the damage that occurs due to accidental release from faulty sprinkler heads or physical damage (hitting a sprinkler head with a rack or ladder while working in the facility).
+
+#### Dry-Pipe Water Sprinkler Systems
+
+Dry-pipe systems have, as the name implies, no water in the supply pipes until a sprinkler head is triggered by fire.
+These are used in warehouses and parking garages exposed to freezing temperature and are not relevant to data centers or most office buildings.
+The advantage is that the pipes do not contain water, which can freeze and damage the pipes.
+The disadvantages are increased corrosion and a delay in response time, as the air must be forced out of the sprinkler heads before the water reaches the fire.
+
+#### Deluge Sprinkler Systems
+
+Another specialized sprinkler system not usually deployed in data centers or office buildings is the deluge sprinkler.
+This is a variant of the dry-pipe sprinkler but with open sprinkler heads.
+Once a fire is detected (using a smoke, heat, or manual alarm), a valve opens to let water into the supply pipes and through all sprinkler heads (without regard to the specific location of the fire).
+These systems are appropriate in certain industrial situations in which a large volume of water is required to prevent the spread of the fire.
+
+#### Pre-Action Sprinkler Systems
+
+Pre-action systems are a combination of one of the previous three types of sprinkler systems (wet-pipe, dry-pipe, or deluge) with a more sophisticated triggering mechanism.
+A single-interlock pre-action system is a dry-pipe system with pressurized gas in the pipes, in which the activation of a smoke or heat detector causes water to be released into the supply pipes, essentially converting the dry-pipe system to a wet-pipe system.
+The water, however, is released only if the sprinkler head is triggered.
+
+This system sharply reduces the chance of an accidental release of water because should a sprinkler head trigger accidentally, the system will detect a drop in air pressure and set off a trouble alarm but not release any water.
+A double-interlock pre-action system requires both the activation of a smoke or heat detector and the activation of sprinkler heads before water is released into the supply pipes.
+This can be an advantage in refrigerated spaces but delays the release of water in the case of an actual fire event.
+
+#### Limitations of Sprinkler Systems
+
+Proper design of any sprinkler system requires professional advice and continued vigilance to ensure that later developments (such as the addition of suspended cable trays) do not impair the effectiveness of the system.
+A limitation of sprinklers is that they do not work well in the confined space of a raised floor or suspended ceiling. These require either water mist or clean agent fire suppression systems.
+
+#### Water Mist Sprinkler Systems
+
+An alternative to standard sprinkler heads that can discharge high quantities of water per minute are water mist sprinklers, which release a much smaller amount of water in the form of microscopic water droplets.
+These extinguish the fire both through removing heat (as a standard sprinkler does) as well as by displacing oxygen when the mist is converted to steam.
+
+#### Clean Agent Fire Suppression Systems
+
+In situations in which the impact of water damage would be significant, various “clean agent” extinguishants can be used.
+These have the advantage of causing little or no damage to the equipment being protected. The disadvantage is their much higher installation and ongoing maintenance costs.
+
+The original clean agents included carbon dioxide and halon. Carbon dioxide works primarily by displacing oxygen and additionally by removing heat.
+Unfortunately, it can cause asphyxiation in concentrations well below that required for fire suppression and so requires pre-discharge alarms to ensure the space about to be flooded with CO<sub>2</sub> is evacuated prior to discharge.
+Halon gas works by interfering with the chemical reaction (the fourth part of the “fire tetrahedron”) and has the advantage of being nontoxic at concentrations well above those needed.
+This resulted in its widespread use in data centers and other facilities for several decades where sprinklers might cause more damage than a contained fire.
+
+Halon, however, is very damaging. In Canada, the Montreal Protocol in 1994 phased out its use.
+
+Newer clean agents that are ozone-friendly have been developed, each with specific advantages.
+These include HFC-227ea, fluorinated ketone, and various gas mixtures (e.g., argon, nitrogen, and carbon dioxide).
+These newer clean agents are more environmentally friendly and less toxic than earlier alternatives.
+
+#### Physically Separating Critical Facilities
+
+Just as network segmentation can limit the damage of a security breach in one part of the network, physically separating critical communications facilities in a separate room with a two-hour fire wall (literally) from less critical data processing facilities can also limit the damage by preventing a fire (and the water from the fire suppression system) in one area from affecting equipment in another.
+
+Similarly, backup media that must be stored onsite can be stored in a separate room or in a fireproof storage vault.
+
+#### Fire Extinguishers
+
+Fire extinguishers are mandatory, but staff need to be trained in their purpose and proper use.
+While they may serve to put out very small fires caught in their early stages, they are primarily there to enable staff in the server room to reach an exit should fire block their path.
+
+Fires are categorized by the type of fuel:
+* Class A: Ordinary solid combustibles (e.g., paper, wood, and plastic)
+* Class B: Flammable liquids and gases (e.g., gasoline)
+* Class C: Energized electrical equipment
+* Class D: Combustible metals (e.g., lithium metal, but not lithium-ion batteries, which are considered Class B, although water will also work well with Li-ion battery fires)
+* Class F or K: Cooking oils and greases
+
+Fire extinguishers are rated based on the classes of fires they are designed to combat and the amount of extinguishant they contain.
+A fire extinguisher rated 5BC may be used on Class B or C fires. A 10BC extinguisher would have twice the capacity of a 5BC extinguisher.
+
+Use of the incorrect extinguisher not only can make the fire worse (e.g., using water on a gasoline fire can spread the fuel), it can be a grave safety hazard to the person using the extinguisher (e.g., using water on an electrical fire can result in a risk of electrocution).
+
+#### Training
+
+Training does not end with knowledge of how and when to use the fire extinguishers.
+All staff who will normally be present in the data center need to be properly trained and rehearsed on how to respond to a fire alarm or fire event.
+
+Make sure they know the following information:
+* Where all the exits are (so they know the closest, and if blocked, the alternates)
+* Where all the fire extinguishers are located as well as how and when to use them (different types of fire extinguishers are appropriate for different types of fires)
+* How to disable (or delay the discharge of) the fire suppression system should a false fire detection be suspected
+* How to manually trip the fire suppression system (in the case of gaseous suppression and some sprinkler systems) should early signs of fire be detected by staff before the fire detectors are triggered
+* Where the fire alarm pull stations or call points are
+* How to manually shut off power to the data center
+
+#### Good Housekeeping
+
+Finally, good housekeeping is an important part of fire suppression. The data center or server room must not be used for storage.
+Cardboard boxes of computer parts or wooden reels of Cat 5 cabling must be stored in a separate part of the facility.
+Wastepaper receptacles should be outside the facility or, if they must be inside the data center, small and frequently emptied.
+The less fuel there is available, the less likely there will be a fire, and if there is a fire, less damage will result.
