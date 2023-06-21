@@ -355,6 +355,73 @@ Many of the security principles mentioned earlier are types of defense in depth.
 Defense in depth is related to the concept of assumption of breach, which means managing security on the assumption that one or more security controls have already been compromised.
 The assumption of breach mindset shifts thinking from being simply focused on defending the perimeter (or perimeters) to a balanced approach of establishing multiple defenses so that the compromise of one control does not immediately lead to a successful breach and of considering detection and mitigation to be as important as prevention.
 
+### Techniques for Ensuring CIA
+
+#### Confinement
+
+Software designers use process confinement to restrict the actions of a program. Simply put, process confinement allows a process to read from and write to only certain memory locations and resources.
+This is also known as sandboxing. It is the application of the principle of least privilege to processes. The goal of confinement is to prevent data leakage to unauthorized programs, users, or systems.
+
+The operating system, or some other security component, disallows illegal read/write requests. If a process attempts to initiate an action beyond its granted authority, that action will be denied.
+In addition, further actions, such as logging the violation attempt, may be taken. Generally, the offending process is terminated.
+Confinement can be implemented in the operating system itself (such as through process isolation and memory protection), through the use of a confinement application or service (for example, Sandboxie at sandboxie. com), or through a virtualization or hypervisor solution (such as VMware or Oracle’s VirtualBox).
+
+#### Bounds
+
+Each process that runs on a system is assigned an authority level. The authority level tells the operating system what the process can do.
+
+In simple systems, there may be only two authority levels: user and kernel. The authority level tells the operating system how to set the bounds for a process.
+The bounds of a process consist of limits set on the memory addresses and resources it can access. The bounds state the area within which a process is confined or contained.
+
+In most systems, these bounds segment logical areas of memory for each process to use. It is the responsibility of the operating system to enforce these logical bounds and to disallow access to other processes.
+
+More secure systems may require physically bounded processes. Physical bounds require each bounded process to run in an area of memory that is physically separated from other bounded processes, not just logically bounded in the same memory space.
+Physically bounded memory can be very expensive, but it’s also more secure than logical bounds. Bounds can be a means to enforce confinement.
+
+#### Isolation
+
+When a process is confined through enforcing access bounds, that process runs in isolation.
+Process isolation ensures that any behavior will affect only the memory and resources associated with the isolated process.
+
+Isolation is used to protect the operating environment, the kernel of the operating system, and other independent applications.
+Isolation is an essential component of a stable operating system.
+Isolation is what prevents an application from accessing the memory or resources of another application, whether for good or ill.
+Isolation allows for a fail-soft environment so that separate processes can operate normally or fail/crash without interfering or affecting other processes.
+Isolation is achieved through the enforcement of containment using bounds.
+
+#### Summary of Confinement, Bounds, and Isolation
+
+These three concepts (confinement, bounds, and isolation) make designing secure programs and operating systems more difficult, but they also make it possible to implement more secure systems.
+
+Confinement is making sure that an active process can only access specific resources (such as memory).
+Bounds is the limitation of authorization assigned to a process to limit the resources the process can interact with and the types of interactions allowed.
+Isolation is the means by which confinement is implemented through the use of bounds.
+
+The goals of the concepts is the ensure that the predetermined scope of resource access is not violated and any failure or compromise of a process has minimal to no affect on any other process.
+
+#### Access Controls
+
+To ensure the security of a system, you need to allow subjects to access only authorized objects. Access controls limit the access of a subject to an object.
+Access rules state which objects are valid for each subject. Further, an object might be valid for one type of access and be invalid for another type of access.
+There are a wide range of options for access controls, such as discretionary, role-based, and mandatory.
+
+#### Trust and Assurance
+
+A **trusted system** is one in which all protection mechanisms work together to process sensitive data for many types of users while maintaining a stable and secure computing environment.
+In other words, trust is the presence of a security mechanism, function, or capability.
+
+**Assurance** is the degree of confidence in satisfaction of security needs.
+In other words, assurance is how reliable the security mechanisms are at providing security.
+
+Assurance must be continually maintained, updated, and reverified. This is true if the secured system experiences a known change (good or bad—i.e., a vendor patch or a malicious exploit) or if a significant amount of time has passed.
+In either case, change has occurred at some level. Change is often the antithesis of security; it often diminishes security.
+This is why change management, patch management, and configuration management are so important to security management.
+
+Assurance varies from one system to another and often must be established on individual systems.
+However, there are grades or levels of assurance that can be placed across numerous systems of the same type, systems that support the same services, or systems that are deployed in the same geographic location.
+Thus, trust can be built into a system by implementing specific security features, whereas assurance is an assessment of the reliability and usability of those security features in a real-world situation.
+
+
 ## UNDERSTAND THE FUNDAMENTAL CONCEPTS OF SECURITY MODELS
 
 A model is a hypothetical abstraction of a system, simplified to enable analysis of certain aspects of the system without the complexity and details of the entire system being analyzed.
@@ -676,6 +743,56 @@ In addition to the periodic review of the control selection, the following speci
 * A significant change to security governance, the risk management framework, or policies
 * A widespread social, economic, or political change (e.g., COVID-19)
 
+### Common Criteria
+
+The Common Criteria (CC) defines various levels of testing and confirmation of systems’ security capabilities, and the number of the level indicates what kind of testing and confirmation has been performed.
+Nevertheless, it’s wise to observe that even the highest CC ratings do not equate to a guarantee that such systems are completely secure or that they are entirely devoid of vulnerabilities or susceptibilities to exploit.
+
+The Common Criteria was designed as a dynamic subjective product evaluation model and replaced previous static systems, such as the U.S. Department of Defense’s Trusted Computer System Evaluation Criteria (TCSEC) and the EU’s Information Technology Security Evaluation Criteria (ITSEC).
+
+A document titled “Arrangement on the Recognition of Common Criteria Certificates in the Field of IT Security” was signed by representatives from government organizations in Canada, France, Germany, the United Kingdom, and the United States in 1998, making the document an international standard.
+Since then, 23 additional countries have signed the arrangement.
+The original arrangement documentation has been formally adopted as a standard and published as ISO/IEC 15408-1, -2, and -3 and primarily labeled as “Information technology — Security techniques — Evaluation criteria for IT security.”
+
+The objectives of the CC guidelines are as follows:
+* To add to buyers’ confidence in the security of evaluated, rated IT products
+* To eliminate duplicate evaluations (among other things, this means that if one country, agency, or validation organization follows the CC in rating specific systems and configurations, others elsewhere need not repeat this work)
+* To keep making security evaluations more cost-effective and efficient
+* To make sure evaluations of IT products adhere to high and consistent standards
+* To promote evaluation and increase availability of evaluated, rated IT products
+* To evaluate the functionality (in other words, what the system does) and assurance (in other words, how much can you trust the system) of the target of evaluation (TOE)
+
+The Common Criteria process is based on two key elements: protection profiles and security targets.
+
+Protection profiles (PPs) specify for a product that is to be evaluated (the TOE) the security requirements and protections, which are considered the security desires, or the “I want,” from a customer.
+
+Security targets (STs) specify the claims of security from the vendor that are built into a TOE. STs are considered the implemented security measures, or the “I will provide,” from the vendor.
+
+In addition to offering security targets, vendors may offer packages of additional security features.
+A package is an intermediate grouping of security requirement components that can be added to or removed from a TOE (like the option packages when purchasing a new vehicle).
+
+This system of the PP and ST allows for flexibility, subjectivity, and customization of an organization’s specific security functional and assurance requirements over time.
+
+An organization’s PP is compared to various STs from the selected vendor’s TOEs. The closest or best match is what the client purchases.
+The client initially selects a vendor based on published or marketed evaluation assurance levels (EALs) for currently available systems.
+
+Using Common Criteria to choose a vendor allows clients to request exactly what they need for security rather than having to use static fixed security levels.
+It also allows vendors more flexibility on what they design and create.
+
+A well-defined set of Common Criteria supports subjectivity and versatility, and it automatically adapts to changing technology and threat conditions.
+Furthermore, the EALs provide a method for comparing vendor systems that is more standardized (like the old TCSEC).
+
+| Level | Assurance level                              | Description                                                                                                                                                                                                                                                                                                                                                               |
+|-------|----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| EAL1  | Functionally tested                          | Applies when some confidence in correct operation is required but where threats to security are not serious. This is of value when independent assurance that due care has been exercised in protecting personal information is necessary.                                                                                                                                |
+| EAL2  | Structurally tested                          | Applies when delivery of design information and test results are in keeping with good commercial practices. This is of value when developers or users require low to moderate levels of independently assured security. It is especially relevant when evaluating legacy systems.                                                                                         |
+| EAL3  | Methodically tested and checked              | Applies when security engineering begins at the design stage and is carried through without substantial subsequent alteration. This is of value when developers or users require a moderate level of independently assured security, including thorough investigation of TOE and its development.                                                                         |
+| EAL4  | Methodically designed, tested, and reviewed  | Applies when rigorous, positive security engineering and good commercial development practices are used. This does not require substantial specialist knowledge, skills, or resources. It involves independent testing of all TOE security functions.                                                                                                                     |
+| EAL5  | Semi-formally designed and tested            | Uses rigorous security engineering and commercial development practices, including specialist security engineering techniques, for semi-formal testing. This applies when developers or users require a high level of independently assured security in a planned development approach, followed by rigorous development.                                                 |
+| EAL6  | Semi-formally verified, designed, and tested | Uses direct, rigorous security engineering techniques at all phases of design, development, and testing to produce a premium TOE. This applies when TOEs for high-risk situations are needed, where the value of protected assets justifies additional cost. Extensive testing reduces risks of penetration, probability of covert channels, and vulnerability to attack. |
+| EAL7  | Formally verified, designed, and tested      | Used only for highest-risk situations or where high-value assets are involved. This is limited to TOEs where tightly focused security functionality is subject to extensive formal analysis and testing.                                                                                                                                                                  |
+
+
 ## UNDERSTAND SECURITY CAPABILITIES OF INFORMATION SYSTEMS
 
 Some of the most foundational information system security (ISS) capabilities include the following:
@@ -790,6 +907,50 @@ In addition, HSMs are used by enterprise network backbones as part of encryption
 
 
 ## ASSESS AND MITIGATE THE VULNERABILITIES OF SECURITY ARCHITECTURES, DESIGNS, AND SOLUTION ELEMENTS
+
+
+### Protection Rings
+
+* **Ring 0:** OS Kernel/Memory (Resident Components)
+* **Ring 1:** Other OS Components
+* **Ring 2:** Drivers, Protocols, etc.
+* **Ring 3:** User-Level Programs and Applications
+
+* Rings 0–2 run in supervisory or privileged mode. 
+* Ring 3 runs in user mode.
+
+### Emanation Security
+
+Many electrical devices emanate electrical signals or radiation that can be intercepted and may contain confidential, sensitive, or private data.
+Obvious examples of emanation devices are wireless networking equipment and mobile phones, but many other devices are vulnerable to emanation interception that you might not expect, including monitors, network cables, modems, and internal or external media drives (hard drives, USB thumb drives, CDs, and so on).
+With the right equipment, adversaries can intercept electromagnetic or radio frequency signals (collectively known as emanations) from these devices and interpret them to extract confidential data.
+
+The types of countermeasures and safeguards used to protect against emanation attacks are known as TEMPEST countermeasures.
+TEMPEST was originally a government research study aimed at protecting electronic equipment from the electromagnetic pulse (EMP) emitted during nuclear explosions.
+It has since expanded to a general study of monitoring emanations and preventing their interception.
+
+Simply because of the kinds of electronic components from which they’re built, many computer hardware devices emit electromagnetic (EM) radiation during normal operation.
+The process of communicating with other machines or peripheral equipment creates emanations that can be intercepted. These emanation leaks can cause serious security issues but are generally easy to address.
+
+TEMPEST-derived technology allows the electronic emanations that devices produce (known as Van Eck radiation) to be read from a distance (this process is known as Van Eck phreaking).
+TEMPEST eavesdropping or Van Eck phreaking countermeasures include the following:
+
+#### Faraday Cage
+
+A Faraday cage is a box, mobile room, or entire building designed with an external metal skin, often a wire mesh that fully surrounds an area on all sides.
+This metal skin acts as an EM absorbing capacitor that prevents electromagnetic signals (emanations) from exiting or entering the area that the cage encloses.
+Faraday cages can be designed to block specific frequencies while allowing others—for example, blocking Wi-Fi while allowing walkie talkies and mobile phones.
+
+#### White Noise
+
+White noise simply means broadcasting false traffic to mask and hide the presence of real emanations.
+White noise can consist of a real signal from another source that is not confidential, a constant signal at a specific frequency, a randomly variable signal, or even a jam signal that causes interception equipment to fail.
+Although this is similar to jamming devices, the purpose is to convolute the signal only for the eavesdropper, not the authorized user, rather than stopping even valid uses of emanations.
+
+#### Control Zone
+
+A third type of TEMPEST countermeasure, a control zone, is simply the implementation of both a Faraday cage and white noise generation to protect a specific area in an environment; the rest of the environment is not affected.
+A control zone can be a room, a floor, or an entire building.
 
 ### Client-Based SystemsClient-Based Systems
 
@@ -1371,6 +1532,13 @@ The following definitions from (ISC)2 are core to the topic of cryptography, and
 * Cryptographic algorithm: A mathematical function that is used in the encryption and decryption process.
 * Key: The input that controls the operation of the cryptographic algorithm; it determines the behavior of the algorithm and permits the reliable encryption and decryption of the message.
 Symmetric/private keys (discussed later in this chapter) must be kept private, while public keys (also discussed later in this chapter) are shared to enable authentication and other use cases.
+
+#### Kerckhoffs’s Principle
+
+All cryptography relies on algorithms. An algorithm is a set of rules, usually mathematical, that dictates how encryption and decryption processes are to take place.
+Most cryptographers follow Kerckhoffs’s principle, a concept that makes algorithms known and public, allowing anyone to examine and test them.
+Specifically, Kerckhoffs’s principle (also known as Kerckhoffs’s assumption) is that a cryptographic system should be secure even if everything about the system, except the key, is public knowledge.
+The principle can be summed up as “The enemy knows the system.”
 
 ### Cryptographic Lifecycle
 
@@ -2189,6 +2357,15 @@ Fault injection attacks are side-channel attacks that involve deliberately injec
 
 A timing attack is a side-channel attack that involves the attacker attempting to compromise a cryptosystem by monitoring the time taken to execute algorithmic functions. See the “Side-Channel Attacks” section for more detail.
 
+### Meet in the Middle
+
+Attackers might use a meet-in-the-middle attack to defeat encryption algorithms that use two rounds of encryption.
+This attack is the reason that Double DES (2DES) was quickly discarded as a viable enhancement to the DES encryption (it was replaced by Triple DES, or 3DES).
+
+In the meet-in-the-middle attack, the attacker uses a known plaintext message. The plaintext is then encrypted using every possible key (k1), and the equivalent ciphertext is decrypted using all possible keys (k2).
+When a match is found, the corresponding pair (k1, k2) represents both portions of the double encryption.
+This type of attack generally takes only double the time necessary to break a single round of encryption (or 2<sup>n</sup> rather than the anticipated 2<sup>n</sup> * 2<sup>n</sup>), offering minimal added protection.
+
 ### Man-in-the-Middle
 
 An MITM attack requires that the attacker be able to intercept and relay messages between two parties.
@@ -2216,6 +2393,43 @@ A common exploit, called pass the ticket, is the process of an attacker forging 
 
 Multifactor authentication should be used to defeat phishing attacks and password weaknesses in Kerberos implementations.
 Logging and monitoring of your Active Directory domains should also be enabled to detect access to resources without proper authentication (e.g., via pass the ticket).
+
+Kerberos exploitation attacks include the following:
+
+**Overpass the Hash**
+This is an alternative to the PtH attack used when NTLM is disabled on a network. Even if NTLM is disabled on a network, systems still create an NTLM hash and store it in memory.
+An attacker can request a ticket-granting ticket (TGT) with the user’s hash and use this TGT to access network resources.
+This is sometimes called pass the key.
+
+**Pass the Ticket**
+In a pass-the-ticket attack, attackers attempt to harvest tickets held in the lsass.exe process.
+After harvesting the tickets, attackers inject the ticket to impersonate a user.
+
+**Silver Ticket**
+A silver ticket uses the captured NTLM hash of a service account to create a ticket-granting service (TGS) ticket.
+Service accounts (user accounts used by services) use TGS tickets instead of TGT tickets.
+The silver ticket grants the attacker all the privileges granted to the service account.
+
+**Golden Ticket**
+If an attacker obtains the hash of the Kerberos service account (KRBTGT), they can create tickets at will within Active Directory.
+This gives them so much power it is referred to as having a golden ticket. The KRBTGT account encrypts and signs all Kerberos tickets within a domain with a hash of its password.
+Because the password never changes, the hash never changes, so an attacker only needs to learn the hash once.
+If an attacker gains access to a domain administrator account, they can then log on to a domain controller remotely and run Mimikatz to extract the hash.
+This allows attackers to create forged Kerberos tickets and request TGS tickets for any service.
+
+**Kerberos Brute-Force**
+Attackers can use the Python script kerbrute.py on Linux systems or Rubeus on Windows systems.
+In addition to guessing passwords, these tools can guess usernames. Kerberos reports whether or not usernames are valid.
+
+**ASREPRoast**
+ASREPRoast identifies users that don’t have Kerberos preauthentication enabled. Kerberos preauthentication is a security feature within Kerberos that helps prevent password-guessing attacks.
+When preauthentication is disabled, attackers can send an authentication request to a KDC. The KDC will reply with a ticket-granting ticket (TGT), encrypted with the client’s password as the key.
+The attacker can then perform an offline attack to decrypt the ticket and discover the client’s password.
+
+**Kerberoasting**
+Kerberoasting collects encrypted ticket-granting service (TGS) tickets. Service accounts (user accounts used by services) use TGS tickets instead of TGT tickets.
+After harvesting these tickets, attackers can crack them offline.
+A TGS ticket is used by services running in the context of a user account. This attack attempts to find users that don’t have Kerberos preauthentication.
 
 ### Ransomware
 
@@ -2266,7 +2480,6 @@ One must consider not just network infrastructure that you install for your inte
 How useful are your electronic door locks if the cables powering them are in the suspended ceiling in the hallway outside your office?
 What good is your alarm going to be if the signal is carried on telephone wires that can be found behind an unlocked panel in the public hallway and easily tampered with?
 
-
 ### Server Rooms/Data Centers
 
 Just as with office space, the physical security of your data center can span a wide range of controls. You need to determine the risks in order to ensure you secure, but do not over-secure, your data center.
@@ -2291,6 +2504,45 @@ The art and science of data center design is well understood. Anyone charged wit
 * European Union (EU): EN 50600 series of standards
 * International Organization for Standardization (ISO): ISO/IEC 30134 series, “Information technology – Data centres – Key performance indicators”
 * Uptime Institute: Tier Standards
+
+### Intrusion Detection Systems
+
+#### Motion Detectors
+
+A motion detector, or motion sensor, is a device that senses movement or sound in a specific area, and it is a common element of intruder detection systems.
+
+Many types of motion detectors exist, including the following:
+* A **digital motion detector** monitors for significant or meaningful changes in the digital pattern of a monitored area. This is effectively a smart security camera.
+* A **passive infrared (PIR)** or **heat-based motion detector** monitors for significant or meaningful changes in the heat levels and patterns in a monitored area.
+* A **wave pattern motion detector** transmits a consistent low ultrasonic or high microwave frequency signal into a monitored area and monitors for significant or meaningful changes or disturbances in the reflected pattern.
+* A **capacitance motion detector** senses changes in the electrical or magnetic field surrounding a monitored object.
+* A **photoelectric motion detector** senses changes in visible light levels for the monitored area. Photoelectric motion detectors are usually deployed in internal rooms that have no windows and that are kept dark.
+* A **passive audio motion detector** listens for abnormal sounds in the monitored area.
+
+#### Intrusion Alarms
+
+Whenever a motion detector registers a significant or meaningful change in the environment, it triggers an alarm. An alarm is a separate mechanism that triggers a deterrent, a repellent, and/or a notification.
+
+* **Deterrent alarms:** Alarms that trigger deterrents may engage additional locks, shut doors, and so on. The goal of such an alarm is to make further intrusion or attack more difficult.
+* **Repellent alarms:** Alarms that trigger repellents usually sound an audio siren or bell and turn on lights. These kinds of alarms are used to discourage intruders or attackers from continuing their malicious or trespassing activities and force them off the premises.
+* **Notification alarms:** Alarms that trigger notification are often silent from the intruder/attacker perspective but record data about the incident and notify administrators, security guards, and law enforcement.
+A recording of an incident can take the form of log files and/or security camera recordings. The purpose of a silent alarm is to bring authorized security personnel to the location of the intrusion or attack in hopes of catching the person(s) committing the unwanted or unauthorized acts.
+
+Alarms are also categorized by where they are located: local, centralized or proprietary, or auxiliary.
+* **Local alarm system:** Local alarm systems must broadcast an audible (up to 120 decibels [dB]) alarm signal that can be easily heard up to 400 feet away.
+Additionally, they must be protected from tampering and disablement, usually by security guards.
+For a local alarm system to be effective, a security team or guards must be positioned nearby who can respond when the alarm is triggered.
+* **Central station system:** The alarm is usually silent locally, but offsite monitoring agents are notified so that they can respond to the security breach.
+Most residential security systems are of this type. Most central station systems are well-known or national security companies, such as Brinks and ADT.
+A proprietary system is similar to a central station system, but the host organization has its own onsite security staff waiting to respond to security breaches.
+* **Auxiliary alarm system:** Auxiliary alarm systems can be added to either local or centralized alarm systems.
+When the security perimeter is breached, emergency services are notified to respond to the incident and arrive at the location. This can include fire, police, and medical services.
+
+#### Secondary Verification Mechanisms
+
+When motion detectors, sensors, and alarms are used, secondary verification mechanisms should be in place. As the sensitivity of these devices increases, false triggers occur more often.
+Innocuous events such as the presence of animals, birds, bugs, or authorized personnel can trigger false alarms.
+Deploying two or more detection and sensor systems and requiring two or more triggers in quick succession to occur before an alarm is issued may significantly reduce false alarms and increase the likelihood that alarms indicate actual intrusions or attacks.
 
 ### Media Storage Facilities
 
@@ -2449,10 +2701,43 @@ Fire prevention and suppression involves reducing one or more of these three ele
 A more complete model adds the chemical reaction between the fuel and the oxidizing agent, creating the fire “tetrahedron.”
 This model is useful in that some fire suppression systems block the chemical reaction itself rather than reducing one of the three components necessary for that reaction.
 
+#### The Four Primary Stages of Fire
+
+**Stage 1: The Incipient Stage** At this stage, there is only air ionization and no smoke.
+**Stage 2: The Smoke Stage** In Stage 2, smoke is visible from the point of ignition.
+**Stage 3: The Flame Stage** This is when a flame can be seen with the naked eye.
+**Stage 4: The Heat Stage** At Stage 4, the fire is considerably further down the timescale to the point where there is an intense heat buildup and everything in the area burns.
+
 Most jurisdictions have standards and guidelines for the fire protection systems for IT equipment:
 * Canada and the United States: NFPA 75, “Standard for the Fire Protection of Information Technology Equipment,” and NFPA 76, “Fire Protection of Telecommunications Facilities.”
 * UK: BS 6266:2011, “Fire protection for electronic equipment installations.” Code of practice.
 * Germany: The VdS series of guidelines for fire protection and suppression.
+
+#### Fire Detection Systems
+
+Properly protecting a facility from fire requires installing an automated detection and suppression system. There are many types of fire detection systems.
+
+**Fixed-temperature detection** systems trigger suppression when a specific temperature is reached. This is the most common type of detector and present in most office buildings.
+The potentially visible sprinkler head serves as both the detection and release mechanism. The trigger is usually a metal or plastic component that is in the sprinkler head and melts at a specific temperature.
+
+There is also a version with a small glass vial containing chemicals that vaporize to over-pressurize and shatter the container at a specific temperature.
+This system is inexpensive and very reliable, even over long periods of time.
+
+**Rate-of-rise detection** systems trigger suppression when the speed at which the temperature changes reaches a specific level.
+These are often digital temperature measuring devices, which can be fooled by HVAC heating during winter months and thus are not widely deployed.
+
+**Flame-actuated** systems trigger suppression based on the infrared energy of flames. This mechanism is fast and reliable but often fairly expensive. Thus, it is often only used in high-risk environments.
+
+**Smoke-actuated** systems use photoelectric or radioactive ionization sensors as triggers.
+Either method monitors for light or radiation obstruction or reduction across an air gap caused by particles in the air.
+It is intended to be triggered by smoke, but dust and steam can sometimes trigger the alarm.
+The radioactive ionization-based smoke detectors use americium as a source of alpha particles and a Geiger counter to detect the rate of these particles' transmission across the air gap.
+This element produces such low levels of radiation that a layer of dead skin cells is sufficient to block its transmission.
+
+**Incipient smoke detection** systems, also known as aspirating sensors, are able to detect the chemicals typically associated with the very early stages of combustion before a fire is otherwise detectible via other means.
+These devices are even more costly than flame-actuated sensors and are also only used in high-risk or critical environments.
+
+
 
 #### Wet-Pipe Water Sprinkler Systems
 
