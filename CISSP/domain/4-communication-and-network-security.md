@@ -466,6 +466,63 @@ Adoption hurdles include added cost of some IPv6-capable devices and the fact th
 Decision-makers are reluctant to either make a change for the sake of change itself or make process improvements that provide a minimal financial return on investment (ROI).
 Early adopters of IPv6 are found in private, internal networks in large corporations, research laboratories, and universities.
 
+#### Authentication Protocols
+
+##### Point-to-Point Protocol (PPP)
+
+The Point-to-Point Protocol (PPP) is an encapsulation protocol designed to support the transmission of IP traffic over dial-up or point-to-point links. PPP is a Data Link layer protocol that allows for multivendor interoperability of WAN devices supporting serial links.
+Although it is rarely found on typical Ethernet networks today, it is the foundation on which many modern communications are based, as well as the foundation of communication authentication.
+
+PPP includes a wide range of communication services, such as the assignment and management of IP addresses, management of synchronous communications, standardized encapsulation, multiplexing, link configuration, link quality testing, error detection, and feature or option negotiation (such as compression).
+
+PPP is an internet standard documented in RFC 1661. It replaced the Serial Line Internet Protocol (SLIP). SLIP offered no authentication, supported only half-duplex communications, had no error-detection capabilities, and required manual link establishment and teardown.
+
+##### PPP Authentication
+
+PPP supports automatic connection configuration, error detection, full-duplex communications, and options for authentication. The original PPP options for authentication were PAP, CHAP, and EAP.
+
+###### Password Authentication Protocol (PAP)
+
+PAP transmits usernames and passwords in cleartext. It offers no form of encryption; it simply provides a means to transport the logon credentials from the client to the authentication server.
+
+###### Challenge Handshake Authentication Protocol (CHAP)
+
+CHAP performs authentication using a challenge-response dialogue that cannot be replayed. The challenge is a random number issued by the server, which the client uses along with the password hash to compute the one-way function derived response.
+CHAP also periodically reauthenticates the remote system throughout an established communication session to verify a persistent identity of the remote client. This activity is transparent to the user.
+However, since CHAP is based on MD5, it is no longer considered secure. A Microsoft customization named MS-CHAPv2 uses updated algorithms and is preferred over the original CHAP.
+
+###### Extensible Authentication Protocol (EAP)
+
+This is a framework for authentication instead of an actual protocol. EAP allows customized authentication security solutions, such as supporting smartcards, tokens, and biometrics.
+EAP was originally designed for use over physically isolated channels and thus assumed secured pathways. Some EAP methods use encryption, but others do not.
+Over 40 EAP methods are defined, including LEAP, PEAP, EAP-SIM, EAP-FAST, EAP-MD5, EAP-POTP, EAP-TLS, and EAP-TTLS.
+
+##### EAP Derivatives
+
+* **Lightweight Extensible Authentication Protocol (LEAP)** is a Cisco proprietary alternative to TKIP for WPA. It was developed to address deficiencies in TKIP before 802.11i/WPA2 was ratified as a standard. LEAP is now a legacy solution to be avoided.
+* **Protected Extensible Authentication Protocol (PEAP)** encapsulates EAP in a TLS tunnel. PEAP is preferred to EAP because PEAP imposes its own security. PEAP supports mutual authentication.
+* **Subscriber Identity Module (EAP-SIM)** is a means of authenticating mobile devices over the Global System for Mobile Communications (GSM) network. Each device/subscriber is issued a subscriber identity module (SIM) card, which is associated with the subscriber’s account and service level.
+* **Flexible Authentication via Secure Tunneling (EAP-FAST)** is a Cisco protocol proposed to replace LEAP, which is now obsolete, thanks to the development of WPA2. EAP-MD5 was one of the earliest EAP methods. It hashes passwords using MD5. It is now deprecated.
+* **EAP Protected One-Time Password (EAP-POTP)** supports the use of OTP tokens (which includes hardware devices and software solutions) in multifactor authentication for use in both one-way and mutual authentication.
+* **EAP Transport Layer Security (EAP-TLS)** is an open IETF standard that is an implementation of the TLS protocol for use in protecting authentication traffic. EAP-TLS is most effective when both client and server have a digital certificate (i.e., mutual certificate authentication).
+* **EAP Tunneled Transport Layer Security (EAP-TTLS)** is an extension of EAP-TLS that creates a VPN-like tunnel between endpoints prior to authentication. This ensures that even the client’s username is never transmitted in cleartext.
+
+##### IEEE 802.1X
+
+IEEE 802.1X defines the use of encapsulated EAP to support a wide range of authentication options for LAN connections. The IEEE 802.1X standard is formally named “Port-Based Network Access Control,” where port refers to any network link, not just physical RJ-45 jacks.
+This technology ensures that clients can’t communicate with a resource until proper authentication has taken place. It’s based on Extensible Authentication Protocol (EAP) from PPP.
+
+Many people encounter 802.1X in relation to wireless networking, where it serves as the basis for wireless enterprise authentication.
+In that implementation, 802.1X serves as an authentication proxy by forwarding wireless client authentication requests to a dedicated remote authentication server or AAA server (typically RADIUS or TACACS+.
+
+Thus, it is important to remember that 802.1X isn’t a wireless technology (i.e., IEEE 802.11) - it is an authentication technology that can be used anywhere authentication is needed, including WAPs, firewalls, routers, switches, proxies, VPN gateways, and remote access servers (RASs)/network access servers (NASs).
+
+When 802.1X is in use, it makes a port-based decision about whether to allow or deny a connection based on the authentication of a user or service.
+
+Like many technologies, 802.1X may be vulnerable to man-in-the-middle (MiTM) (aka on-path) and hijacking attacks because the authentication mechanism occurs only when the connection is established.
+Not all 802.1X or EAP authentication methods are secure; some only check for superficial IDs, such as a MAC address, before granting access.
+This issue can be addressed by using periodic mid-session reauthentication, as well as implementing session encryption in addition to any authentication protections provided by 802.1X/EAP.
+
 #### Network Attacks
 
 Networking protocols were designed long before the necessity of security was fully recognized. Consequently, even today, networked hosts remain vulnerable and networked systems fail to implement mitigating controls.
@@ -496,6 +553,12 @@ The benefit is fully establishing legitimate connections faster than the backlog
 * **SYN cookies:** The server responds to each connection request (SYN) with a SYN-ACK packet. The SYN request is dropped from the backlog. The port is open to new, ideally legitimate, new connections.
 If the initial connection is legitimate, the original sender will send its ACK packet. The initial recipient, which created the SYN cookie, will reconstruct the SYN backlog queue entry.
 Of course, there will be some limitations as some information about the TCP connection can be lost. This is more advantageous than the full DoS outage.
+
+##### MAC Flooding Attack
+
+A MAC flooding attack is an intentional abuse of a switch’s learning function to cause it to get stuck flooding. This is accomplished by flooding a switch with Ethernet frames with randomized source MAC addresses.
+The switch will attempt to add each newly discovered source MAC address to its content addressable memory (CAM) table. Once the CAM table is full, older entries will be dropped to make room for new entries (it is a first-in, first-out, or FIFO, queue).
+Once the CAM is full of only false addresses, the switch is unable to properly forward traffic, so it reverts to flooding mode, where it acts like a hub or a multiport repeater and sends each received Ethernet frame out of every port.
 
 ###### DDoS and the Internet of Things
 
@@ -857,10 +920,17 @@ In late 2018, shortly after the newer WPA3 (discussed next) was announced, resea
 
 ##### WPA3
 
-The Wi-Fi Alliance announced WPA3 as a replacement for WPA2 in January 2018. The newer standard uses 192-bit encryption and individualized encryption for each user.
+Wi-Fi Protected Access 3 (WPA3) was finalized in January 2018. WPA3-ENT uses 192-bit AES CCMP encryption, and WPA3-PER remains at 128-bit AES CCMP. WPA3-PER replaces the preshared key authentication with Simultaneous Authentication of Equals (SAE).
+Some 802.11ac/Wi-Fi 5 devices were the first to support or adopt WPA3.
+
 It also offers weak password mitigation and simplified setup processes for devices with no human interface. As of July 2020, any device certified by the Wi-Fi Alliance must support WPA3.
 As a standard practice, you should check your wireless-enabled devices to determine which Wi-Fi standards are supported.
 If your network is either WEP or WPA, you must upgrade to a WPA2-compatible or preferably WPA3-compatible router to secure your organization’s network.
+
+**Simultaneous Authentication of Equals (SAE)** still uses a password, but it no longer encrypts and sends that password across the connection to perform authentication.
+Instead, SAE performs a zero-knowledge proof process known as Dragonfly Key Exchange, which is itself a derivative of Diffie–Hellman.
+The process uses the preset password and the MAC addresses of the client and AP to perform authentication and session key exchange.
+WPA3 also implements IEEE 802.11w-2009 management frame protection so that a majority of network management operations have confidentiality, integrity, authentication of source, and replay protection.
 
 ##### IEEE 802.1X
 
@@ -1648,14 +1718,16 @@ VoIP is a method using several technologies to encapsulate voice communications 
 
 VoIP technology is not automatically any more secure than analog. It is essentially plain-form communications and is easily intercepted and eavesdropped.
 With adequate configuration, highly encrypted solutions are possible, and attempts to interfere or wiretap are able to be deterred. Even then, VoIP still requires the attention of security professionals.
-Hackers have several vectors for VoIP attacks.
-* Tools are available to spoof Caller ID, which facilitates vishing (VoIP phishing) or Spam over Internet Telephony (SPIT) attacks.
-* Call manager systems and the VoIP phones themselves might be vulnerable to host operating system attacks and DoS attacks.
-* MITM attacks may succeed by spoofing call managers or endpoint connection transmissions.
-* Unencrypted network traffic may include VoIP, and therefore, decoding VoIP streams is possible.
 
-The remediations for these issues center around employing encryption, increased authentication, and robust network infrastructure.
-As mentioned earlier, some vendors need to employ innovative means to safeguard their own service when protocols or vulnerabilities exist.
+VoIP is not without its problems. Hackers can wage a wide range of potential attacks against a VoIP solution:
+* Caller ID can be falsified easily using any number of VoIP tools, so hackers can perform vishing (VoIP phishing) or Spam over Internet Telephony (SPIT) attacks.
+* The call manager systems and VoIP phones themselves might be vulnerable to host operating system attacks and DoS attacks. If a device’s or software’s host OS or firmware has vulnerabilities, there is increased risk of exploits.
+* Attackers might be able to perform MitM/on-path attacks by spoofing call managers or endpoint connection negotiations and/or responses.
+* Depending on the deployment, there are also risks associated with deploying VoIP phones off the same switches as desktop and server systems. This could allow for 802.1X authentication falsification as well as VLAN and VoIP hopping (i.e., jumping across authenticated channels).
+* Since VoIP traffic is just network traffic, it is often possible to listen in on VoIP communications by decoding the VoIP traffic when it isn’t encrypted.
+
+**Secure Real-Time Transport Protocol or Secure RTP (SRTP)** is a security improvement over the **Real-Time Transport Protocol (RTP)** that is used in many VoIP communications.
+SRTP aims to minimize the risk of DoS, on-path attacks, and other VoIP exploits through robust encryption and reliable authentication. RTP or SRTP takes over after Session Initiation Protocol (SIP) establishes the communication link between endpoints.
 
 ### Multimedia Collaboration
 
