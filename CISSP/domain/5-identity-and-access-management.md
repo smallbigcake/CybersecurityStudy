@@ -611,3 +611,441 @@ This is often known as a break the glass process and refers to old-fashioned ala
 
 PAM tools can also implement time limits for credentials and automatically change them after the time limit expires, thereby limiting the amount of time the elevated privileges can be used.
 
+
+## FEDERATED IDENTITY WITH A THIRD-PARTY SERVICE
+
+**Identity as a service (IDaaS)** is an extension of the federated identity concept, which addresses increased demand for collaboration across different teams, business units, and organizations.
+This may be driven by the increased sharing of data and information systems among business partners or by organizations adopting cloud services that are hosted outside the organization’s direct control.
+
+Rather than developing custom methods for extending the IAM scheme to external entities, a third-party IDaaS can provide native integration with both legacy systems and external or cloud-based systems.
+IDaaS implements federation solutions like SAML and OAuth by default, and these solutions are typically designed to meet the needs of enabling IAM across both internal and external systems.
+
+#### Primary Risks
+
+The decision to use a third-party IDaaS requires a security practitioner to balance the operational need of access to external systems against two primary risks.
+
+First, the IDaaS can be a single point of failure — systems that rely on the IDaaS for access control are unavailable if it is down, though if the organization already uses a centralized IAM, this risk is minimal.
+IDaaS may actually decrease the risk if the chosen third party has more robust uptime capabilities than the organization’s internal hosting, though of course if the IDaaS provider drops support for the target system or ceases operations, the organization will find itself in trouble.
+
+The second risk to consider is the loss of control inherent in using a third party, which is common to any decision to use a cloud service. Identification is the foundation of access control, so the potential risk of outsourcing this function can be high.
+If the IDaaS provider suffers a data breach, the organization’s identity and access management information could be compromised.
+
+### On Premises
+
+On premises, sometimes shortened to on-prem, describes an architecture that exists in a facility controlled by the organization, such as a Lightweight Directory Access Protocol (LDAP) or Microsoft Active Directory (AD) system hosted in the organization’s offices or data center.
+Many organizations have these systems deployed to support existing or legacy applications and infrastructure.
+
+#### Benefits and Costs
+
+Key benefits of on-premises management systems include total control over the hardware and software used in the IAM system, unlike cloud or third-party systems where the organization gives up some control to the service provider.
+As a CISSP, it is important to review the benefit of total control against the additional costs incurred, such as full-time administrators needed to maintain a complex IAM system like Microsoft AD.
+
+#### Difficulties and Risks
+
+Extending an existing on-premise identity management system to cloud-based applications or federating it with external parties like business partners can prove difficult or impossible, if the tools in use were not designed to support this type of use.
+Retaining control over both the IAM system and the hardware offers security control opportunities, but limited federation capabilities can force organizations to seek alternatives.
+Many legacy IAM solutions can be quite complex to administer, which presents additional risk in the form of cost to maintain them and the potential for misconfiguration due to lack of adequate skills or understanding of a complex system.
+
+The process of extending an existing IAM typically requires additional software and proper security configuration that allows the on-premise IAM to communicate with Federated Identity with a Third-Party systems outside the organization’s control.
+This might be achieved with native extensions or plugins to the IAM tool or with a separate application like a SAML gateway or SSO provider.
+
+### Cloud
+
+Newer organizations may be “cloud-first” or “cloud-native,” meaning they lack any on-premise or legacy infrastructure. Older organizations may pursue a strategy of migrating to cloud-only solutions due to the cost savings they provide.
+In both cases, a legacy IAM solution would be a poor fit due to significant costs to acquire hardware, software, and personnel skills to manage it; a cloud-based IDaaS is likely to be a more cost-effective solution.
+
+Cloud-based IDaaS solutions act as an IAM broker and can be used to manage access controls for the organization’s cloud-based systems and federated with other applications, services, or even organizations using the same IDaaS.
+Organizations migrating into the cloud can take advantage of hybrid IDaaS, which extends the IDaaS to support identity and access management for legacy applications, or SSO portal features, which allow users to access non-SSO applications by storing the credentials and facilitating automatic sign in.
+
+Popular cloud services, including software as a service (SaaS) tools, offer native integration with popular cloud IDaaS platforms, which reduces administrative overhead associated with user provisioning.
+This can be used to implement JIT provisioning for new user accounts on cloud services; when a user attempts to log into a service for the first time, their authorization to use it is checked with the IDaaS provider.
+
+If they are authorized, an account is created; this benefits users and administrators, as it automates the process of checking authorizations and provisioning accounts.
+
+### Hybrid
+
+#### As a Migration Strategy
+
+Hybrid IDaaS is a combined deployment of IAM elements in both the cloud and on premises and is often used as part of a migration strategy in organizations where legacy infrastructure requires an on-premise solution.
+For example, this hybrid approach is commonly used in Windows environments that rely on legacy AD for current applications migrating to a cloud-based setup with Azure AD, which is a cloud-based IDaaS platform hosted in the Microsoft Azure cloud.
+Both the legacy AD and Azure AD run simultaneously and synchronize information, with the ultimate goal of total migration to the cloud-based solution once all legacy applications have been identified and migrated.
+
+#### As a Permanent Solution
+
+Other third-party IDaaS solutions can also integrate with existing on-premise IAM tools and act as a centralized point for credential management.
+Even if the organization does not plan to migrate completely to cloud solutions, legacy applications continue to use the on-premise IAM provider, while any cloud services or federated third parties can use the cloud-based IDaaS provider.
+This divided access control approach offers benefits to users, who are required to maintain only one set of credentials, and acts like an SSO to reduce management overhead.
+
+#### Risks
+
+The risks of a hybrid setup like this include the need to dedicate sufficient resources to maintaining dual IAM implementation.
+Many organizations assume a move to the cloud means no resources are required for on-premise maintenance, but the hybrid approach does not completely remove this need.
+Additionally, the hybrid approach introduces the same risk as cloud-based IAM due to a third party managing identities and can pose additional risk if a breach of the IDaaS grants access to internal resources that rely on on-premise IAM synchronized with the IDaaS provider.
+
+
+## IMPLEMENT AND MANAGE AUTHORIZATION MECHANISMS
+
+#### Authorization Concepts
+
+Authorization can be the decision to grant a subject access to an object and confirmation that a subject is authorized to access an object when they attempt to access it.
+This implies decisions that are made before access, when a user is first enrolled in an IAM, as well as decisions made at the time of use when a user makes a request, such as trying to open a file or access a system.
+
+Authorization is simple to manage if a few subjects, like users or processes, require access to a few objects, like documents or an entire information system.
+However, complex organizations with hundreds or thousands of subjects accessing millions of objects are impossible to manage without a structured and orderly methodology.
+Even an organization with a hundred users and multiple information systems for various teams or departments will find that manually managing access on a per-user basis is inefficient at best, and at worst is totally impossible.
+
+#### Access Control Models
+
+Access control models, which are described in the following sections, provide ways of identifying subjects and objects and establishing relationships to determine authorization.
+These relationships are foundational to access control systems, and the decision to allow or deny access supports fundamental security objectives like maintaining confidentiality, integrity, and authenticity of data.
+These models also provide a variety of methods for managing complex subject-object access needs, so they are useful to security practitioners in organizations with more than a few users and systems.
+
+Modern information systems and IT environments often implement a mix of access control models, such as firewalls utilizing rule-based access control, file sharing systems with discretionary access control, and HR departments that identify specific job functions and associated permissions needed for role-based access control.
+
+NIST SP 800-192, “Verification and Test Methods for Access Control Policies/Models,” provides definitions of these models and guidance on how to identify requirements for an access control model to apply to a specific system or organization.
+
+### Role-Based Access Control
+
+RBAC is a model that maps subjects to a set of objects based on the user’s role in the organization. A role is a set of job functions, often defined by a department or position, and the access granted is based on the needs of that particular role.
+Roles are mapped to object access authorizations, and all subjects granted a particular role are given the same access.
+
+#### Example
+
+For example, a user with security responsibility might be given the role of security analyst.
+Users with the security analyst role are granted read/write access to the security information and event management (SIEM) platform, but are denied system administrator privileges like Windows domain admin or Linux sudo.
+In this case, the role grants access to security logs, but prevents the analysts from accessing systems being monitored, which serves two purposes.
+
+First, the analysts do not require access to perform system admin functions, and nonanalyst users do not need access to the SIEM, so the roles implement least privilege.
+
+Second, this role-based access can preserve data integrity, which supports accountability.
+In a properly designed RBAC model, so-called toxic role combinations should be prevented.
+In this example, any user with a system admin role should be barred from the security analyst role, preventing an administrative user from taking malicious action on a system and also erasing evidence of their actions from logs on the SIEM.
+
+#### Benefits
+
+RBAC reduces the management and overhead of creating and managing authorizations for users. If members of the legal department need access to 15 systems, it is more efficient to create a role with access to these systems and then put new members in a group associated with that role.
+This supports important security objectives of access control, while also reducing resources required to implement security, which aligns with business or organization objectives.
+
+### Rule-Based Access Control
+
+Rule-based access control, which is usually spelled out to avoid confusion with role-based models or shortened to RuBAC, is based on a list of predefined rules to determine authorization.
+In physical terms, a guest list is RuBAC model. If a person is on the guest list, they are granted access to the party; otherwise, they are denied entry.
+
+#### Access Control Lists (ACLs)
+
+Information systems often implement RuBAC via an access control list (ACL).
+Common examples include static firewall rulesets, which define allowed and blocked IP addresses or ports, and file ACLs, which define users who are authorized to access a file and their permissions like read or write.
+When an access attempt is made, the system performs a review against the ruleset.
+A traditional or nonstateful firewall reviews an incoming packet to determine if it comes from an IP address that is allowed, while a filesystem reviews the current user against the file’s ACL to determine if the requested action is allowed.
+
+#### Implicit and Explicit Permissions
+
+Rule-based systems also implement the concepts of implicit and explicit permissions.
+
+In an implicit allow system, all access is allowed unless a rule is defined to prohibit access, much like a shop is open to any member of the public except specific customers who are known to shoplift. These unwanted users are explicitly denied entry.
+
+Implicit deny is the opposite — only people on an approved list are allowed entry, while everyone else is denied. This is sometimes known as deny all or allow by exception and is a fundamental security best practice as it reduces the chance of unauthorized access.
+
+### Mandatory Access Control
+
+The mandatory access control (MAC) model is often associated with military or government organizations, and it employs a static and hierarchical approach to access control.
+MAC can be described as a _nondiscretionary access control_ model, in which access control is enforced systematically and is not at the discretion of data owners or others.
+
+MAC is achieved by applying security labels to both subjects and objects; for example, Top Secret, Secret, and Unclassified. When an object is created, the owner or creator is responsible for assigning a proper security label.
+When a subject attempts to access an object, the system verifies the security labels and enforces appropriate access control.
+For example, a user with a security label of Secret will be denied access to files with a security label of Top Secret, but will be granted access to files labeled Secret or Unclassified.
+
+The Bell–LaPadula and Biba security models discussed in Chapter 3, “Security Architecture and Engineering,” are examples of MAC and are often used as foundational principles in modern systems’ access control features.
+The basic rules described by both models implement MACs using label-based descriptions of data confidentiality or integrity.
+The properties of each model describe how access to objects is restricted based on the subject security label of the subject and the label of the object they attempted to access.
+
+### Discretionary Access Control
+
+Access decisions in a discretionary access control (DAC) model are made by a system or data owner, who decides at their discretion which subjects can access an object.
+In the case of a file, the file’s owner can define other users who can access the file. This extends to the functions those users can perform, like reading or updating the file.
+This may take the form of granting public read access to a document, while specifying a small group of editors who can make changes to the file.
+
+DAC is a distributed model and can be useful when no central authority has sufficient information to make access control decisions.
+Social media sites are a common example; the users who upload content like pictures are best suited to determine if the content should be accessible to any other user of the platform, or if it should be restricted to a specific group of users like close friends or family.
+In business settings, the owner is often the owner, creator, or custodian of a system or dataset. A centralized IT department may not be able to determine who needs access to specific files on a shared drive, but the owner of the folder does know which users need access to collaborate.
+
+The flexibility and decentralized nature of DAC is also a potential security drawback. It is more difficult to enforce consistency when a large group of data owners is making access control decisions, and the ability for a data owner to make permission changes can be abused by an insider threat.
+
+### Attribute-Based Access Control
+
+Attribute-based access control (ABAC), sometimes referred to as policy-based access control, is an emerging access control model that combines attributes about the subject and evaluates them against a policy to make an access control decision.
+For example, attributes might be the user’s identity, role as a data entry professional, and the time of day. When a user attempts to access a system, these attributes are compared against a policy stating that access for data entry users is allowed only during standard business hours.
+If the data entry user attempts this access outside of normal business hours, the access request is denied.
+
+ABAC provides more flexibility than other access control models and can be used to achieve more dynamic and risk-based access control.
+For example, users might be required to enter multifactor authentication only when logging in from a new device. ABAC is similar to RBAC models, but defines a complex policy to allow or deny access rather than a binary allow/deny decision.
+Stateful firewalls are one example of ABAC; incoming traffic to a host is allowed if it corresponds to a previously established session of communication; otherwise, traffic to the host is denied.
+A traditional or nonstateful firewall could be a hindrance to an organization if it blocked such traffic, which highlights the importance of choosing access control mechanisms with sufficiently robust capabilities to support organizational needs.
+
+A system implementing ABAC utilizes a set of policy attributes to make access control decisions.
+Examples of attributes that can be tested include where the subject or object is located, when the request is being made, the role of the requestor, and whether the request is coming from a new device.
+For example, a routine user requesting access from their standard workstation to a sensitive production file outside of normal working hours can be allowed.
+If the same user attempts to access the same data, but the request comes from a previously unseen device in a foreign country, access should be denied.
+The user might be traveling and trying to stay productive, but there is a significant chance the user’s credentials have been stolen.
+
+### Risk-Based Access Control
+
+A risk-based access control model is designed around an assumption that risks change over time. Unlike other models that consider risks to be static and do not account for changing risks over time, risk-based models can provide dynamic access control using a variety of parameters to determine authorization.
+In other models such as RBAC or RuBAC, the dynamic nature of risks over time must be accounted for with manual updates to access controls, such as provisioning or deprovisioning access. Systems that implement these models cannot respond to these dynamic changes in real time.
+
+For example, the IAM can integrate threat intelligence data and make dynamic authentication decisions based on the intelligence available.
+If another business unit or a partner organization has come under attack by a phishing campaign, then the IAM might temporarily increase the frequency of required MFA at login in response to the increased threat.
+Similarly, if the organization’s SIEM has identified an increase in the number of failed login attempts, temporary firewall rules could be automatically implemented to block traffic associated with the failed logins, which could make a brute-force attack difficult or impossible.
+
+Risk-based models can utilize a number of factors to dynamically define authentication requirements. Financial institutions often utilize this model to detect fraud at an individual account level.
+Accounts that belong to a person who rarely travels or makes online purchases have a different risk profile compared to frequent travelers or online shoppers, so writing static rules that apply to all account holders is nearly impossible.
+Instead, one account’s fraud indicators are any purchases made outside a specific geographic region, while another account’s indicators are purchases made in physical retail stores instead of online retailers.
+
+
+## MANAGE THE IDENTITY AND ACCESS PROVISIONING LIFECYCLE
+
+The act of creating an account is known as provisioning. This encompasses actions such as reviewing proof that a user is who they claim to be before creating their account, as well as procedures designed to review and approve access requests.
+When an account is no longer needed, access is removed via deprovisioning, which happens when a user leaves or changes roles, or when a system account is terminated during decommissioning.
+
+Reviews must be conducted periodically to identify if all provisioned accounts are still accurate. Any accounts that are not needed or permissions that are excessive should be terminated using appropriate deprovisioning actions like revoking, disabling, or deleting the account or authorizations.
+This deprovisioning typically focuses on removing access, but deprovisioning does not necessarily mean an account is deleted. Instead, it may be maintained for accountability purposes, since the user’s actions are recorded in log files.
+
+Reviews may also identify access that is needed but not currently granted, which can be addressed by provisioning new access.
+
+### Account Access Review
+
+User accounts are associated with individuals, while system accounts are associated with nonhuman access needs. These often take the form of system or service accounts needed to perform crucial system functions like backups, database maintenance, or executing requests or processes on behalf of a user.
+Nonhuman accounts include devices as well, such as Internet of Things (IoT) or system Application Programming Interface (API) calls. Both user and system accounts must be periodically reviewed to ensure they are granted access only as needed to perform their intended functions.
+
+When crafting an access review policy, a security practitioner must balance a number of important factors. Both the cadence of reviews and the accounts to be reviewed may be dictated by legal or regulatory obligations.
+For example, nonadministrative access might have an annual review cycle, while administrative accounts must be reviewed quarterly. The increased damage that could be caused by an improperly provisioned administrative account justifies the increased overhead of performing more frequent reviews.
+
+#### User Account Access Review
+
+Review procedures for user access must include identifying what systems, data, and permissions a user is granted. Once identified, these access attributes must be checked against the organization’s access policies as well as IAM practices like least privilege.
+
+The review should encompass the following elements for each user, as well as a check of the appropriateness of the access:
+* All accounts the user can access, whether by direct assignment or via shared credentials if used.
+* All sensitive datasets or systems the user can access
+* What actions the user can perform on each system or dataset, such as read, write, or delete.
+* Identify any permissions that are excessive, such as a user who is not performing administrative actions but is granted administrative access.
+* Inactive or dormant accounts, particularly those assigned to users who have left the organization or changed roles.
+* Roles assigned to the user and any potential toxic combinations of access granted by roles. A toxic combination occurs when a user’s role-based access violates controls like separation of duties or creates a conflict of interest.
+
+#### System Account Access Review
+
+Policies for system and service accounts should also be defined and must balance the frequency of review with the privileges granted. Nonhuman accounts will undergo less change than user accounts, as they are not subject to human actions like promotion or job change that require adjustment of privileges.
+However, they can still present a security risk due to inappropriate levels of access — for example, a default local administrator account might be enabled during troubleshooting. If it is not properly deactivated or disabled when troubleshooting is completed, it is at risk of being exploited.
+
+In other cases, system or service accounts may be granted escalated privileges by default, but when implemented in a particular system, these permissions are not needed.
+Systems may include default local administrator accounts that are not needed if the computer in question is part of a remote management scheme like a Windows domain or MDM, or service accounts remain enabled even if the particular service is not active on the workstation.
+In these cases, access reviews are similar to configuration audits; they both share a goal of identifying system configurations, like default system account privileges, that are out of alignment with the secure baseline.
+
+#### Automated Access Reviews
+
+Performing access reviews can be time-consuming and potentially disruptive if an account is improperly flagged for inappropriate access.
+Implementing automation is critical to performing timely reviews, and some access management tools can be used to supplement the review with proactive controls like disabling accounts that are not used within a set time period.
+Security tools like SIEM or security orchestration, automation, and response (SOAR) can be useful to perform these automated reviews.
+The risk of not performing the reviews is inappropriate or unintended access, which can be exploited by insider threats or an attacker who has compromised a valid user account.
+
+### Account Usage Review
+
+User, system, and nonhuman accounts should all be subject to review of the actions they have performed. This can help the organization identify unwanted or inappropriate use of permissions, as well as account permissions that are inappropriate.
+The usage review may be part of access reviews, may be performed using automated tools like a SIEM, or might even involve a process of occasional oversight like a random audit of system activity several times a year to spot unexpected or inappropriate usage.
+
+A CISSP can achieve multiple security objectives with a usage review, though the primary reason is to enforce accountability for system usage.
+Automated system usage reviews should be integrated where JIT identity systems are in use, to perform reviews when privileges are used.
+For example, if a user accesses administrative credentials, it could be a legitimate support case or a privilege escalation by an attacker.
+Correlating the privilege escalation to a work ticket or support case demonstrates that the access was needed, while access to the administrative credentials for no reason is a suspicious incident worthy of investigation.
+
+### Provisioning and Deprovisioning
+
+Provisioning is the action of enabling or creating access, and deprovisioning is the opposite action and may include suspending, terminating, or even deleting the access credentials.
+These processes are usually related to staff changes like onboarding or offboarding (joining or leaving an organization), job transfers, or role changes like promotions.
+These staff management processes are usually not handled by a security practitioner, so it is imperative that the security team properly coordinate the process with responsible teams like HR or IT to ensure security measures are designed, integrated into the process, and properly executed.
+
+Deprovisioning is a particularly important task, as there is increased risk if users who no longer require access are still able to access data and systems.
+An access review must be performed to identify which systems and data the user has access to, and confirmation must be obtained when the access has been deprovisioned.
+
+The access management policy and procedures should account for user access changing under three main scenarios:
+* Hostile or involuntary circumstances include a staff member being let go at the company’s decision. This type of departure carries higher risk because employees may be disgruntled or act out in retaliation, and procedures will typically require faster deprovisioning and more oversight.
+* Friendly or voluntary circumstances include a staff member resigning or retiring and generally carry less risk. Access deprovisioning in these cases may occur more slowly, and verification may be left until the next access review to catch any mistakes.
+* Job changes are treated by some high-security organizations the same as a friendly deprovisioning as an extra precaution. The user’s current access is entirely deprovisioned, and new access is requested and provisioned for the user’s changed job role.
+
+#### Self-Provisioning and Self-Deprovisioning
+
+Systems that support self-provisioning or self-deprovisioning must have access control requirements addressed as part of the system development. For example, an online shopping site that allows users to register themselves for accounts will mostly likely implement RBAC.
+One role will be “customer,” with permission to access information related to that specific user, while another role might be “customer support,” which is for internal users who need access to limited information across all customers.
+
+The requirements for users to provision their own accounts will vary depending on the type of application, and the identity proofing requirements must be considered in light of any legal or regulatory compliance requirements associated with the identity proofing material that must be collected.
+Deprovisioning is likely to fall under privacy legislation or regulation, so appropriate methods for disabling and possibly deleting data associated with the user must be provided
+
+### Role Definition
+
+Roles simplify access management by providing a common set of access requirements for all users assigned the specific role.
+For example, an organization’s roles might be defined according to department, so users with the IT role are granted access to all IT systems, while finance users are granted access to finance systems.
+When a new user joins, they are placed in a group or assigned a particular role, which grants them access to the appropriate systems.
+This simplifies the process of access provisioning and deprovisioning, as only one action needs to be performed instead of multiple actions to add the user to each system.
+
+The process of defining roles must follow access management principles like least privilege and may also be used as a way to implement security controls like separation of duties.
+For example, if users are able to upload their own personal data into an HR system but should not be able to query the system, then non-HR roles can be granted write permissions and denied read permissions.
+A matrix of systems and roles can be useful to visualize these permissions.
+
+### Privilege Escalation
+
+Escalating privileges is the process of gaining elevated permission. For example, if a user with read-only access finds a bug that allows them to write data, this escalates their privileges beyond what they should have.
+The escalation can lead to negative security outcomes like loss of confidentiality, integrity, authenticity, or even availability if the users’ elevated privileges allow them to disrupt system operations.
+
+#### Valid Use Cases
+
+There are valid use cases for privilege escalation. A user with authorization to perform administrative functions should not use their administrator account at all times, as they generally do not need access to all its functionality and could inadvertently execute commands.
+Features like sudo on Unix systems or credential vaults for other systems can be used to implement a break-the-glass process. When needed, the user can virtually break the glass and gain access to the credentials, which may trigger actions like a security alert or increased logging.
+If the access is inappropriate, these actions give defenders a greater chance of discovery.
+
+#### Privilege Escalation Methods
+
+A well-engineered IAM should limit user access to privileged accounts and allow access only when necessary.
+For example, even a system administrator does not need to use their administrative privileges to perform routine tasks like checking email or reading news in a web browser.
+Implementing restrictions to administrative privileges reduces the likelihood those privileges can be misused accidentally or intentionally.
+For instance, a drive-by download from a malicious website can be restricted from executing with administrative-level credentials if the user is not signed in as an administrator while performing casual web browsing.
+
+Examples of methods to implement this type of privilege escalation include the following:
+* sudo on Linux and Unix systems allows an authenticated user to perform superuser actions for a limited amount of time if they can provide the proper credentials.
+The extra act of authenticating creates a barrier to accidental misuse of administrative privileges.
+* Break-the-glass procedures or credential vaulting place administrative credentials in a restricted-access tool. Gaining access to the credentials requires a deliberate process and can be a trigger for alerts or alarms, thereby providing security with insight into the use of these credentials.
+* Managed service accounts are nonhuman accounts designed to perform specific functions. They are typically configured to perform only their designated function and cannot be used to log in to a system, which makes attacks like phishing these account credentials nearly impossible.
+
+#### Privilege Escalation Attacks
+
+Privilege escalation attacks are a common security threat as well.
+In a vertical escalation attack, the attacker is seeking to gain increased privileges on a system, such as using Structured Query Language (SQL) injection to gain direct database access when the user is only authorized to access data through a web front end.
+Horizontal privilege escalation, also known as lateral movement, is an attack method that grants access to systems or resources the user is not authorized for and may exploit improperly configured IAM tools or features like roles.
+Horizontal escalation is often targeted at accessing other systems using already compromised credentials; goals may include performing vertical escalation on another system or gaining access to additional sources or types of data.
+
+
+## IMPLEMENT AUTHENTICATION SYSTEMS
+
+### OpenID Connect/Open Authorization
+
+Open Authorization (OAuth) is an “open protocol to allow secure authorization in a simple and standard method from web, mobile, and desktop applications,” as defined by the OAuth community website (oauth.net).
+The project is an Internet Engineering Task Force (IETF) working group, which lends its broad, global support, and, as the name implies, it is focused on authorization rather than authentication.
+The community website contains a variety of resources including specifications for platform-specific implementations and best-practice guides for using OAuth in various applications.
+
+OAuth defines four key roles that systems in an OAuth federation must implement to exchange authorization information:
+* **Resource owner:** Any entity that grants access to a protected resource, such as an information system or dataset.
+* **Resource server:** Any server hosting the protected resource, which accepts and responds to access requests.
+* **Client:** Any application making requests for access to protected resources.
+* **Authorization server:** Any server issuing access tokens to clients after successful authentication; tokens are used across the federated system to gain access.
+
+Open ID Connect (OIDC) adds authentication functions built on top of OAuth version 2.0 and federates identity management to provide users with an authentication experience similar to SSO.
+It is often implemented in web applications; and in OIDC, the user is presented with a choice of identity providers (IdPs), which are usually common email or social media platforms like Gmail, LinkedIn, or Twitter.
+The user selects an IdP, which then provides authentication information to the relying party using OAuth.
+The authentication information in OIDC is passed from an OIDC provider (OP) to the relying party (RP) in the form of a token, which contains claims about the user and authentication of their asserted identity.
+IDaaS provider Okta has an illustrated developer blog highlighting the key steps of OIDC authentication (developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc).
+
+As an example, a user registers for the eBay web application using a Twitter account; in the future, they can authenticate to eBay if they are able to successfully log in to Twitter.
+If they have authenticated to Twitter before opening eBay, then they may not even be required to perform any action — eBay can make an OIDC request to Twitter, which has an active, authenticated session for the user, and access is automatically granted.
+This user convenience can be beneficial to reduce the burden of user logins, but also carries risks similar to SSO. If the OP is unavailable, then all RPs will also lose availability.
+Other similar IdPs include Google, LinkedIn, Microsoft, and Apple, which provide user identification and authentication services that can be implemented in other websites, web apps, and many common smartphone apps.
+
+### Security Assertion Markup Language
+
+SAML is a framework for different systems to exchange security assertions, which consist of information needed to enforce access controls. It uses Extensible Markup Language (XML) to format messages regarding identities, resources, and access information like authentication and authorization.
+In SAML, there are three roles: first is the user agent (like a web browser) that makes a request to the second role, which is a service provider (like a web application).
+The service provider relies on the assertion made by the third role, called an identity provider (IdP), for user identification, authentication, and authorization.
+
+There are four components in SAML:
+* Assertions define SAML attributes like how authentication and authorization message protocols or frameworks are to be used by the services.
+* Bindings define the request-response pairs to be used by the three roles to communicate.
+* Protocols include HTTP and simple object access protocol (SOAP), which are used to package and exchange messages between roles.
+* Profiles are the combination of assertions, bindings, and protocols in use within a specific SAML implementation.
+
+The current version of SAML, v2.0, is an OASIS standard. Documentation and best practices for SAML implementation are maintained on the SAML wiki (wiki.oasis-open.org/security/FrontPage).
+SAML is most often used to provide an SSO experience to end users. Users access resources using normal system functions like clicking links to access a web application.
+Security assertion information can be provided as part of a custom URL pointing to the web application or sent as a cookie to the web application.
+This information is based on the user’s previously provided information, such as their login credentials entered when signing into their computer or a web portal, which then grants access to other SAML-enabled applications.
+
+### Kerberos
+
+Kerberos is one of the earliest examples of an SSO designed to reduce the need for users to maintain separate accounts across multiple systems, and to reduce the overhead of individual information systems performing identification and authentication.
+It is widely implemented in modern information systems including Microsoft AD.
+
+In a Kerberos environment, applications or systems that have been “kerberized” instead rely on the Kerberos server to authenticate users. Information is exchanged via tickets, which identify if a user is authentic and if they should be granted access to specific resources.
+User authenticity is proven using symmetric encryption, which requires users to maintain control over their secret key in order to authenticate identity.
+
+#### Kerberos Components
+
+Kerberos uses several different elements that are important to understand:
+
+* **Key Distribution Center**
+The Key Distribution Center is the trusted third party that provides authentication services. Kerberos uses symmetric-key cryptography to authenticate clients to servers.
+All clients and servers are registered with the KDC, and it maintains the secret keys for all network members.
+
+* **Kerberos Authentication Server**
+The authentication server hosts the functions of the KDC: a ticket-granting service (TGS) and an authentication service (AS). However, it is possible to host the ticket-granting service on another server.
+The authentication service verifies or rejects the authenticity and timeliness of tickets. This server is often called the KDC.
+
+* **Ticket**
+A ticket is an encrypted message that provides proof that a subject is authorized to access an object. It is sometimes called a service ticket (ST).
+Subjects (such as users) request tickets to access objects (such as files), and if they have authenticated and are authorized to access the object, Kerberos issues them a ticket.
+Kerberos tickets have specific lifetimes and usage parameters. Once a ticket expires, a client must request a renewal or a new ticket to continue communications with any server.
+
+* **Ticket-Granting Ticket**
+A ticket-granting ticket (TGT) provides proof that a subject has authenticated through a KDC and is authorized to request tickets to access other objects.
+A TGT is encrypted and includes a symmetric key, an expiration time, and the user’s IP address. Subjects present the TGT when requesting tickets to access objects.
+
+* **Kerberos Principal**
+Kerberos issues tickets to Kerberos principals. A Kerberos principal is typically a user but can be any entity that can request a ticket.
+
+* **Kerberos Realm**
+Generically, a realm is an area controlled or ruled by something. A Kerberos realm is a logical area (such as a domain or network) ruled by Kerberos. Principals within the realm can request tickets from Kerberos, and Kerberos can issue tickets to principals in the realm.
+
+#### Kerberos Authentication Process
+
+The Kerberos login process works as follows:
+1. The user types a username and password into the client.
+2. The client encrypts the username with AES for transmission to the KDC.
+3. The KDC verifies the username against a database of known credentials.
+4. The KDC generates a symmetric key that will be used by the client and the Kerberos server. It encrypts this with a hash of the user’s password. The KDC also generates an encrypted timestamped TGT.
+5. The KDC then transmits the encrypted symmetric key and the encrypted timestamped TGT to the client.
+6. The client installs the TGT for use until it expires. The client also decrypts the symmetric key using a hash of the user’s password.
+
+#### Kerberos Authorization Process
+
+When a client wants to access an object, such as a resource hosted on the network, it must request a ticket through the Kerberos server. The following steps are involved in this process:
+1. The client sends its TGT back to the KDC with a request for access to the resource.
+2. The KDC verifies that the TGT is valid and checks its access control matrix to verify that the user has sufficient privileges to access the requested resource.
+3. The KDC generates a service ticket and sends it to the client.
+4. The client sends the ticket to the server or service hosting the resource.
+5. The server or service hosting the resource verifies the validity of the ticket with the KDC.
+6. Once identity and authorization are verified, Kerberos activity is complete. The server or service host then opens a session with the client and begins communications or data transmission.
+
+### Remote Authentication Dial-In User Service/Terminal Access Controller Access Control System Plus
+
+#### RADIUS
+
+Remote authentication dial-in user service (RADIUS) was originally designed in the early 1990s, as evidenced by the name containing dial-in.
+At that time, remote access typically meant utilizing a modem and traditional phone line, but the authentication, authorization, and accounting (AAA) functions it provides are implemented in many modern systems like 802.1X authentication, which is both widely supported and used by modern desktop and smartphone operating systems.
+RADIUS accepts remote user credentials and performs authentication to enforce access control and also provides accounting of remote sessions like the amount of data transferred.
+The RADIUS standard is specified in IETF RFC 2865, available at https://datatracker.ietf.org/doc/html/rfc2865.
+
+##### RADIUS Callback
+
+The RADIUS server can use callback security for an extra layer of protection. Users call in, and after authentication, the RADIUS server terminates the connection and initiates a call back to the user’s predefined phone number.
+If a user’s authentication credentials are compromised, the callback security prevents an attacker from using them.
+
+##### RADIUS Protocols and Ports
+
+RADIUS uses the User Datagram Protocol (UDP) by default and encrypts only the password’s exchange. It doesn’t encrypt the entire session, but RADIUS can use other protocols to encrypt the data session.
+The current version is defined in RFC 2865. RFC 6614, designated as Experimental, defines how RADIUS can use Transport Layer Security (TLS) over Transmission Control Protocol (TCP).
+
+When using TLS, RADIUS uses TCP port 2083. RADIUS uses UDP port 1812 for RADIUS messages and UDP port 1813 for RADIUS Accounting messages.
+
+#### TACACS+
+
+Another protocol that provides AAA functionality is the Terminal Access Controller Access Control System Plus (TACACS+), which was originally designed by Cisco systems.
+TACACS+ is generally implemented to control access to network infrastructure resources like routers and enables users logging in to perform maintenance and other administrative functions.
+It supports authenticating users and provides a centralized method for authorizing user access, as well as auditing of user access and actions. It is described in IETF RFC 8907 at datatracker.ietf.org/doc/html/rfc8907.
+
+It separates authentication, authorization, and accounting into separate processes, which can be hosted on three different servers if desired.
+Additionally, TACACS+ encrypts all of the authentication information, not just the password, as RADIUS does. TACACS+ uses TCP port 49, providing a higher level of reliability for the packet transmissions.
