@@ -221,7 +221,6 @@ Large applications may also contain multiple datasets, like a document managemen
 Granularity describes the level at which access can be controlled — an application with high granularity supports tailoring each user’s access to specific objects, while an application with low granularity allows only a basic allow/deny to the application and all data it contains.
 Inadequate granularity can cause a loss of security if a user, even an internal, nonmalicious one, gains unauthorized access.
 
-
 #### Applications as Subjects and Objects
 
 Applications can be treated as subjects in an access control system as well. They are nonhuman users who access other systems, applications, and data.
@@ -377,6 +376,34 @@ The use of trusted device authentication factors can be static or dynamic. A sta
 During login, the user must provide their password, and the VPN client also provides the certificate for verification. While not foolproof, this approach reduces the usability of stolen user credentials and reduces user friction, or the difficulty users encounter when using the system.
 
 If the VPN requires a password and token code at each login, the user must remember to keep their token with them at all times. Storing a second authentication factor on the device reduces the workload for the user while also achieving a security objective.
+
+##### Smartcards
+
+A smartcard is a credit card–sized ID or badge and has an integrated circuit chip embedded in it. Smartcards contain information about the authorized user that is used for identification and/or authentication purposes. Most current smartcards include a microprocessor and one or more certificates.
+The certificates are used for asymmetric cryptography such as encrypting data or digitally signing emails. Smartcards are tamper-resistant and provide users with an easy way to carry and use complex encryption keys.
+Users insert the card into a smartcard reader when authenticating. It’s common to require users to also enter a PIN or password as a second authentication factor with the smartcard.
+
+##### Tokens
+
+A token device, or hardware token, is a password-generating device that users can carry with them. A common token used today includes a display that shows a six- to eight-digit number.
+An authentication server stores the details of the token, so at any moment, the server knows what number is displayed on the user’s token. Tokens are typically combined with another authentication mechanism.
+
+For example, users might enter a username and password (in the something you know factor of authentication) and then enter the number displayed in the token (in the something you have factor of authentication). This provides multifactor authentication.
+
+Hardware token devices use dynamic onetime passwords, making them more secure than static passwords. These are typically six or eight PINs.
+
+The two types of tokens are synchronous dynamic password tokens and asynchronous dynamic password tokens:
+
+* **Synchronous Dynamic Password Tokens**
+Hardware tokens that create synchronous dynamic passwords are time based and synchronized with an authentication server. They generate a new PIN periodically, such as every 60 seconds. This requires the token and the server to have accurate time.
+A common way this is used is by requiring the user to enter a username, a static password, and the PIN into a web page. Other times, the system prompts users to enter the PIN after first entering their username and password.
+
+* **Asynchronous Dynamic Password Tokens**
+An asynchronous dynamic password does not use a clock. Instead, the hardware token generates PINs based on an algorithm and an incrementing counter. When using an incrementing counter, it creates a dynamic onetime PIN that stays the same until it is used for authentication.
+Some tokens create a onetime PIN when the user enters a PIN provided by the authentication server into the token.
+For example, a user would first submit a username and password to a web page. After validating the user’s credentials, the authentication system uses the token’s identifier and incrementing counter to create a challenge number and sends it back to the user via the web page.
+The challenge number changes each time a user authenticates, so it is often called a nonce (short for “number used once”). The challenge number will only produce the correct onetime password on the device belonging to that user.
+The user enters the challenge number into the token, and the token creates a password. The user then enters the password into the website to complete the authentication process.
 
 ##### Advantages and Disadvantages of Type 2 Authentication Factors
 
@@ -704,6 +731,112 @@ Modern information systems and IT environments often implement a mix of access c
 
 NIST SP 800-192, “Verification and Test Methods for Access Control Policies/Models,” provides definitions of these models and guidance on how to identify requirements for an access control model to apply to a specific system or organization.
 
+#### Extensible Access Control Markup Language (XACML)
+
+XACML is used to express security policies and access rights to assets provided through web services and other enterprise applications.
+
+SAML is just a way to send around your authentication information, as in a password, key, or digital certificate, in a standard format. SAML does not tell the receiving system how to interpret and use this authentication data.
+
+Two systems have to be configured to use the same type of authentication data.
+If you log into System A and provide a password and try to access System B, which only uses digital certificates for authentication purposes, your password is not going to give you access to System B’s service.
+So both systems have to be configured to use passwords. But just because your password is sent to System B does not mean you have complete access to all of System B’s functionality.
+System B has access policies that dictate the operations that specific subjects can carry out on its resources.
+
+The access policies can be developed in the XACML format and enforced by System B’s software. XACML is both an access control policy language and a processing model that allows for policies to be interpreted and enforced in a standard manner.
+When your password is sent to System B, there is a rules engine on that system that interprets and enforces the XACML access control policies.
+If the access control policies are created in the XACML format, they can be installed on both System A and System B to allow for consistent security to be enforced and managed.
+
+XACML uses a **Subject** element (requesting entity), a **Resource** element (requested entity), and an **Action** element (types of access).
+So if you request access to your company’s CRM, you are the Subject, the CRM application is the Resource, and your access parameters are outlined in the Action element.
+
+
+#### Comparing Permissions, Rights, and Privileges
+
+When studying access control topics, you’ll often come across the terms permissions, rights, and privileges. Some people use these terms interchangeably, but they don’t always mean the same thing.
+
+##### Permissions
+
+In general, permissions refer to the access granted for an object and determine what you can do with it. If you have read permission for a file, you’ll be able to open it and read it. You can grant user permissions to create, read, edit, or delete a file on a file server.
+Similarly, you can grant a user access rights to a file, so in this context, access rights and permissions are synonymous. For example, you may be granted read and execute permissions for an application file, which gives you the right to run the application.
+Additionally, you may be granted data rights within a database, allowing you to retrieve or update information in the database.
+
+##### Rights
+
+A right primarily refers to the ability to take an action on an object. For example, a user might have the right to modify the system time on a computer or the right to restore backed-up data. This is a subtle distinction and not always stressed.
+However, you’ll rarely see the right to take action on a system referred to as a permission.
+
+##### Privileges
+
+Privileges are a combination of rights and permissions. For example, an administrator for a computer will have full privileges, granting the administrator full rights and permissions on the computer.
+The administrator will be able to perform any actions and access any data on the computer.
+
+#### Understanding Authorization Mechanisms
+
+Access control models use many different types of authorization mechanisms, or methods to control who can access specific objects. Here’s a brief introduction to some common mechanisms and concepts:
+
+##### Implicit Deny
+
+A fundamental principle of access control is implicit deny, and most authorization mechanisms use it. The implicit deny principle ensures that access to an object is denied unless access has been explicitly granted to a subject.
+
+For example, imagine an administrator explicitly grants Jeff Full Control permissions to a file but does not explicitly grant permissions to anyone else. Mary doesn’t have any access even though the administrator didn’t explicitly deny her access.
+Instead, the implicit deny principle denies access to Mary and everyone else except for Jeff. You can also think of this as deny by default.
+
+##### Access Control Matrix
+
+In short, an access control matrix is a table that includes subjects, objects, and assigned privileges. When a subject attempts an action, the system checks the access control matrix to determine if the subject has the appropriate privileges to perform the action.
+
+For example, an access control matrix can include a group of files as the objects and a group of users as the subjects. It will show the exact permissions authorized for each user for each file. Note that this covers much more than a single access control list (ACL).
+In this example, each file listed within the matrix has a separate ACL that lists the authorized users and their assigned permissions.
+
+##### Capability Tables
+
+Capability tables are another way to identify privileges assigned to subjects. They are different from ACLs in that a capability table is focused on subjects (such as users, groups, or roles).
+For example, a capability table created for the accounting role will include a list of all objects that the accounting role can access as well as the specific privileges assigned to the accounting role for these objects.
+In contrast, ACLs are focused on objects. An ACL for a file would list all the users and/or groups that have authorized access to the file and the specific access granted to each.
+
+##### Constrained Interface
+
+Applications use constrained interfaces or restricted interfaces to restrict what users can do or see based on their privileges. Users with full privileges have access to all the capabilities of the application. Users with restricted privileges have limited access.
+Applications constrain the interface using different methods. A common method is to hide the capability if the user doesn’t have permission to use it.
+
+For example, commands might be available to administrators via a menu or by right-clicking an item, but if a regular user doesn’t have permissions, the command does not appear.
+Other times, the application displays the menu item but shows it dimmed or disabled. A regular user can see the menu item but will not be able to use it.
+
+The Clark–Wilson model (covered in Chapter 8) discusses the technical details of how it implements a constrained interface.
+
+##### Content-Dependent Control
+
+Content-dependent access controls restrict access to data based on the content within an object. A database view is a content-dependent control. A view retrieves specific columns from one or more tables, creating a virtual table.
+
+For example, a customer table in a database could include customer names, email addresses, phone numbers, and credit card data. A customer-based view might show only the customer names and email addresses and nothing else.
+Users granted access to the view can see the customer names and email addresses but cannot access data in the underlying table.
+
+##### Context-Dependent Control
+
+Context-dependent access controls require specific activity before granting users access.
+
+As an example, consider the data flow for a transaction selling digital products online. Users add products to a shopping cart and begin the checkout process.
+The first page in the checkout flow shows the products in the shopping cart, the next page collects credit card data, and the last page confirms the purchase and provides instructions for downloading the digital products.
+The system denies access to the download page if users don’t go through the purchase process first.
+
+It’s also possible to use date and time controls as context-dependent controls.
+
+For example, it’s possible to restrict access to computers and applications based on the current day and/or time. If users attempt to access the resource outside the allowed time, the system denies them access.
+
+##### Need to Know
+
+This principle ensures that subjects are granted access only to what they need to know for their work tasks and job functions.
+Subjects may have clearance to access classified or restricted data but are not granted authorization to the data unless they actually need it to perform a job.
+
+##### Least Privilege
+
+The principle of least privilege ensures that subjects are granted only the privileges they need to perform their work tasks and job functions. This is sometimes lumped together with need to know.
+The only difference is that least privilege will also include rights to take action on a system.
+
+##### Separation of Duties and Responsibilities
+
+The separation of duties and responsibilities principle ensures that sensitive functions are split into tasks performed by two or more employees. It helps prevent fraud and errors by creating a system of checks and balances.
+
 ### Role-Based Access Control
 
 RBAC is a model that maps subjects to a set of objects based on the user’s role in the organization. A role is a set of job functions, often defined by a department or position, and the access granted is based on the needs of that particular role.
@@ -725,6 +858,13 @@ In this example, any user with a system admin role should be barred from the sec
 
 RBAC reduces the management and overhead of creating and managing authorizations for users. If members of the legal department need access to 15 systems, it is more efficient to create a role with access to these systems and then put new members in a group associated with that role.
 This supports important security objectives of access control, while also reducing resources required to implement security, which aligns with business or organization objectives.
+
+#### Task-Based Access Control (TBAC)
+
+Another method related to RBAC is task-based access control (TBAC). TBAC is similar to RBAC, but instead of being assigned to one or more roles, each user is assigned an array of tasks. These items all relate to assigned work tasks for the person associated with a user account.
+Under TBAC, the focus is on controlling access by assigned tasks rather than by user identity.
+As an example, Microsoft Project uses TBAC. Each project has multiple tasks. The project manager assigns tasks to project team personnel. Team personnel can address their own tasks (adding comments, indicating progress, and so on), but they cannot address other tasks.
+Microsoft Project handles the underlying details.
 
 ### Rule-Based Access Control
 
@@ -872,6 +1012,27 @@ The access management policy and procedures should account for user access chang
 * Friendly or voluntary circumstances include a staff member resigning or retiring and generally carry less risk. Access deprovisioning in these cases may occur more slowly, and verification may be left until the next access review to catch any mistakes.
 * Job changes are treated by some high-security organizations the same as a friendly deprovisioning as an extra precaution. The user’s current access is entirely deprovisioned, and new access is requested and provisioned for the user’s changed job role.
 
+#### Service Provisioning Markup Language (SPML)
+
+The Service Provisioning Markup Language (SPML) allows for the exchange of provisioning data between applications, which could reside in one organization or many; allows for the automation of user management (account creation, amendments, revocation) and access entitlement configuration related to electronically published services across multiple provisioning systems; and allows for the integration and interoperation of service provisioning requests across various platforms.
+
+When an organization hires a new employee, that employee usually needs access to a wide range of systems, servers, and applications. Setting up new accounts on every system, properly configuring access rights, and then maintaining those accounts throughout their lifetimes is time-consuming, laborious, and error-prone.
+What if the organization has 20,000 employees and thousands of network resources that each employee needs various access rights to? This opens the door for confusion, mistakes, vulnerabilities, and a lack of standardization.
+
+SPML allows for all these accounts to be set up and managed simultaneously across the various systems and applications. SPML is made up of three main entities:
+* the **Requesting Authority (RA)**, which is the entity that is making the request to set up a new account or make changes to an existing account;
+* the **Provisioning Service Provider (PSP)**, which is the software that responds to the account requests;
+* and the **Provisioning Service Target (PST)**, which is the entity that carries out the provisioning activities on the requested system.
+
+So when a new employee is hired, there is a request to set up the necessary user accounts and access privileges on several different systems and applications across the enterprise.
+
+This request originates in a piece of software carrying out the functionality of the RA.
+The RA creates SPML messages, which provide the requirements of the new account, and sends them to a piece of software that is carrying out the functionality of the PSP.
+This piece of software reviews the requests and compares them to the organization’s approved account creation criteria. If these requests are allowed, the PSP sends new SPML messages to the end systems (PST) that the user actually needs to access.
+Software on the PST sets up the requested accounts and configures the necessary access rights.
+
+If this same employee is fired three months later, the same process is followed and all necessary user accounts are deleted. This allows for consistent account management in complex environments.
+
 #### Self-Provisioning and Self-Deprovisioning
 
 Systems that support self-provisioning or self-deprovisioning must have access control requirements addressed as part of the system development. For example, an online shopping site that allows users to register themselves for accounts will mostly likely implement RBAC.
@@ -927,6 +1088,8 @@ Horizontal escalation is often targeted at accessing other systems using already
 
 ### OpenID Connect/Open Authorization
 
+#### OAuth
+
 Open Authorization (OAuth) is an “open protocol to allow secure authorization in a simple and standard method from web, mobile, and desktop applications,” as defined by the OAuth community website (oauth.net).
 The project is an Internet Engineering Task Force (IETF) working group, which lends its broad, global support, and, as the name implies, it is focused on authorization rather than authentication.
 The community website contains a variety of resources including specifications for platform-specific implementations and best-practice guides for using OAuth in various applications.
@@ -937,33 +1100,85 @@ OAuth defines four key roles that systems in an OAuth federation must implement 
 * **Client:** Any application making requests for access to protected resources.
 * **Authorization server:** Any server issuing access tokens to clients after successful authentication; tokens are used across the federated system to gain access.
 
+#### OpenID
+
+OpenID is also an open standard, but it is maintained by the OpenID Foundation rather than as an RFC standard.
+It provides decentralized authentication, allowing users to log into multiple unrelated websites with one set of credentials maintained by a third-party service referred to as an OpenID provider.
+
+#### OpenID Connect (OIDC)
+
 Open ID Connect (OIDC) adds authentication functions built on top of OAuth version 2.0 and federates identity management to provide users with an authentication experience similar to SSO.
 It is often implemented in web applications; and in OIDC, the user is presented with a choice of identity providers (IdPs), which are usually common email or social media platforms like Gmail, LinkedIn, or Twitter.
 The user selects an IdP, which then provides authentication information to the relying party using OAuth.
 The authentication information in OIDC is passed from an OIDC provider (OP) to the relying party (RP) in the form of a token, which contains claims about the user and authentication of their asserted identity.
 IDaaS provider Okta has an illustrated developer blog highlighting the key steps of OIDC authentication (developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc).
 
-As an example, a user registers for the eBay web application using a Twitter account; in the future, they can authenticate to eBay if they are able to successfully log in to Twitter.
-If they have authenticated to Twitter before opening eBay, then they may not even be required to perform any action — eBay can make an OIDC request to Twitter, which has an active, authenticated session for the user, and access is automatically granted.
-This user convenience can be beneficial to reduce the burden of user logins, but also carries risks similar to SSO. If the OP is unavailable, then all RPs will also lose availability.
-Other similar IdPs include Google, LinkedIn, Microsoft, and Apple, which provide user identification and authentication services that can be implemented in other websites, web apps, and many common smartphone apps.
+##### JavaScript Object Notation (JSON) Web Token (JWT)
+
+It builds on the technologies created with OpenID but uses a JavaScript Object Notation (JSON) Web Token (JWT), also called an ID token. OpenID Connect uses a web service to retrieve the JWT. In addition to providing authentication, the JWT can also include profile information about the user.
+
+##### OpenID Connect Flows
+
+Most of this occurs behind the scenes, but you can see it in action by logging onto eBay with a Google account. These processes and interfaces change over time, but the general steps are as follows:
+1. If you don’t have a Google account, create one first.
+2. Ensure you’re logged out of eBay and Google, go to ebay.com, and click Sign In.
+3. Click Continue With Google. A dialog box opens, prompting you to enter your Google email. It also indicates what Google will share with ebay.com.
+4. Enter your email address and press Enter.
+5. Enter your password and click Next.
+6. If you’ve enabled 2-Step Verification on your Google account, you’ll be prompted to get the code and enter it.
 
 ### Security Assertion Markup Language
+
+Security Assertion Markup Language (SAML) is an open XML-based standard commonly used to exchange authentication and authorization (AA) information between federated organizations. It provides SSO capabilities for browser access.
 
 SAML is a framework for different systems to exchange security assertions, which consist of information needed to enforce access controls. It uses Extensible Markup Language (XML) to format messages regarding identities, resources, and access information like authentication and authorization.
 In SAML, there are three roles: first is the user agent (like a web browser) that makes a request to the second role, which is a service provider (like a web application).
 The service provider relies on the assertion made by the third role, called an identity provider (IdP), for user identification, authentication, and authorization.
 
 There are four components in SAML:
-* Assertions define SAML attributes like how authentication and authorization message protocols or frameworks are to be used by the services.
-* Bindings define the request-response pairs to be used by the three roles to communicate.
-* Protocols include HTTP and simple object access protocol (SOAP), which are used to package and exchange messages between roles.
-* Profiles are the combination of assertions, bindings, and protocols in use within a specific SAML implementation.
+* **Assertions** define SAML attributes like how authentication and authorization message protocols or frameworks are to be used by the services.
+* **Bindings** define the request-response pairs to be used by the three roles to communicate.
+* **Protocols** include HTTP and simple object access protocol (SOAP), which are used to package and exchange messages between roles.
+* **Profiles** are the combination of assertions, bindings, and protocols in use within a specific SAML implementation.
+
+The IdP can send three types of XML messages known as assertions:
+* **Authentication Assertion** This provides proof that the user agent provided the proper credentials, identifies the identification method, and identifies the time the user agent logged on.
+* **Authorization Assertion** This indicates whether the user agent is authorized to access the requested service. If the message indicates access is denied, it indicates why.
+* **Attribute Assertion** Attributes can be any information about the user agent.
 
 The current version of SAML, v2.0, is an OASIS standard. Documentation and best practices for SAML implementation are maintained on the SAML wiki (wiki.oasis-open.org/security/FrontPage).
 SAML is most often used to provide an SSO experience to end users. Users access resources using normal system functions like clicking links to access a web application.
 Security assertion information can be provided as part of a custom URL pointing to the web application or sent as a cookie to the web application.
 This information is based on the user’s previously provided information, such as their login credentials entered when signing into their computer or a web portal, which then grants access to other SAML-enabled applications.
+
+### Comparing SAML, OAuth, OpenID, and OIDC
+
+It’s easy to mix up the differences between SAML, OAuth, OpenID, and OIDC. This section summarizes key points of each one and points out some of the differences.
+
+The following bullets outline the key points about SAML:
+* SAML 2.0 is an open XML-based standard.
+* OASIS adopted it as a standard in 2005.
+* It utilizes three entities: a principal (such as a user), a service provider (such as a website), and an identity provider (a third party that holds the authentication and authorization information).
+* It can provide authentication, authorization, and attribute information on the principal.
+
+The following bullets outline the key points about OAuth:
+* It’s an authorization framework, not an authentication protocol.
+* RFC 6749 describes OAuth 2.0.
+* It exchanges information using APIs.
+* An app obtains an access token from an identity provider.
+* Later, the app includes the access token for authorization.
+
+The following bullets outline the key points about OpenID:
+* OpenID is an authentication standard.
+* It is maintained by the OpenID Foundation.
+* An OpenID provider provides decentralized authentication.
+* Users enter their Open ID identifier (such as bobsmith2021.myopenid.com) on a site and the OpenID provider verifies the identifier.
+
+The following bullets outline the key points about OIDC:
+* OIDC is an authentication layer using OAuth 2.0.
+* It builds on the OpenID authentication standard.
+* It provides both authentication and authorization.
+* It builds on OpenID but uses a JSON Web Token.
 
 ### Kerberos
 
