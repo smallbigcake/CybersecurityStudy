@@ -727,3 +727,146 @@ Insufficient or negative answers indicate weaknesses that might be addressed by 
 * Does the organization rely on critical third parties or services? If so, have those dependencies been tested?
 * Do other processes like change management integrate with the BCDR plans to ensure organizational changes are properly reflected in planning documents?
 
+
+## ANALYZE TEST OUTPUT AND GENERATE REPORT
+
+Security evaluations such as vulnerability scans, penetration tests, gap assessments, continuous monitoring, and audits generate a large volume of data.
+Reviewing all output generated is time-consuming and may be impossible for nonsecurity practitioners, although users outside the security team do need to access data related to security processes.
+It is essential, therefore, to generate reports that summarize key details of testing and evaluation activities, including the circumstances or assumptions used to conduct testing, actions performed during testing, findings or issues discovered, and any recommended remedial steps to address the findings.
+
+#### Audience
+
+A security practitioner preparing a report must first identify the audience or user of the report, which is crucial to determine appropriate levels and types of details to include.
+The executive committee of a multinational corporation is unlikely to be interested in specific code issues that caused a buffer overflow vulnerability and might instead care about strategic risk management actions like increasing the developer security training budget or requiring more stringent application security testing.
+The developers responsible for fixing the vulnerability care more about the raw output of security testing tools like a code scanner, so a report that includes strategic process improvements is not appropriate.
+
+#### Report Structure
+
+The process of designing a report may require structuring content based on the needs of multiple audiences, and a modular structure can be useful.
+An executive summary and a high-level overview of the findings may be presented in a single section, to be shared with executives, business partners, or customers since these groups typically do not require highly detailed information.
+Technical details of testing can be presented in an appendix, which may be shared separately with appropriate technical audiences who need that level of detail to address any findings.
+Many security tools like vulnerability scanners can also be configured to present the same information in multiple formats — a dashboard for executives or a security practitioner to monitor, with more detailed information available via drill-down if a user chooses.
+
+#### Draft Reports
+
+During testing, multiple copies of a report may also be generated that necessitates a lifecycle approach to managing the documentation.
+In formal security assessments, a draft report may be created and shared when testing is completed, in the interest of communicating information as quickly as possible.
+The assessors still have additional work to perform to finalize the report, like adjusting severity or criticality based on compensating controls and removing any false positives.
+Sharing the information contained in draft reports can be a tricky prospect, as “critical” findings in an initial report may be marked as “moderate” in a final report once compensating controls are considered; the initial rating can cause panic if shared without the full context.
+
+#### Limitations of Automated Reports
+
+Security evaluations performed with automated tools may automatically generate reports; however, these may be of limited use for several reasons.
+A security practitioner must decide whether the automated report provides appropriate information, or if manual reporting is required.
+Many tools provide information using standardized formats like base CVSS scores to define criticality, but do not account for CVSS environmental or temporal scores, which may be less severe.
+This distorts the criticality of the findings and may require a manual report to compensate.
+
+### Typical Audit Report Contents
+
+A CISSP will likely need to read audit or assessment reports and may be called upon to write them as well depending on job assignments.
+Understanding common sections of these reports, as well as the contents they typically contain, is essential:
+
+* **Executive summary:** This section contains a high-level overview of the testing activities and findings and typically takes up no more than one page.
+
+  **Dashboards** present similar high-level information without a narrative and are often present in automated, repetitive testing tools like vulnerability scanners. They provide a summary of the findings and often support the ability to drill down into more technical data.
+
+* **Assumptions or constraints:** Testing often involves constraints, such as a limited amount of time or scope of activities.
+Since this may lead to parts of a system not being tested, it is important to clearly state these assumptions to provide context for the report’s findings.
+
+* **Scope:** It is critical for a reader to understand the coverage of the findings and testing activities.
+For example, evaluations like pen testing or SOC 2 audits may be limited to specific systems, networks, or facilities, so the report does not include details about vulnerabilities related to objects outside that scope.
+
+* **Summary of activities:** Tests, evaluations, or audit activities performed should be summarized to show the work performed by the evaluation team.
+
+* **Findings or issues:** Findings, deficiencies, or issues are often presented in a table or bulleted list, and each one should include details like where it was found, the severity, and any evidence supporting the finding.
+
+* **Recommendations:** Assessors may provide generic recommendations, like “Apply all current patches” or more detailed recommendations like which cipher suites to disable on specific webservers along with the relevant system configuration commands.
+
+* **Appendixes:** Relevant information is often placed in an appendix for reference if needed, as raw data generated by security testing tools can be complex and lengthy.
+Placing such information in an appendix provides a more usable report for quick consumption, as well as providing details for a more technical audience might require if needed.
+
+### Remediation
+
+Identifying deficiencies or issues with security controls is the main goal of performing security tests, evaluations, assessments, and audits. It is therefore essential that a CISSP implement a process, known as remediation, for addressing any findings.
+This requires project management skills like prioritizing work to be performed, identifying timelines and milestones, and tracking the work through to completion.
+Audit findings may be input to other areas of the security program like risk analysis and may be handled using the processes from that area. For example, an audit finding regarding a deficient control represents a risk that is not being fully mitigated.
+The risk management process typically involves documenting the mitigation effect of existing controls, so this audit finding should trigger a review of the relevant risk.
+
+When presented with a set of assessment findings, the organization should create a plan to address them. The goal of these plans is the same, though various security and compliance frameworks use different names like plan of action and milestones (POAM), risk mitigation plans, or audit issue mitigation plans.
+Regardless of the name, they share similar features:
+* Details of the finding
+* Mitigating or other relevant circumstances
+* Prioritization
+* Timeframe for resolution
+* Resources required
+* Milestones (key dates) and expectations
+
+Once a remediation plan has been executed, it may be prudent to perform the test again to verify the fix is sufficient, particularly for software or technological control vulnerabilities.
+Retesting is often a defined phase of penetration testing. The testers may even provide advance notice of confirmed findings even before a report is issued to give the organization additional time to address them before the retest.
+Routine evaluations like monthly vulnerability scanning can also be used to verify if implemented fixes were successful.
+
+### Exception Handling
+
+When an audit or other security evaluation discovers an issue that cannot be remediated, it must be handled through an exception process.
+This is similar to and follows the same steps as documenting policy exceptions, used when a particular system is unable to meet the requirements specified in a policy.
+
+Although exceptions may be granted, it should be noted that they should be granted only on a temporary basis.
+If an exception is requested permanently, or the same issue frequently causes requests for exceptions, this is an indication that a policy or risk management decision is not properly aligned with the organization’s objectives.
+
+Policy updates might be needed to achieve this alignment, or management governance decisions may need to be reviewed and updated.
+
+#### Documentation of Exceptions
+
+Since these exceptions represent an inability to mitigate identified risks, they require specific attention from the organization’s security function and management.
+This comes in the form of documentation of the exception along with relevant details and a formal review and approval, which explicitly states the organization’s understanding and acceptance of the risk.
+
+This is information typically documented for exception handling:
+* **Risk details:** The specifics of the risk, deficiency, or issue, including when it was found and by whom.
+* **Reason(s) for exception:** The intended outcome of risk management is mitigation, so management will need details about why a particular risk cannot be mitigated.
+* **Compensating controls:** Even if a risk cannot be directly treated to meet the organization’s risk threshold, it may be possible to partially mitigate with compensating controls such as increased monitoring.
+* **Exception approval:** Management must make an explicit decision to assume additional risk, and documenting the review and approval process provides accountability for this decision.
+* **Time:** Most exceptions should be granted on a temporary basis. If the identified deficiency requires a long-term plan to address the risk, such as a major IT project, the exception should be granted only for the anticipated time required to complete the project.
+
+### Ethical Disclosure
+
+Web applications, sites, and services like APIs will likely contain vulnerabilities.
+There is a growing community of security researchers who identify and report these issues to the organization responsible for the affected resource, with the goal of responsibly disclosing the vulnerability before a malicious actor can find it.
+These researchers are often ethical hackers, and this process is known as ethical or responsible disclosure.
+
+#### Disclosure Policy
+
+Security practitioners at organizations with web resources should ensure they are prepared for ethical disclosure of vulnerabilities.
+This can be challenging, as the ethical hackers or security researchers are outside the organization and communication is often unexpected.
+
+One recommended practice is to develop and share a publicly available disclosure policy that outlines several key points:
+* How to report vulnerabilities and what to expect, like details of when to expect an initial response, how long it will take to validate any findings submitted, and what types of requests for additional information might follow.
+* Any payment or recognition made for reported vulnerabilities. Some researchers do not expect any recognition, while others may be satisfied with public recognition of their work in the form of thanks in a patch or security update when the vulnerability is fixed.
+* Any security elements that are explicitly in scope or out of scope. Many organizations choose to exclude reports of missing “best practices” that do not fit the organization’s operational needs or low-criticality items and vulnerabilities that result in only minor operational issues.
+
+#### Ethical Disclosure Rules
+
+As a security researcher or ethical hacker, or as an organization providing these types of services, it is important to ensure the work you do follows the requirements of these policies.
+While there may be some areas that are open for respectful debate, such as the criticality of a particular vulnerability, there are several ethical disclosure rules that are not open to debate:
+* Any vulnerabilities found should be reported to the responsible organization, and they should never be used exclusively for personal monetary or reputation gain.
+* All work should be conducted in good faith, and organizations should be given the benefit of the doubt.
+Identified vulnerabilities are typically disclosed publicly after a specific period of time, which gives the organization time to address the vulnerability.
+If the organization has been responsive and asks for additional time to work on a remediation, it is not advisable to move ahead with disclosure before a fix is available.
+* Act within the limits of the law.
+* As an organization, be receptive to vulnerability disclosures, and do not act in a hostile manner unless a researcher is behaving in an abusive manner.
+
+Many organizations are choosing to provide financial incentives to ethical hackers in the form of bug bounty or disclosure payouts. Since criminals are often motivated by profit, paying for responsible disclosure alters the economics to favor legitimate researchand responsible disclosure.
+Third-party firms exist to manage the process of ethical disclosure and payment for identified bugs. These services offer the advantage of a pool of verified security researchers, and using a bug bounty provider can be a valuable addition to an organization’s security testing and assessment strategy.
+
+There are four circumstances related to ethical disclosure that a security researcher or organization needs to consider if they have discovered a vulnerability in a system they do not own or control.
+Rules, laws, and regulations for these security research and disclosure of vulnerabilities varies greatly across jurisdictions and is constantly evolving, so any individual or organization performing security research should seek legal guidance for their activities.
+
+The special circumstances for responsibly disclosing findings include thefollowing:
+* **Nondisclosure:** There may be contractual or legal obligations that prevent disclosure of a vulnerability; for example, when disclosing a vulnerability might compromise an active criminal investigation.
+* **Full disclosure:** This is a philosophical argument that any time a weakness is discovered, it should be fully and transparently reported to the organization responsible for fixing it as soon as possible.
+While the goal of improving security is admirable, many vendors may be hostile to researchers who attempt to report vulnerabilities.
+* **Responsible disclosure:** This principle defines a responsibility for the discoverer to report a weakness to the organization in a timely manner and give the organization time to fix the vulnerability before publicly disclosing it.
+* **Mandatory reporting:** In certain circumstances, reporting a discovered vulnerability to law enforcement or other authorities may be mandatory.
+Legal and regulatory frameworks around the world vary, so this can be a difficult situation if the discoverer is in one jurisdiction but the organization responsible for the software or system is in another.
+* **Whistleblowing:** A whistleblower is someone who feels ethically obligated to report a dangerous or illegal situation, and many jurisdictions have laws designed to protect whistleblowers from retribution for reporting.
+In the case of discovered security vulnerabilities, whistleblowers may be protected from prosecution for copyright infringement or other digital crimes if they follow proper channels for disclosing discovered vulnerabilities.
+
