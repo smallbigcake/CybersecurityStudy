@@ -870,3 +870,105 @@ Legal and regulatory frameworks around the world vary, so this can be a difficul
 * **Whistleblowing:** A whistleblower is someone who feels ethically obligated to report a dangerous or illegal situation, and many jurisdictions have laws designed to protect whistleblowers from retribution for reporting.
 In the case of discovered security vulnerabilities, whistleblowers may be protected from prosecution for copyright infringement or other digital crimes if they follow proper channels for disclosing discovered vulnerabilities.
 
+
+## CONDUCT OR FACILITATE SECURITY AUDITS
+
+#### Goals and Requirements
+
+Security practitioners are often in charge of either conducting or facilitating audits, and in both cases, the goal is the same: to compare some aspect of an organization against a standard.
+Conducting an audit, or being the auditor, requires a thorough understanding and knowledge of the processes, goals, and techniques used in auditing.
+Facilitating audits does not require as much knowledge, but being aware of the audit process can be helpful when preparing in advance of the audit.
+
+### Designing an Audit Program
+
+An organization’s audit program can be designed to conduct internal audits, facilitate external audits, or both if needed. Appropriate resources, oversight, and support from management are essential, as is a realistic schedule for performing audits.
+One-off, point-in-time audits provide a useful snapshot of a security program, but a recurring audit schedule allows the program to be tracked over time and show improvements.
+
+#### Common Audit Frameworks
+
+If an organization is pursuing a specific type of audit, such as FedRAMP or SOC 2, then the audit program will be dictated by the standard, as this is what external auditors are required to follow.
+The audit frameworks may also be used as a guide to best practices when designing an internal program.
+In fact, designing an internal program aligned to the same standard an external auditor uses makes sense, as it allows the organization to uncover the same issues an external auditor might find.
+
+These are common information security frameworks that provide a standard against which to perform an audit:
+* **SSAE 18** is the Statement on Standards for Attestation Engagements that is used by auditors when performing audits for SOC 2.
+* **ISO/IEC 15408-1:** 2009, “Information technology — Security techniques — Evaluation criteria for IT security,” is the foundation for the Common Criteria certification, which is a formal assessment process for technology products against a defined set of security functional requirements.
+This document and ISO/IEC 18045 are available free of charge.  
+**ISO/IEC 18045:2008**, “Information technology — Security techniques — Methodology for IT security evaluation,” is a companion to ISO 15048 and provides standards for consistent criteria and evaluation methods.
+* **ISO/IEC 27006:2015**, “Information technology — Security techniques — Requirements for bodies providing audit and certification of information security management systems,” is the official set of requirements and guidance for auditors performing certification audits against ISO 27001.
+* **NIST Special Publication (SP) 800-53A**, “Assessing Security and Privacy Controls in Federal Information Systems and Organizations,” is a guide to assessing the controls outlined in NIST SP 800-53.
+It introduces a simple set of testing procedures to assess control effectiveness: test, examine, or interview. Although applicable to U.S. government agencies, it is freely available and may be adapted for use by any organization.  
+The **NIST Cybersecurity Framework (CSF)** and **FedRAMP Security Assessment Framework (SAF)** are both freely available as well and may be used to perform assessments with evaluation methods similar to those in NIST SP 800-53A.
+
+#### Sampling
+
+When designing an audit program, the cost of work to gather information and gain assurance should be balanced against the benefit of risk visibility.
+Sampling is a technique utilized in audits to reduce work while maintaining assurance that deficiencies are identified.
+
+For example, a configuration audit might choose 100 servers out of a population of 1,000 to reduce the amount of work required.
+The sample should be representative — if the organization is evenly split between Windows and Linux, then 50 of each server type should be examined.
+
+### Internal Audits
+
+An internal audit is conducted by the staff of an organization and offers the benefit of auditor familiarity with processes, tools, and personnel.
+This same familiarity can also be a drawback of internal audits, as someone familiar with an environment may unintentionally overlook issues — a second pair of eyes on a problem often identifies problems.
+A dedicated team member to perform audits and manage remediation, however, may be more effective than an external auditor who delivers a report and then has no further interaction.
+
+Internal auditors may also lack sufficient independence to perform an objective assessment. Finding a major issue that could impact financial performance or the auditor’s relationship with team members can create an incentive to downplay issues discovered.
+In some organizations, this can be solved by making auditors a separate team within the company, though for smaller organizations, that may not be a viable option.
+
+Internal audits are often useful when preparing for an external audit to find and correct issues in preparation for the external audit.
+In situations where the external audit has significant business impacts, like PCI or other regulatory audit, an internal readiness assessment or mock audit is a prudent risk avoidance measure.
+Internal audits can play a key role in an organization’s governance, as they provide reports to management showing how well policies and other governance are being implemented.
+
+### External Audits
+
+An external audit is performed by personnel from outside the organization and is often a requirement for regulatory compliance audits.
+
+#### Advantages of External Audits
+
+The key advantage of an external auditor is total independence from the organization being audited — the auditors are invested fully in the process of conducting the audit and should have no conflict of interest to overlook or suppress findings.
+They may also have highly specialized skills needed to perform audits, like SOC 2 audits performed using the SSAE 18 standard that require the skills of a Certified Public Accountant (CPA); this may not be a skillset most organizations have on internal teams.
+
+#### Drawbacks of External Audits
+
+The use of external auditors has two potential drawbacks.
+First is the cost, which can be significant for large and complex audits that may involve travel, hours billed by auditors, and service fees that match the skill level of the audit firm retained (generally firms with a higher reputation will charge more).
+
+The lack of knowledge about an organization’s operations can also be a drawback, as an external auditor must spend more time learning than a similar internal auditor who is already familiar, or the external auditor may entirely miss a detail like specific policy language.
+This can lead to false positive audit findings.
+
+#### External Audit for Regulatory Compliance
+
+The use of external auditors is a requirement in many compliance frameworks, such as PCI, ISO 27001, and the Cloud Security Alliance Security Trust Assurance and Risk (CSA STAR).
+The independent third party supports assurance that the findings in the report are reliable, which is beneficial to parties like business partners or customers.
+Regulatory bodies in some industries and governmental organizations may have their own auditors who assess organizations they regulate.
+In these cases, facilitating these external audits must be a high priority to a CISSP, as most of the regulatory bodies can take actions like issuing fines or suspending business operations for noncompliance.
+
+### Third-Party Audits
+
+Third-party audits are a vital risk management tool used for external suppliers, vendors, and partners. A security practitioner may be in charge of conducting such an audit or be a consumer of an audit report provided by the external party.
+The goal in both is the same: to identify any of the third party’s risks that could impact your organization, and the risk mitigations in place.
+
+Common examples include SOC 2 and CSA STAR audits, which are often conducted for the explicit purpose of sharing details about an organization’s security program with third parties.
+
+#### Importance of Third-Party Audits
+
+Auditing the security practices of third parties with access to your organization’s sensitive data is especially crucial.
+Many privacy and data security laws explicitly place legal accountability for breaches on the data controller even if a data processor, like a cloud service, was the cause of the breach.
+These audits can identify the controls in place at the provider, and whether these mitigations reduce risk to a level acceptable by the organization.
+
+#### Questions to Ask
+
+Whether consuming a SOC 2 report or conducting an audit of a third party’s controls, a security practitioner should seek to answer the following questions related to the security program:
+* What standards do they use for selecting controls and auditing their effectiveness?
+* What details are being shared? If only limited information is available, are there deficiencies being hidden?
+* What findings exist, and what is the third party’s response related to the risk?
+* What plans exist to remediate any findings?
+
+#### Complexity of Modern Supply Chains
+
+Third-party risk assessment can quickly become complicated due to the complexity of modern supply chains.
+An information system running in an organization’s colocation provider inherits risks from the third-party hosting service, software used to run the system, and vendors of physical goods and services.
+Risk present in the supply chains of these third parties can also pose a risk to the organization, which is a fourth-party relationship.
+Identifying the suppliers in the supply chain and ensuring adequate coverage of audits and assessments are discussed in more detail in Chapter 1.
