@@ -127,10 +127,44 @@ Most scanning tools offer a similar set of basic features and operate in a commo
 Once an asset is discovered, the scan performs other automated actions to identify vulnerabilities, such as a port scan to identify active services like FTP or system-specific checks like querying the Windows Registry to identify installed software and patch levels.
 Some scanners can perform application-specific checks, like identifying a web server’s supported encryption cipher suites.
 
+##### Learning TCP Ports
+
+Interpreting port scan results requires knowledge of some common TCP ports. Here are a few that you should commit to memory when preparing for the CISSP exam:
+* FTP: 20/21
+* SSH: 22
+* Telnet: 23
+* SMTP: 25
+* DNS: 53
+* HTTP: 80
+* POP3: 110
+* NTP: 123
+* Windows File Sharing: 135, 137–139, 445
+* HTTPS: 443
+* LPR/LPD: 515
+* Microsoft SQL Server: 1433/1434
+* Oracle: 1521
+* H.323: 1720
+* PPTP: 1723
+* RDP: 3389
+* HP JetDirect printing: 9100
+
+##### Comparing against Known Vulnerabilities
+
 Once the vulnerability scanner has identified relevant information, it can compare this information against a list of known vulnerabilities.
 For example, a Linux webserver running an outdated version of the Linux kernel can be cross-referenced with a list of known vulnerabilities in that version; this list of vulnerabilities is the output of the vulnerability scanner and can be used to identify remedial action needed to address the vulnerability — in this case, applying patches.
 
 Scan output should identify the criticality or severity rating for each finding, often using common standards like Common Vulnerability Scoring System (CVSS) scores or specific Common Vulnerabilities and Exposures (CVE) references.
+
+The security community depends on a common set of standards to provide a common language for describing and evaluating vulnerabilities. NIST provides the community with the **Security Content Automation Protocol (SCAP)** to meet this need.
+SCAP provides this common framework for discussion and also facilitates the automation of interactions between different security systems. The components of SCAP most directly related to vulnerability assessment include these:
+* Common Vulnerabilities and Exposures (CVE) provides a naming system for describing security vulnerabilities.
+* Common Vulnerability Scoring System (CVSS) provides a standardized scoring system for describing the severity of security vulnerabilities.
+* Common Configuration Enumeration (CCE) provides a naming system for system configuration issues.
+* Common Platform Enumeration (CPE) provides a naming system for operating systems, applications, and devices.
+* Extensible Configuration Checklist Description Format (XCCDF) provides a language for specifying security checklists.
+* Open Vulnerability and Assessment Language (OVAL) provides a language for describing security testing procedures.
+
+##### Choosing a Vulnerability Scanner
 
 When choosing and configuring a vulnerability scanner, there are several important considerations to ensure it provides valuable output. A CISSP should understand how these impact the output of the tool and strike a balance to ensure maximum benefit from the tool.
 
@@ -380,6 +414,21 @@ Code comprises software and is the foundation of information systems, so reviewi
 Bugs or vulnerabilities in the code can impact the security of the overall system and any data it stores or processes.
 Additional topics related to code reviews, testing, and software security are covered in Chapter 8, including common frameworks for assessing or describing software vulnerabilities like the Common Weakness Enumeration (CWE), CVSS, and the Open Web Application Security Project (OWASP) Top 10 security vulnerabilities.
 
+#### Code Review Process
+
+Code review takes many different forms and varies in formality from organization to organization. The most formal code review processes, known as Fagan inspections, follow a rigorous review and testing process with six steps:
+1. Planning
+2. Overview
+3. Preparation
+4. Inspection
+5. Rework
+6. Follow-up
+
+The Fagan inspection level of formality is normally found only in highly restrictive environments where code flaws may have catastrophic impact. Most organizations use less rigorous processes, using code peer review measures that include the following:
+* Developers walking through their code in a meeting with one or more other team members
+* A senior developer performing manual code review and signing off on all code before moving the code to production
+* Use of automated review tools to detect common application flaws before moving the code to production
+
 Although a CISSP may not be directly responsible for writing or maintaining code in a system, which is the responsibility of a software developer, it is vital to understand the importance of adequate code review and testing measures.
 Code testing should be designed and implemented to detect and correct software vulnerabilities and ideally to detect flaws close to the time the code is written. It is generally easier to make changes while the code is still under development, and two main approaches may be used to support this goal:
 * Black-box testing: The tester does not have access to the source code or internal workings of the application, modeling the perspective of an external attacker or user.
@@ -394,6 +443,34 @@ For example, the testing should provide adequate coverage across the application
 
 Development practices in DevSecOps rely heavily on automated, repeatable testing in the continuous integration/continuous delivery (CI/CD) pipeline to balance delivery speed and security, and emerging security concepts like security orchestration, automation, and response (SOAR) apply a similar focus on automating security incident response; both topics are covered in detail in Chapter 8.
 These tests should be supplemented by manual testing like a penetration test or formal code testing on a less frequent basis to ensure deeper analysis is performed.
+
+#### Static Testing
+
+**Static application security testing (SAST)** evaluates the security of software without running it by analyzing either the source code or the compiled application.
+Static analysis usually involves the use of automated tools designed to detect common software flaws, such as buffer overflows.
+In mature development environments, application developers are given access to static analysis tools and use them throughout the design, build, and test process.
+
+#### Dynamic Testing
+
+**Dynamic application security testing (DAST)** evaluates the security of software in a runtime environment and is often the only option for organizations deploying applications written by someone else.
+In those cases, testers often do not have access to the underlying source code. One common example of dynamic software testing is the use of web application scanning tools to detect the presence of cross-site scripting, SQL injection, or other flaws in web applications.
+Dynamic tests on a production environment should always be carefully coordinated to avoid an unintended interruption of service.
+
+Dynamic testing may include the use of _synthetic transactions_ to verify system performance. These are scripted transactions with known expected results.
+The testers run the synthetic transactions against the tested code and then compare the output of the transactions to the expected state.
+Any deviations between the actual and expected results represent possible flaws in the code and must be further investigated.
+
+#### Fuzz Testing
+
+Fuzz testing is a specialized dynamic testing technique that provides many different types of input to software to stress its limits and find previously undetected flaws.
+Fuzz testing software supplies invalid input to the software, either randomly generated or specially crafted to trigger known software vulnerabilities.
+The fuzz tester then monitors the performance of the application, watching for software crashes, buffer overflows, or other undesirable and/or unpredictable outcomes.
+
+There are two main categories of fuzz testing:
+* **Mutation (Dumb) Fuzzing** Takes previous input values from actual operation of the software and manipulates (or mutates) it to create fuzzed input.
+It might alter the characters of the content, append strings to the end of the content, or perform other data manipulation techniques.
+* **Generational (Intelligent) Fuzzing** Develops data models and creates new fuzzed input based on an understanding of the types of data used by the program.
+The zzuf tool automates the process of mutation fuzzing by manipulating input according to user specifications.
 
 ### Misuse Case Testing
 
@@ -445,6 +522,14 @@ Compensating controls may also be considered to mitigate untested system element
 An interface is an interaction point with a system. Examples include the user interface (UI), which provides a way for a human user to interact with a system, and APIs, which are used for system-to-system interaction.
 UIs often take the form of a graphical user interface (GUI) with windows and menus or text-based interaction using a command-line interface (CLI).
 APIs may be implemented using a variety of methods like Representational State Transfer (REST) APIs for web applications, inter-process communication (IPCs), and remote procedure calls (RPCs).
+
+Three types of interfaces should be tested during the software testing process:
+* **Application Programming Interfaces (APIs)**
+Offer a standardized way for code modules to interact and may be exposed to the outside world through web services. Developers must test APIs to ensure that they enforce all security requirements.
+* **User Interfaces (UIs)**
+Examples include graphical user interfaces (GUIs) and command-line interfaces. UIs provide end users with the ability to interact with the software. Interface tests should include reviews of all user interfaces to verify that they function properly.
+* **Physical Interfaces**
+Exist in some applications that manipulate machinery, logic controllers, or other objects in the physical world. Software testers should pay careful attention to physical interfaces because of the potential consequences if they fail.
 
 Evaluating interface functionality and security is a critical part of system testing. Security controls should be implemented in interfaces to support security goals of confidentiality, via access controls, or nonrepudiation, via logging of actions executed using the interface.
 Interface testing may be part of standard software development testing conducted by developers and is also a key element in security testing activities overseen by security practitioners, such as vulnerability assessments, penetration tests, and security testing like breach simulations.
