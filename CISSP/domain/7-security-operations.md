@@ -1381,3 +1381,693 @@ Another potential drawback of AI and ML is their black-box nature of decision-ma
 The situation is similar to a complex math problem being solved without showing work — it’s impossible to identify potential errors in the solution or learn how the solution was reached.
 Due to proprietary ML and AI algorithms, it may not be possible to access underlying data to analyze decisions from these tools, so taking action based on an alert may be difficult. As with any new technology, caution is warranted.
 
+
+## IMPLEMENT AND SUPPORT PATCH AND VULNERABILITY MANAGEMENT
+
+Software that contains more than a few lines of code will likely contain unforeseen bugs, and even simple software runs on top of other complex system components that will contain vulnerabilities.
+Similar to other operational concerns, a CISSP or security practitioner may not be directly involved in the installation of patches, but security input is needed to design the process and technology systems that ensure timely patch deployment to address software vulnerabilities.
+
+Asset inventory and configuration management processes are closely linked to vulnerability and patch management.
+The asset inventory identifies the systems that must be kept secure, which means monitoring for vulnerabilities and installing available patches, while configuration management requires updates to baselines as new software versions or patch levels are deployed.
+
+### Patch Management
+
+A patch is a software update designed to address a particular software vulnerability or issue. Not all patches fix security issues — some are designed to address functional limitations or bugs.
+Smartphone apps and major computer operating systems now support automated installation of patches, so the term software update is also becoming common — this can be somewhat confusing, as software updates are a broad category that may include adding new functionality.
+However, the automated nature of software updates can be beneficial, and the use of this feature is becoming a best practice as it ensures critical security updates are automatically installed.
+
+Inputs to a patch management process include vendors publicly notifying users of patch availability, like Microsoft’s monthly Patch Tuesday and Oracle’s quarterly Critical Patch Update.
+Notice of these patches are typically widely published on the vendor’s support website and are also broadcast to users via software tools like Windows Server Update Services (WSUS).
+Internally developed systems will also require patches to address functional or security issues identified during audits or scans, in which case the organization’s release or deployment process should include notice to relevant teams that patches are available.
+
+Patch management is a process with multiple stakeholders, including researchers or testers who find a vulnerability, developers who write a patch, and the support personnel who install the patch.
+
+A generic security patch process incorporating all stakeholders must include the following:
+
+* **Vulnerability detection** by a scanning tool, security researcher, user reporting a bug, etc.
+* **Publication of patch** by the vendor or development team, once the vulnerability is verified and relevant code is written to address it.
+* **Evaluation of patch applicability** by each organization’s administrative personnel to determine if the patch is needed in a given environment.
+* **Testing** of the patch to ensure it will not introduce unwanted or problematic changes.
+* **Application and tracking** of the patch to ensure it does not have a negative impact on functionality and is deployed to all relevant systems.
+In many organizations there will be an SLA for patch deployment related to the criticality of the vulnerability the patch addresses; for example, critical patches must be deployed within seven days of release.
+* **Rollback** if issues are encountered.
+* **Documentation** of the system including the patch, which becomes the new baseline used for configuration management.
+
+Patch management, like many operational concerns, may involve a mix of both internal processes and third parties.
+CSPs or managed service providers (MSPs) may be responsible for some or all of patch management, and SLAs should be in place with appropriate monitoring to ensure the patches are applied in a timely manner.
+
+Software composition analysis (SCA), discussed in more detail in Chapter 8, is another third-party element in vulnerability and patch management.
+Part of software deployment should be analyzing any third-party dependencies and ensuring the latest versions of those dependencies are always in use. Otherwise, outdated, vulnerable software will be incorporated into information systems, which then become vulnerable.
+
+### Vulnerability Management
+
+Vulnerabilities are one-half of risk, so the practice of vulnerability management is a significant part of a security practitioner’s responsibilities.
+A vulnerability management program can be as simple as a yearly vulnerability identification for threats facing a small organization’s cloud-based IT infrastructure or as complex as a multinational organization with dedicated threat hunting teams working year-round to identify and test the organization’s vulnerabilities.
+
+The level of effort and investment should, like all security decisions, be aligned to the organization’s needs and may include the following:
+
+* **Threat hunting** is the practice of looking for threats that evade the organization’s existing security solutions and may exploit unknown vulnerabilities. It is typically broad in scope and can be performed continuously.
+
+* **Vulnerability scanning** is usually an automated activity designed to detect known vulnerabilities like insecure configurations or unpatched software and is often a key detective control to identify patch management failures.
+Vulnerability scanners have one significant defect compared to other methods — they are only able to detect known vulnerabilities for which a signature has been created. However, they can be run nearly continuously to identify known vulnerabilities quickly.
+
+* **Red teaming** involves a targeted form of testing for vulnerabilities, usually against a particular asset. Human testers, assisted by automated tools, can find previously unknown vulnerabilities and try to evade the organization’s defenses, which are operated by the blue team.
+The adversarial relationship between the two is part of the testing, with the red team’s success defined by acquisition of a target by exploiting vulnerabilities discovered, and the blue team’s success defined by defense of the same.
+
+* **Penetration testing and bug bounties** are human-run tests designed to detect vulnerabilities and may be broadly or narrowly scoped.
+Penetration (pen) testers are paid for the engagement of their services, while bug bounty hunters are paid individual bounties for each verified vulnerability they discover.
+Unlike a red team exercise, the scope of a pen test or bug bounty is usually broader, and the rules of the engagement may require that the tester only document, but not exploit, any vulnerabilities they find.
+
+Many processes and workflows in vulnerability management are well-suited to automation using SOAR tools, such as vulnerability scanning and corresponding patch deployment to fix identified vulnerabilities.
+
+
+## UNDERSTAND AND PARTICIPATE IN CHANGE MANAGEMENT PROCESSES
+
+Change management is concerned with keeping the organization operating effectively and moving from one secure state to another.
+It is closely related to configuration management, but configuration management is concerned with maintaining the organization’s systems in a known good state, while change management deals with reviewing, approving, and managing the implementation of changes to move from one known good state to another.
+Security practitioners are stakeholders in both disciplines and should have input to process and procedure requirements.
+
+#### Change Request
+
+Changes can range from minor modifications to existing applications or systems to adding/retiring entire information systems.
+To do this without negatively impacting security, organizations must proactively perform a set of formal activities and processes to request, review, implement, and document all changes.
+Many organizations utilize a ticketing system to document the steps required in change management.
+Creating a change request is the first step, and the request should capture important details like the purpose of the change, justification for the change, owner, resources required, and any anticipated impacts.
+
+#### Change Review
+
+Once requested, the change goes through review by a change control or change advisory board (CCB or CAB).
+This review must verify if the proposed change offers business benefits/value appropriate to its associated costs, formally reviews the impacts of the change, and ensures any potential impacts or risks have been documented along with mitigation plans.
+This review may involve testing, may include additional processes such as decision analysis, and can be iterated if the change board needs additional information from the requestor.
+
+#### Change Execution
+
+Once a change has been approved, it can be executed by the owner according to the documented plan.
+Since many changes will result in the acquisition of new hardware, software, or IT services, several security concerns will operate concurrently with the change, including acquisition security management, security testing, and the use of the organization’s certification and accreditation process if the change is large enough.
+Although a CISSP may not be directly involved in processes like purchasing and deploying new hardware, coordinating with the relevant teams to ensure processes are followed is critical.
+
+#### Delay
+
+Delay is inherent in the change management process, as is any process that requires seeking approval. This delay is intentional and allows time to gather information needed to evaluate the impact of changes.
+In some cases, this delay is undesirable, so the organization’s change management may be flexible.
+
+#### Change Categories
+
+Organizations may utilize custom categories for changes. The ITIL-defined categories provide a useful reference point and are detailed here:
+
+* **Standard changes:**
+These changes are low risk and are considered unlikely to have a negative impact, so they are preapproved to reduce operational overhead.
+Examples include applying standard patches, adding standard assets to address capacity (i.e., deploying a standard server build to provide additional processing capacity), or installing software from an approved list.
+
+* **Normal changes:**
+These changes require the full change management process of request and review before implementing. They typically follow a schedule based on the routine meeting cadence of the change board.
+
+* **Emergency changes:**
+In emergency situations like a security incident, the process of responding to the incident should not be hindered by the need to convene a change management meeting and get approval, or perform copious testing to rule out potential negative impacts of an emergency patch.
+In these scenarios, change management reviews may be performed retroactively — the change is made as needed to deal with the incident or emergency, and all details are documented for later review.
+Some organizations use a modified change process in these situations, where streamlined decision-making or less-cumbersome processes are utilized to balance security and speed.
+
+
+## IMPLEMENT RECOVERY STRATEGIES
+
+Recovery is mainly associated with the availability security objective and incorporates strategies to ensure adequate capabilities exist to recover the organization’s critical data, processes, and systems.
+Those critical assets are identified by performing a business impact analysis (BIA), which enumerates critical assets and capabilities, and the recovery strategies designed should balance the organization’s availability needs with the costs associated.
+
+The BIA establishes a management-approved acceptable level of operation for critical processes or functions and also establishes key parameters used to design recovery strategies.
+In the event of an incident that disrupts normal operations, the recovery capability is charged with restoring this minimum acceptable level of service.
+
+Recovery is measured by a number of key metrics, such as the following:
+
+* **Recovery time objective (RTO):** The amount of time after an incident or disaster that passes before the system or process is recovered using contingency procedures (not full restoration to normal).
+* **Recovery point objective (RPO):** The amount of data loss tolerable when a disaster occurs, usually expressed as a number of transactions or data points. RPO can also be expressed using time, like an RPO of no more than one day of data.
+* **Maximum tolerable or allowable downtime (MTD or MAD):** The amount of time the organization can survive without an asset or process, after which the organization may no longer be viable.
+RTO should always be less than the MTD; otherwise, recovery is a moot point as the organization will cease to function before it occurs.
+
+All recovery metrics should be driven by business decisions of criticality and cost.
+At first, all systems and processes will be deemed critical and given very tight RTOs; once business leaders see the cost of high availability or redundant systems, these designations are likely to change.
+As with all operations tasks, this process involves multiple skills and teams, including business analysts, technology administrators, and the security team.
+
+### Backup Storage Strategies
+
+Data backups are crucial to prevent loss of data that can occur for a variety of reasons including user error, equipment failure, malware corruption, ransomware attacks, or natural disasters.
+Designing the backup strategy will require understanding requirements like the RPO and RTO, as different technology and schedule choices will need to be made.
+For example, an RPO of 24 hours of data lost will not be met if backups are performed only once a week — in this scenario, it is possible to lose up to six days of data.
+
+There are a variety of backup methods, each with different costs and benefits.
+
+* **Full backups** take the longest to run and use the most space since they back up all data.
+* **Differential backups** capture all data changed since the last full backup, meaning they run faster and require less storage.
+* **Incremental backups** capture all data that has changed since the last full or incremental backup, meaning they capture the smallest amount of data and run the fastest.
+
+When restoring, incremental backups will typically take the longest to restore from, as they require the last full backup and all incremental backups made since, while differential backups require only the last full and differential backup.
+
+Versions, snapshots, and archives can also be used as backups of critical data, so long as these alternate copies are able to withstand loss, corruption, or failure of the main information system store.
+
+#### Backup Schedules
+
+Designing a backup schedule requires balancing the cost and speed desired for both backup and recovery. The length of retention required will determine the amount of storage capacity, and more storage will obviously cost more money.
+The process of a full backup also requires more processing capacity and system time, which can be an overhead cost to normal system operations.
+A system with a very high RTO or RPO is unlikely to require weekly full and twice-daily incremental backups, so the costs associated with that backup are not justified.
+
+#### The 3-2-1 Backup Strategy
+
+A common rule for a robust backup strategy is the 3-2-1 rule. This states that at least three copies of data should be kept: two stored locally or onsite, including the main copy of the data, and one copy stored offsite.
+In this way, simple data issues or hardware failures can be easily solved with the local backup, and more drastic issues like the destruction of a facility can be addressed by restoring from the offsite backup.
+
+#### Integrity and Confidentiality of Backups
+
+Although backups are strongly associated with the availability principle, the integrity of the data backed up is also of crucial concern.
+Some dedicated backup systems offer the capability to perform integrity checks of data after it is written to backup media like hard disks or tape drives.
+Even with systematic integrity checks, performing test restorations to verify the data is also a best practice to both double-check the integrity and ensure the correct data has been backed up.
+
+Since backups contain all the data from a live production environment, it is important to treat backup media with at least the same level of security controls.
+In many cases, alternative or additional controls will be required; for instance, if backup media is sent to an off-site storage facility.
+Access requirements for data on backup media may also differ, so unique access controls like more robust encryption of the data at rest could be utilized to counteract the threat of the media being intercepted in transit to an offsite storage facility.
+
+Live systems rotate encryptions keys used for safeguarding live data at rest, but the old keys must be preserved, so data on backup drives encrypted with that key can still be read.
+Backup media and the data it contains should be tracked in the asset inventory, with full consideration during risk assessment and mitigation.
+
+
+#### RAID
+
+RAID can stand for either redundant array of inexpensive disks or individual disks.
+The concept behind RAID is pooling multiple disks, which may be cheaper than a single disk of equivalent size, to provide benefits of increased space, increased read/write speeds, data fault tolerance, or some combination of all three.
+
+A RAID controller is used as an interface to the disks, which are presented as a logical storage point. The controller handles data operations like splitting up and recombining files when requested.
+Pooling multiple disks creates a single larger disk for users to access, while striping breaks incoming data into smaller pieces that are written across multiple drives to increase read/write speed.
+Mirroring makes copies of data and writes them across multiple drives, while parity calculations use a mathematical model to allow striped data to be reconstructed even if some stripes are lost. Both mirroring and parity increase tolerance against physical drive failures.
+
+Common RAID configurations are identified by numbers — some are not commonly used or even viable, but the most common include the following:
+
+* **RAID 0** is a striped disk array with no fault tolerance; the primary benefit is increased read/write performance.
+* **RAID 1** is a mirrored array that provides fault tolerance, but no read/write performance benefit.
+* **RAID 5** is striping with a parity array, which increases read/write performance and provides fault tolerance.
+* **RAID 0+1 and 1+0** are nested RAIDs that implement both functions of RAID 0 and 1 in different orders. 0+1 is a striped array of mirrors, while 1+0 is a mirrored array of stripes. Both combine fault tolerance with increased performance.
+
+#### Cloud
+
+Cloud computing has changed backup strategies just as it has all aspects of computing.
+Cloud services like software as a service (SaaS) are often configured for high availability, automatic data replication, and data durability, which is the proactive management of data to preserve integrity and availability.
+In this case, the backup strategy may be simply using the cloud computing service. For a high-criticality application, a noncloud backup or alternative might be justified.
+
+The cloud can also be used solely for backup purposes, due to its availability and relatively low costs compared to older solutions like offsite tape backup storage.
+In this case, storage solutions like infrastructure as a service (IaaS) or platform as a service (PaaS) may be appropriate to acquire storage capacity where backup data can be placed.
+PaaS may be utilized to create an environment similar to the organization’s production environment, like a database, that can be easily switched over in the event of a disruption.
+
+As with all cloud services, the loss of physical control over data needs to be evaluated against cost savings. Encrypting data before storing it in a cloud environment may be a useful safeguard, if the encryption process does not cause unacceptable delays for restoration.
+
+### Recovery Site Strategies
+
+The choice of a recovery site configuration and location should be driven by the cost-benefit analysis of the speed of recovery it can support and its proximity to the primary location.
+Many frameworks provide specific guidance for selecting the location of a recovery site to ensure it is geographically isolated from any large-scale event that impacts the primary site.
+However, the further away a recovery site is, the longer it will take key personnel to reach it in the event that operations must be moved.
+In organizations with very short RTO and MTD windows, dividing staff, resources, and processes permanently between multiple sites is an acceptable, but costly, solution known as a mirror site.
+
+Physical recovery sites are categorized using a temperature scale, which indicates their status of usability in the event of a disaster.
+A **cold site** is an empty facility that must be provisioned with equipment and utilities before being useful, which takes time and does not support a short RTO, but it also does not incur the high costs of duplicate infrastructure before an incident.
+**Warm sites** have some equipment but also require some buildout, while a **hot site** has the same infrastructure and data as the primary site, which is costly but useful for meeting a short RTO or RPO.
+
+Third-party vendors exist for warm and hot site recovery, helping to share some of the costs associated with building and maintaining these capabilities. Another recovery option is a **mobile site**, which is a data processing facility that can be deployed quickly wherever needed.
+These are often server racks deployed in a readily mobile structure like a shipping container, which can be loaded onto a truck, train, or boat and easily delivered wherever needed.
+Many government disaster response agencies use mobile data centers like these to provide mobile computing services after a natural disaster.
+
+Cloud bursting is a relatively new recovery strategy that utilizes cloud services temporarily in the event of a disaster.
+The use of infrastructure as code and similar technologies like containerization make it technologically feasible to deploy new virtual infrastructure in the cloud quickly, though systems that require data may still require time to perform data restoration in the cloud.
+Cloud bursting can be the temporary use of a cloud environment if an organization’s own on-premises environment is not available and can also be used for adding temporary capacity if the on-premises systems come under increased demand.
+
+### Multiple Processing Sites
+
+Organizations may be able to safeguard against impacts of a disaster by proactively designing processes or functions that span multiple processing sites, which should be geographically distributed to prevent multiple sites being impacted by the same disaster.
+For example, a data processor with incoming mail could have mail routed based on its origin postcode to facilities in eastern and western regions of the country.
+Both facilities perform the same processes, and in the event of a disaster in the west region, the mail is rerouted to the east region, and additional personnel are added to handle the data processing.
+
+The obvious benefit to multiple processing sites is the redundancy built in. The same redundancy has the drawback of higher costs for rent, personnel, and equipment.
+For organizations processing data, there will also be technical challenges of replicating and synchronizing data among multiple processing sites, for which solutions like disk or database mirroring may be useful.
+Many cloud services are inherently designed to support this use case, and instantly replicated data storage is a standard feature in many cloud databases and SaaS tools.
+This can address risks related to data syncing and replication between sites, but as with any migration to a cloud or outsourced service provider, there are increased risks related to losing control over data.
+
+### System Resilience, High Availability, Quality of Service, and Fault Tolerance
+
+**Resilience** describes the ability of a system or process to resist failure and typically relies on robust design that accounts for failure and builds in corrective actions.
+Examples include systems that can detect stuck or hung processes and automatically restart them by terminating and retrying the process.
+CSPs typically design their services with a high degree of resilience to not only meet customer SLA obligations, but also to automate the monitoring and maintenance of the massive infrastructure they control.
+
+Systems can be designed to meet stringent levels of availability, and the requirements should be documented as part of the system development.
+**High availability (HA)** configurations are one option — through the use of technologies like load balancers or clusters, a system provides redundancy and dynamic rerouting of requests if one component fails.
+
+**Quality of service (QoS)** is frequently implemented for networking technologies, to allow for prioritization of highly important traffic in the face of limited bandwidth.
+This could be mission-critical data that should be prioritized over nonessential data like user web browsing, or it could be data that is time sensitive, like a remote conference stream that must be delivered on time to keep the audio and video synchronized.
+
+**Fault tolerance** has specific meaning in the context of data center design. As defined by the Uptime Institute tier levels, Tier IV is “the ability to experience any unplanned failure in the site infrastructure without impacting IT.”
+This requires a data center to maintain sufficient redundant components and distribution for utilities like power and network connectivity, which is costly.
+
+For applications or systems that can withstand outages, Tiers I, II, and III exist and provide less guaranteed uptime, usually at a lower cost. Tier specifications and resources can be found at the Uptime Institute’s site: uptimeinstitute.com/tiers.
+
+Fault-tolerant systems more generally can, as the name implies, tolerate a fault of hardware, software, or data handling and continue to function.
+A RAID might be able to tolerate the loss of one disk if it has been configured to allow reconstruction of the lost data, or a database system may tolerate faults by backing out and retrying transactions that fail if proper middleware applications support this capability.
+
+
+## IMPLEMENT DISASTER RECOVERY PROCESSES
+
+With a completed BIA, the organization can begin the task of proactively planning what to do when an incident disrupts normal functions, processes, and service delivery.
+DR is focused on recovering and restoring normal IT, information, and telecommunication service. DR supports overall goals of BC, which is primarily concerned with continuing the business in the event of an incident.
+
+#### Metrics
+
+Both BC and DR, often referred to jointly as BCDR, require RTOs and RPOs for various systems.
+Based on these metrics, the organization can choose technology solutions that support these recovery objectives and can design the processes needed to activate or switch over to alternate systems and procedures in response to a disaster.
+Since recovering cross-functional organization processes requires the participation of a cross-functional team, security practitioners are not only key stakeholders, but will also be required to work in close coordination with other functions.
+
+#### Declaring a Disaster
+
+A disaster or contingency is declared when an official determination is made by an authorized individual, who assesses the situation and determines the organization cannot continue to execute normal functions under the circumstances.
+Declaration can happen before a disaster occurs, such as forecasted extreme weather, as the result of an unforeseen disaster like a major fire, or as an escalation of an incident which is initially handled by IR processes.
+After the incident is declared, the DR processes are activated to shift operations to alternatives identified in the DR plan.
+
+#### DR: Subset of BC
+
+DR is a subset of BC and is focused on restoring IT services and functions when a disaster occurs. By contrast, BC is focused on the continuity of the organization’s business operations, which rely on systems and data that are handled in the DR plan.
+Once a disaster has been contained or otherwise dealt with, the DR plan is used to identify and execute steps needed to restore operations to either the original site or a chosen new primary site.
+The combined process areas and associated plan documents are sometimes referred to as BCDR.
+
+### Response
+
+Security practitioners are often the personnel tasked with initial response to a disaster situation; often, the most senior security official is one of the limited group of personnel who are authorized to declare a disaster.
+Declaring involves significant financial costs and suspends normal processes and operations, so it is not a decision made lightly and should not be made by an untrained staff member.
+
+Actions needed in response to a disaster will vary based on the type of disaster. Under stressful conditions, people do not make the best decisions, so it is best to have pre-approved responses and action plans documented in the DR and BC plans as guides.
+These action plans, combined with training and exercise of the plans, speed responses and help guide decision-making during a disaster.
+
+Some tasks to address in the plans include the following:
+
+* **Life, health, and safety** of personnel, which is always the primary concern. Disasters that can physically destroy data or systems, like extreme weather or civil unrest, also place personnel in jeopardy, and the preservation of data and systems is of secondary concern.
+* **Coordinated response** actions with direction and oversight of a designated disaster or crisis coordinator are crucial to provide focus.
+* **Clear and consistent communications** must be made to various stakeholders including employees, executive management, and possibly members of the public or law enforcement.
+* **Document** everything done to support post-disaster reviews, as well as to support any evidence needed for insurance or legal action.
+
+### Personnel
+
+In all situations, the life, health, and safety of human beings is the most important goal of security.
+During a disaster or contingency operations, there may be novel risks to personnel, possibly from the same disaster that disrupted operations or due to response actions like new personnel performing equipment installation in an unfamiliar environment.
+A security practitioner must account for these when planning and ensure BC or DR plans include measures to minimize the risks.
+
+#### Personnel for Critical Processes
+
+In addition to personnel safety considerations, BCDR plans must also document roles and responsibilities for personnel needed to continue the organization’s critical processes.
+These personnel are likely to have specific knowledge or skills related to the organization’s processes, systems, and how to run, operate, or maintain them.
+Named personnel and contact details should be documented in the plan for vital functions, like disaster declaration or crisis communications, to ensure clear assignment of duties.
+Personnel practices like job rotation and cross-training can support contingency operations, as personnel capable of performing multiple roles can be critical in an emergency.
+
+#### Coordination of Personnel's Family Members
+
+Major disasters or incidents may require coordination of personnel’s family members outside of normal benefits or morale operations.
+During normal operations, concerns like arranging for housing or childcare are normally left up to members of staff, but in the event of a disaster, the relocation of operations and personnel may be necessary.
+In such cases, especially if the relocation is for a long period of time, plans should include arrangements for dealing with basic needs like housing and food for not only personnel but family members as well.
+Transportation to the alternate site should be considered, as disasters with physical implications like weather or civil unrest can render conventional transportation unusable.
+
+### Communications
+
+Keeping stakeholders informed of relevant information is vital during an incident. Crisis communications are difficult due to limited or rapidly evolving information and the need to provide timely notifications to a wide variety of internal and external stakeholders.
+Incomplete or partial information may be complicated by rumors and fear, so a crisis communications plan that accounts for the dynamic environment and provides clear information is essential.
+
+The “one voice” principle is essential to crisis communications and dictates that the organization should have a unified voice when communicating, especially with outside stakeholders like press or the public.
+Multiple accounts from different personnel, even if given with the best of intentions, can be confusing or possibly dangerous.
+This principle should be documented and included as part of training — any personnel who receive requests from media or other outsiders must refrain from making a statement and instead refer to the appropriate communications contact.
+
+The different stakeholders in crisis communications will require different information and delivery methods.
+The purpose of each communication should also be assessed based on the stakeholders involved and requirements such as method and response requirements, which include the following:
+
+* **Internal stakeholders** include employees and management, who need not only information about the incident but also instructions on how to participate in the response.
+  Employees may be directed to an alternate work site or ordered to evacuate, and instructions should include security-relevant information. 
+
+  Methods and paths for communicating with internal stakeholders can include active methods like a phone tree, which requires a response from each person called, or passive, like a message posted on a website that employees can access.
+  The method chosen should account for the criticality of the personnel receiving it and the information being conveyed.
+
+* **External stakeholders** can include customers or users, members of the public, and business partners or vendors who are likely to be impacted by the organization’s contingency operations.
+
+  Some service providers may be included in this category, while others like contractor staff may be treated as internal stakeholders.
+  Law enforcement and response providers like DFIR firms are also key external stakeholders who will need information and access to perform their jobs related to the response operations.
+  Methods and paths of communication to external stakeholders may be determined by legal or contractual obligations, such as privacy notifications in the event of a breach.
+  Active and passive methods should be used depending on the situation, such as actively mailing or calling customers to notify them or issuing a press releases for general consumption.
+
+### Assessment
+
+Assessment of a disaster is similar to risk assessment — theprimary goal is to ascertain the impact and prioritize steps needed to address it.
+This involves identifying the nature and source of the disaster, such as man-made or natural, and determining the priority of recovery actions such as evacuating personnel to an alternate site or powering down equipment gracefully and migrating operations to an alternative facility.
+This process may be ongoing as incidents are dynamic, and the response team must identify both the current and likely future impacts of an incident or disaster.
+
+The results of a disaster assessment must be conveyed to management and decision-makers for determination of the correct course of action.
+If a well-written BCDR plan exists, then the response should follow an existing set of procedures or steps, with appropriate tailoring to adjust to the specifics of the particular disaster.
+These steps will of course need to prioritize life, health, and safety, and should also take into account any impacts to customers, regulatory obligations, and both direct and indirect costs like loss of revenue and reputation.
+
+An assessment will also occur post-recovery to determine the total impact of the disaster or incident.
+This assessment should include the total financial cost to the organization, including costs to recover and any lost business or productivity, as well as information on how to improve disaster and continuity operations in the future.
+Documenting and using lessons learned is discussed in more detail in a later section.
+
+### Restoration
+
+The organization may operate under disaster or contingency processes for a relatively long time, and restoration activities will begin simultaneously while these processes are in place.
+Contingency operations are often less than the organization’s desired or ideal service level, but support the continuity of core functions and processes. Once this minimum level is reached, the focus of the DR team shifts to restoring the original site or facilities impacted by the disaster.
+
+In some cases, original facilities may be totally destroyed and new facilities are required, so the term primary site may be used to avoid confusion between the old and new facilities.
+The goal of recovery is a resumption of critical business functions — often at a reduced capacity — while the goal of restoration is the return to normal service levels at the primary site.
+
+The shift of services and operations to the restored or new primary site can be just as disruptive as the move to the alternate site and includes the same logistical tasks such as relocating personnel and equipment.
+However, restoration usually happens under more ideal, nonemergency conditions. The decision to move back to the primary site will be driven by the safety and feasibility of the site itself.
+For example, if a building is damaged by a natural disaster, it must be repaired and possibly certified for occupancy before it can be used. This requires ongoing assessment by the DR team and reports to management responsible for making the restoration decision.
+
+There are many variables in restoration that are outside the purview of the security team, but security practitioners are still critical stakeholders.
+The security function may have critical roles assigned in the DR plan and may need to be consulted regarding decisions like safeguarding data during relocation to the primary site.
+
+### Training and Awareness
+
+BC and DR plans must be written and tested, and key personnel must be trained on the details of the plans and their assigned responsibilities.
+All personnel should be trained on basic life, health, and safety plans, including how to spot and respond to emergencies like a fire or extreme weather preparedness specific to the region the organization operates in.
+The purpose of these trainings is twofold: personnel acquire a trained response that speeds up reaction times during an emergency, and the exercise provides an opportunity to identify incorrect weaknesses in the plan.
+
+More advanced training is required for personnel with specific duties identified in the BC and DR plans. These include personnel with declaration powers and key personnel with assigned roles and responsibilities.
+IT and security have obvious roles to play in restoring IT services and ensuring security controls remain in place during contingency operations. Other functions like HR, finance, and legal teams may play crucial roles depending on the type of disaster.
+Personnel may need additional benefits like medical or relocation assistance, while costs incurred responding to the disaster may require special approval. If the disaster impacts legal or contractual obligations, legal counsel will be required to identify any requirements that must be met.
+
+Training and awareness opportunities should be provided on a routine basis to ensure the knowledge remains current. Periodic fire or evacuation drills are one method, and routine tests and exercises of BC or DR plans can be useful for cross-training and refreshing knowledge for key personnel.
+
+### Lessons Learned
+
+Continuous improvement is a useful model for many organizational processes including BC and DR. At a minimum, a formal review should be conducted after restoration is complete, and as time allows, additional opportunities may be used to identify:
+* Actions or processes that went well.
+* Actions or process that did not go well.
+* Staff and personnel actions that either contributed to or hindered recovery and restoration. Note that this should not be designed to place blame or point fingers, but to identify opportunities to improve.
+As such, a facilitator can be useful to avoid issues like individuals feeling persecuted.
+
+These types of reviews may be called a postmortem, after-action report, retrospective, or lessons learned. The goal is to identify parts of the plan or response that worked well, as well as things that did not go as planned and specific improvement opportunities in the case of future disaster.
+
+Root-cause analysis of the disaster may also be valuable to identify proactive measures that reduce the likelihood or impact of a future incident.
+For example, a widespread malware outbreak that necessitated disaster recovery to alternate facilities might be used to justify the cost of more robust EDR tools.
+No matter what information is gathered after the incident, it is vital that it is used to drive improvements to the BCDR planning and processes.
+
+## TEST DISASTER RECOVERY PLANS
+
+Designing and documenting a DR plan is one way to mitigate the impact of a disaster, though risks that could lead to a disaster may require other mitigations designed to reduce their likelihood, such as fire suppression systems to contain the damage of a fire and prevent it from destroying an entire facility.
+Testing the DRP is an essential, proactive risk mitigation and serves two main purposes.
+
+* First, testing can identify incorrect assumptions or out-of-date information in the plan that, if not corrected, limits the plan’s effectiveness.
+* Second, the process of testing or exercising the plan provides vital training opportunities for staff.
+A rehearsed response, like a fire drill, creates a trained response capability for staff and increases the effectiveness of actions during a real disaster or emergency, as personnel will execute familiar procedures.
+* Finally, visible BCDR planning, testing, and exercises provide assurance to employees, customers, and other stakeholders that the organization is taking security seriously.
+
+The best approach to testing starts simply, due to the cost and potential disruption inherent in a test and the need to build the testing capability.
+Staff who are unfamiliar with procedures should be given the opportunity to build knowledge over time, rather than be engaged in a complex test that, if incorrectly handled, can result in a real incident.
+The types of DR plan testing described next are presented in order from simple to complex; in addition to starting simple, the less burdensome types of tests like a read-through may also be conducted more frequently.
+Even with a full interruption test once a year, performing a read-through each quarter can be useful to identify changes in the organization that have not been reflected in the plan.
+
+The output of DR plan testing should be lessons learned and plan updates, which the CISSP may be responsible for incorporating into the plan.
+Once necessary changes are completed, the plan should be distributed to key DR and BC personnel and should be in a format that is resistant to disaster.
+For example, paper copies of the plan may be distributed, and employees instructed to store them at home, in case a disruption renders information systems or organization facilities unusable.
+
+### Read-through/Tabletop
+
+The simplest type of BCDR testing is a read-through of the plan, usually performed with a small group including managers or representatives from all stakeholder groups.
+This will typically involve any dedicated BCDR personnel in the organization, the security and IT functions, and representatives from other business units.
+
+In a read-through, the key information each BCDR team member is responsible or accountable for is reviewed.
+This includes verifying information and procedures needed for communications during a disaster, and the goal is to spot missing or outdated details, as well as any assumptions that are incorrect.
+
+A tabletop exercise gathers the key stakeholders, and the plan is placed in front of them — on the tabletop — for role-playing the response.
+Each participant talks through not only the information presented in the plan, but also talks through the steps they would perform to execute the procedures, information they require in the scenario, and issues they foresee.
+A moderator can be helpful to capture the details, keep the scenario moving, and document any needs, problems, or plan updates identified.
+
+Read-through and tabletop are the least expensive method of testing, both in terms of time and cost, as well as the potential for disrupting normal operations.
+Even with a more robust form of testing, like an annual simulation, a read-through is a recommended as a more frequent supplement to identify and correct outdated information.
+
+### Walkthrough
+
+A walkthrough extends the tabletop exercise but simulates responding in the actual locations described in the DRP.
+The response team not only talks through the elements of the plan, but physically walks or moves through the appropriate plan steps, as dictated by an exercise scenario such as a fire rendering a data center unusable.
+As an example, in this scenario, the network engineering team would not just say “Felicia and Joe drive to the alternate facility,” but those personnel actually drive to the facility.
+Physically walking through response steps builds some familiarity for the key participants and helps uncover details like missing or relocated equipment needed in the response.
+
+The goal of physically exercising the response is twofold. It can challenge assumptions made, such as “staff relocate to the alternate facility within one hour of a disaster declaration.” If the facility is too far away to reach in an hour, the RTO will obviously not be met.
+Second, it offers the opportunity for staff to familiarize themselves with the procedures or facilities, enabling them to respond more quickly in the event of an actual disaster.
+
+### Simulation
+
+Most people are familiar with a fire drill or fire alarm test, which is a form of disaster response simulation. In the event of a fire, personnel are expected to evacuate in an orderly manner to a defined gathering point.
+Some personnel will be assigned special duties to ensure all personnel have cleared the facility, while others may be responsible for ensuring disabled personnel have been assisted with evacuation.
+This simulation has an obvious effect on operations in terms of lost productivity, but the benefit of preserving life and safety in the event of a fire justifies that cost.
+
+A fire drill is a type of simulation, but other scenarios can be used to simulate response capabilities.
+For example, the DR team can be called together and given a scenario that requires activating an alternate facility, recalling data from offsite storage, and loading it.
+This can be done to validate that the system can be restored according to defined RTO and RPO metrics and that the backup data integrity is intact.
+
+### Parallel
+
+In a parallel test, the systems impacted by a disaster scenario are tested side by side with their alternates to ensure the alternate systems are capable of handling a realistic operational load.
+If the organization has a mirrored hot site, then all incoming data and system tasks may be duplicated between both the primary and mirrored sites.
+This is a form of continuous parallel processing; for organizations with a warm site, a parallel test would require getting the warm site operational and then directing traffic to both facilities to ensure the warm site can successfully handle the volume of processing.
+
+Parallel tests reduce the impact on primary systems while providing relatively full coverage for testing recovery capabilities.
+They do incur significant costs and may have operational impacts like slightly delaying processing or reducing staff productivity as resources are split between daily operational tasks and the parallel test tasks.
+Due to the breadth of testing, a parallel exercise can find issues that other testing might miss, such as incorrectly configured alternate sites or incomplete data backups.
+
+### Full Interruption
+
+In a full interruption test, the organization’s DR capability is tested as if a real disaster had occurred, which involves high costs and the potential for disrupting normal operations if the test is not successful.
+A full interruption, as the name implies, interrupts normal processing and switches the organization to contingency procedures and alternate sites, with the goal of identifying all possible issues with BCDR plans and procedures.
+
+Full interruption tests may be performed on a subset of systems to minimize the impact or costs involved. For example, a data center may perform a full interruption by cutting off commercial power.
+Backup systems like uninterruptable power supply (UPS) and generators are being tested to ensure they function as intended during a loss of commercial power.
+However, the organization’s overall response to a natural disaster is not being tested even though such a disaster could lead to a loss of commercial power.
+
+
+## PARTICIPATE IN BUSINESS CONTINUITY PLANNING AND EXERCISES
+
+Security practitioners and CISSPs are key stakeholders in planning and executing critical continuity tasks, but they are often not the owners of the BC process.
+Key tasks include providing input on how security requirements change during contingency operations and implementing or managing the responses needed to meet these new requirements.
+For instance, electronic access control systems may normally prevent unwanted access to sensitive information, but a natural disaster that causes power loss requires alternate physical controls like padlocks to compensate.
+
+Another critical role security practitioners can play during BC planning and exercise includes guiding the process of identifying changes that need to be reflected in the BC or DR plans.
+For example, changes to staff, processes, or lessons learned from prior incidents or contingencies may require plan updates. Once updates are completed, the integrity and availability of the plan document must be considered.
+New copy of the plan should be made available for all relevant stakeholders, including offline copies in case information systems are not accessible.
+Old copies must also be recovered and destroyed to ensure no outdated or incorrect information is utilized during an actual emergency.
+
+Because security incidents can lead to declaration of a disaster, the security function may be critical in designing the scenarios used to test and exercise BC plans.
+For example, a ransomware attack would normally be handled by IR procedures, but if it is sufficiently widespread, it may require declaration of a disaster and activation of alternate facilities and procedures.
+A security practitioner is ideally suited to not only craft this exercise scenario, but also to act as a moderator as they likely have knowledge needed to answer questions during the simulation.
+
+
+## IMPLEMENT AND MANAGE PHYSICAL SECURITY
+
+Physical security is often a function that falls outside the CISSP’s responsibilities in information system security, but preventing unwanted physical access to systems and data is a vitally important part of risk mitigation.
+Even if physical security is not directly part of a security practitioner’s background, it is easy to find examples in everyday life, as most of us use or interact with physical security systems in both professional and personal settings.
+
+Implementing or changing physical controls is usually done less frequently than logical controls, since physical facilities typically change less frequently.
+Renovations offer the chance to build new physical structures required to implement or modify physical security controls, and many physical access control mechanisms rely on information system components that will be upgraded more frequently.
+Physical security requires management tasks that are shared with staff like facilities maintenance, groundskeepers or landscapers, and security guards, so as with many security disciplines, it requires active collaboration across internal teams and third parties.
+
+#### Defense in Depth
+
+It is difficult to safeguard data or system components if an attacker has gained physical access, so it is imperative that the security program utilize appropriate methods of physical access control.
+This is part of a sound defense-in-depth strategy that should consider multiple points of controlling access.
+There are effectively multiple perimeters surrounding the organization’s key assets and resources, and the boundary between each perimeter offers a point to implement controls, much the way a firewall is used to subdivide segments of a network.
+
+#### Physical Access Control
+
+This extends the concepts of logical access control presented in Chapter 5, “Identity and Access Management,” outside of the information system and into the real world.
+Users must be authorized and authenticated before gaining system access, and physical access controls should similarly restrict unauthorized users from gaining physical access to facilities or system interfaces like workstations.
+
+#### Physical Access Control Categories and Layers
+
+Physical controls can and should be chosen from multiple control categories like preventive, deterrent, detective, compensating, recovery, directive, and corrective.
+They should also be implemented with a combination of physical (barriers, fences), technical (badge readers), and administrative controls (policies and procedures).
+The most effective physical access control program should consider facilities using a layered model, with multiple layers and chokepoints between the outside world and rooms or offices where high-value assets are stored or handled.
+As with all controls, the selection of physical access controls at each layer should be guided by the cost of the control and the value of the assets protected.
+
+#### Crime Prevention Through Environmental Design (CPTED)
+
+One methodology for designing a comprehensive physical security strategy is crime prevention through environmental design (CPTED), which informs the physical and environmental design of a facility based on its risk needs.
+For example, a facility with restricted or critical areas should be built so that those are isolated from both the public and routine employee traffic — a server room or other important facility should not be placed adjacent to an employee break room that is routinely occupied.
+
+Other principles of CPTED include the following:
+
+* Landscape design can be used to provide physical security without designing the facility like a fortress. Water features, shrubs, and trees can all be used to restrict access without building walls or other barriers.
+* Lighting plays a major role in deterring unwanted behavior. Well-lit spaces are less attractive to criminals due to the increased likelihood of getting caught.
+* Decisions about placement of and materials used for windows should be made with respect to the security needs of the facility.
+For example, placing a window right next to a door could allow the window to be broken and the door opened from the inside, and windows may require additional reinforcement like metal screens or meshwork for high security applications.
+
+### Perimeter Security Controls
+
+Perimeter security controls are designed to implement access restrictions between areas outside the organization’s control, like public roadways or the lobby of a shared office building, and secured offices, workspaces, or equipment rooms.
+No two organizations will have the same facilities setup. Public areas may be outside a secure perimeter like a fence, if the organization maintains its own campus, or there may be public lobby spaces in shared buildings.
+Since these areas are outside the organization’s direct control, there are fewer options available to control risk.
+
+
+#### Public Areas
+
+For public approaches to a facility, such as roads or sidewalks, barriers designed to slow, direct, or impede traffic may be deployed and typically require coordination with authorities like landlords or zoning/planning commissions.
+Shared public areas like parking structures may require coordination with the facility managers to implement controls like badge readers for employee access.
+
+Monitoring public areas is typically easy to achieve, as there are few restrictions on the use of monitoring tools in public areas.
+Clear line of sight and adequate lighting are necessary, and cameras capable of covering large areas might be needed, such as wide-angle or pan-tilt-zoom (PTZ).
+
+Personnel safety controls like storm shelters may need to be considered in public areas such as a parking structure, and public areas may also be part of workplace violence prevention procedures.
+In addition to monitoring for the safety of organization assets, cameras observing public areas may also need to be monitored for evidence of other criminal activity.
+Additionally, the presence of utilities like power, water, and sewer connections in public areas may require monitoring or hardening to prevent tampering, such as locked utility cages or dedicated camera coverage on utility hookups.
+
+#### Site Ingress and Egress Points
+
+Ingress and egress points are where traffic including personnel, vehicles, and assets enter and exit the facility. These include loading docks, mail facilities, and building entrances like lobbies.
+These are crucial implementation points for physical access controls, including the following:
+
+* **Reception or guard staff:**
+These people will implement access controls like ID verification, visitor registration, and inspections of material entering or exiting the facility.
+This flow of personnel and assets should additionally be logged for traceability of who and what entered or left the facility, when, and why.
+
+* **Physical access controls:**
+These include turnstiles, gates, doors, and mantraps for personnel, and bollards, delta barriers, and speed bumps for vehicular traffic.
+Administrative controls may also be used, like procedures for visitor inspection and escort or verification of deliveries against purchase orders for new IT assets entering the facility.
+
+* **Sensors:**
+These can detect temperature or infrared light, motion, or pressure to identify the presence or movement of people.
+These will typically be connected to an alarm or monitoring console, and function to detect unwanted activity that triggers a response like a guard investigating or summoning law enforcement.
+Sensors deployed to detect intrusions are a form of physical IDS.
+
+* **Cameras:**
+Due to their wide variety of uses, cameras deserve special discussion. The presence of cameras can be a deterrent to malicious activity, and they can be a key detective control if the camera feed is monitored.
+Guards are often used to monitor camera feeds, but many cameras include AI-powered object detection that can recognize people, vehicles, and even animals.
+
+* **Guards:**
+These are similar to cameras in the range of control category functions they are able to perform. Human guards can deter, prevent, detect, correct, and assist with recovery from malicious action.
+
+#### External Facilities
+
+External facilities may be under the organization’s direct control, but often require sharing control due to the presence of equipment that does not belong to the organization.
+For example, backup generators may be securely enclosed with a fence and gates, but third-party personnel must have access to perform maintenance.
+Similar situations will exist for utilities like commercial electric power, water, sewer, and telecommunications hookups to the facility, where the organization controls access and physical security but third parties are required to have access.
+
+Controls in place for these external facilities will focus primarily on controlling physical access to prevent tampering. Life, health, and safety controls will also need to be considered due to dangerous elements like highly charged electrical equipment and dangerous chemicals like fuel.
+Safety equipment including gloves, fire suppression, and emergency shutoff tools are a good idea and may be required per local laws.
+
+Landscaping can be part of the organization’s physical security plan, as well as a way to add to the aesthetics of a facility.
+Landscape features like terraced gardens or trees can act as a barrier to human or vehicular traffic, and landscaping maintenance like clearing dead leaves or branches from the perimeter of the facility is a vital fire prevention control.
+Ensuring that landscaping does not impede monitoring capabilities is also an important concern, such as trimming trees or bushes that block camera views.
+
+### Internal Security Controls
+
+The defining feature of internal security controls is the extent of control the organization can exert, because the area in question is under the direct control of the organization.
+Controls in these areas are designed to specifically safeguard the data and systems in use, but it is important to remember that most facilities will need to be designed with human life and safety in mind.
+
+#### Operational Facilities
+
+Operational facilities include those typically occupied by people on a regular basis, and they represent the bulk of an organization’s physical security controls.
+Due to the presence of people in the facility life, health, and safety controls such as fire suppression are of paramount importance, and environmental controls like maintaining temperature or humidity are critical for both human life and equipment protection.
+Depending on the type of work and value or sensitivity of information being used, additional controls might be called for like secure building materials and intrusion detection sensors.
+
+Controls to consider in these areas include the following:
+
+* **Fire detection and suppression:**
+Although primarily designed for human safety, fires can also damage valuable equipment. Fire and smoke detectors and corresponding suppression methods like sprinklers, gas-based suppression, and portable extinguishers can help minimize the impact of a fire.
+
+* **Access controls:**
+Within a facility, there are likely to be shared or common areas like break and conference rooms, as well as areas where more sensitive work occurs like individual or team offices.
+Physical access controls should be implemented to segregate areas in the facility based on user authorization, with physical devices like badge readers or locks controlling access.
+
+* **Policies and procedures:**
+Personnel working in operational facilities should be trained on and expected to follow policies and security procedures like clean desk and clear screen.
+This includes procedures for evacuation and shelter-in-place, which may be coordinated with groups outside security including HR or facilities management.
+
+* **Lighting and surveillance:**
+Lighting should be sufficient to support safe human occupancy for facilities where personnel regularly work, and sufficient to enable monitoring by cameras in unoccupied areas.
+Camera coverage or routine inspection, such as a guard walkaround of the facility, should be implemented to ensure timely detection of issues or potential incidents.
+
+* **Building materials:**
+Although often outside the scope of a CISSP’s background, building materials sufficient to support security requirements are critical.
+For example, true floor-to-ceiling walls may be required to implement adequate physical access control for high-sensitivity information processing — many office buildings have drop ceilings, and walls between offices do not extend above the drop ceiling.
+Appropriate materials for doors and windows should also be considered, both for security and human comfort—bunker-like facilities where users do not see sunlight are not conducive to human happiness, but may be required for certain types of work.
+
+Within operational facilities, there are special-purpose rooms such as closets or cages for uses like media storage and vital wiring, telecommunications, or utility hookups.
+These require additional security controls, typically in the form of increased access control due to the sensitivity of the assets they contain and visitor procedures if third-party maintenance is required.
+If the room contains potentially dangerous equipment like high-voltage wiring, special protective equipment like gloves or additional fire suppression may also be required.
+
+#### High-Security Facilities
+
+Within the operational facility, there may be specific areas designated as high-security due to the value or sensitivity of assets they contain. These include evidence storage rooms, secure compartmentalized information facilities (SCIFs), and server rooms or data centers.
+SCIF is a term most commonly associated with the highly sensitive U.S. government functions like military or national security, though the concepts described cover any highly secured data handling facility.
+
+These high-security facilities require additional types of security controls, some of which may be quite burdensome to users, such as invasive searches of bags entering or leaving the facility, multiple layers of physical access controls with multifactor authentication, or restrictions against personal devices like smartphones.
+These controls will also drive increased costs such as special construction of walls designed to block electromagnetic fields (EMF), known as a Faraday cage, which are appropriate given the high value or sensitivity of assets store and handled in these areas.
+
+##### Data Centers
+
+Data centers are a special category of high-security facility with unique security considerations. The design and maintenance of data centers requires a specialized set of skills, and it is common to find security practitioners with specific expertise in this field.
+These facilities require a high level of security and typically involve much larger security budgets than normal office facilities. They also typically require fewer personnel to access the facility, so implementing physical access controls may be easier.
+
+##### Design Standards
+
+Design standards exist for environmental controls needed to maintain equipment and ensure availability in a data center, such as the ASHRAE thermal guidelines for data centers (tc0909.ashraetcs.org/documents/ASHRAE_TC0909_Power_White_Paper_22_June_2016_REVISED.pdf), and the Uptime Institute’s tier ratings for data center equipment availability (uptimeinstitute.com/tiers).
+
+
+## ADDRESS PERSONNEL SAFETY AND SECURITY CONCERNS
+
+Human health and safety are always the most important considerations for any security program — choosing security controls should be done with respect to the life, health, and safety of personnel who use the organization’s systems and data.
+A number of personnel activities include requirements for security of both personnel as well as organizational assets like systems and data.
+
+### Travel
+
+Personnel may be required to travel for work or may take assets containing organization data like smartphones and tablets with them on non-work-related travel.
+When traveling for work, personnel may require unique organization-provided services such as additional insurance, medical coverage, and organization-defined emergency procedures.
+In areas with civil unrest, additional physical or personal security services may be warranted, such as guards or secured transport, and additional services like translators or local guides may also be required.
+
+Personnel who are traveling should have additional security and training on device security practices for devices containing organization data. This includes organization-owned as well as personal devices if a bring-your-own-device (BYOD) program exists.
+Securing this data might include encryption of all data at rest, provisioning secure network connectivity like a VPN, and additional controls like issuing dedicated devices for use while traveling, which are then wiped and reimaged before being issued to another traveling user.
+Personnel should also be trained on physical security measures like securing laptops in use outside the office before they depart.
+
+### Security Training and Awareness
+
+Effective security requires knowledge and skills that require personnel to be trained, both on fundamental security skills as well as on organization-specific policies and procedures.
+Although training and awareness are often used together, they are subtly different.
+
+Personnel should receive knowledge appropriate to the skills needed to perform their job function, using one or more of the methods described here:
+
+* **Awareness** is informal, broadly targeted, and optional. The goal is to provide or reinforce basic information to a general audience, often through devices like posters, notes on a company intranet site, or email notices.
+The level of detail is basic, targeted for all users to easily understand, and is designed to influence behavior.
+
+* **Training** is focused on building proficiency in a specific set of skills, and training content will be different based on each user’s job function or role.
+It is designed to convey specific knowledge needed for performing the job function, such as system administrators only using privileged accounts for certain tasks to minimize phishing risks.
+Training is delivered by an authoritative source and takes many forms including computer-based and instructor-led training. Completion is usually tracked to ensure key personnel have completed required sessions and acquired the necessary knowledge.
+
+* **Education** is the most formal and is focused on explaining theories and their application. It often takes the form of academic classes, continuing education, or certifications like the CISSP.
+It demonstrates a deep level of knowledge for an individual and is suitable for specific roles in the organization like leading and managing the information security program.
+
+Awareness, training, and education can be delivered in a variety of formats, but regardless of format, the effectiveness should always be measured.
+This may be difficult for general awareness but is relatively easy for training and education where tests or graded assignments can be used as metrics.
+The content of awareness, training, and education materials must also be kept current to ensure that staff are prepared to face rapidly evolving security threats.
+
+### Emergency Management
+
+Emergency management and crisis management are terms often used to describe aspects of managing personnel security, communications, and organizational processes like BCDR in the event of an emergency.
+Security practitioners may not directly own the process of managing the emergency response, but it is crucial to ensure critical security control requirements are understood, planned for, and conveyed in emergency management procedures.
+
+These include the following:
+
+* **Coordination with responders:**
+First responders like medical, fire, or law enforcement can support the organization’s response to some emergencies.
+Some organizations, like airports or large data center campuses, may coordinate emergency exercises or drills with these responders to ensure all relevant stakeholders are trained and able to identify weaknesses or issues with coordination among the different organizations involved.
+
+* **Communications:**
+During a crisis, normal communications channels like email or company intranets may be unavailable, so emergency communications plans need to account for alternate means of getting critical information to required stakeholders.
+This includes details of BC or DR plans like alternate work arrangements and critical health and safety notices like shelter-in-place orders.
+
+* **BCDR plan execution:**
+Emergencies often necessitate the activation of BCDR plans and contingency procedures. Crisis communications must include simple, easy-to-follow instructions designed to eliminate confusion and ambiguity.
+Security practitioners may not be directly involved in creating or delivering these messages, but as key stakeholders in the process, they must ensure vital security information is communicated effectively.
+
+### Duress
+
+Duress describes a condition where a person is forced to do something against their will. Blackmail and being held hostage are extreme examples.
+Although certain personnel like senior executives are more likely to be targeted, any member of an organization could be placed under duress and forced to act against their own will or the organization’s policies at risk of their personal safety.
+
+Security controls to detect duress should focus on preserving the health and safety of the individual — if an attacker knows that their victim has summoned help, they may take actions to harm the individual.
+Subtle means of indicating duress, such as entering a special code on an electronic lock or using a code word or phrase with a co-worker, can allow for detection of duress without increasing the danger faced by the individual.
+
+Duress code words or phrases should not be immediately recognizable by an outsider. The phrase might sound ordinary, but not something an individual is likely to say in normal conversation with a colleague, like, “By the way, my aunt Sylvia says hi!”
+It may be appropriate to rotate these codes on a regular basis and include training on the use of duress codes and procedures for particularly vulnerable employees, such as senior executives or employees traveling to high-risk areas.
