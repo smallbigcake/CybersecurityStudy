@@ -18,6 +18,48 @@ Hard-copy materials can be important evidence, too, though massive data sets are
 Depending on the type of crime, there may be physical evidence like fingerprints, hair, or DNA to be collected, which is not only outside the scope of most CISSP’s knowledge but entirely outside the scope of digital forensics.
 Such an investigation is likely to involve a multidisciplinary team of professionals with law enforcement backgrounds, and the CISSP’s role will be to support and comply with any requests from these professionals.
 
+#### Admissible Evidence
+
+There are three basic requirements for evidence to be introduced into a court of law. To be considered admissible evidence, it must meet all three of these requirements, as determined by a judge, prior to being discussed in open court:
+
+* The evidence must be _relevant_ to determining a fact.
+* The fact that the evidence seeks to determine must be _material_ (that is, related) to the case.
+* The evidence must be _competent_, meaning it must have been obtained legally. Evidence that results from an illegal search would be inadmissible because it is not competent.
+
+#### Type of Evidence
+
+##### Real Evidence
+
+Real evidence (also known as object evidence) consists of things that may actually be brought into a court of law. In common criminal proceedings, this may include items such as a murder weapon, clothing, or other physical objects.
+In a computer crime case, real evidence might include seized computer equipment, such as a keyboard with fingerprints on it or a hard drive from a malicious hacker’s computer system. 
+
+  Depending on the circumstances, real evidence may also be conclusive evidence, such as deoxyribonucleic acid (DNA), that is incontrovertible.
+
+##### Documentary Evidence
+
+Documentary evidence includes any written items brought into court to prove a fact at hand. This type of evidence must also be authenticated.
+For example, if an attorney wants to introduce a computer log as evidence, they must bring a witness (for example, the system administrator) into court to testify that the log was collected as a routine business practice and is indeed the actual log that the system collected.
+
+Two additional evidence rules apply specifically to documentary evidence:
+
+* The _best evidence rule_ states that when a document is used as evidence in a court proceeding, the original document must be introduced. Copies or descriptions of original evidence (known as secondary evidence) will not be accepted as evidence unless certain exceptions to the rule apply.
+* The _parol evidence rule_ states that when an agreement between parties is put into written form, the written document is assumed to contain all the terms of the agreement and no verbal agreements may modify the written agreement.
+
+##### Testimonial Evidence
+
+Testimonial evidence is, quite simply, evidence consisting of the testimony of a witness, either verbal testimony in court or written testimony in a recorded deposition.
+Witnesses must take an oath agreeing to tell the truth, and they must have personal knowledge on which their testimony is based. Furthermore, witnesses must remember the basis for their testimony (they may consult written notes or records to aid their memory).
+
+Witnesses can offer _direct evidence_: oral testimony that proves or disproves a claim based on their own direct observation. The testimonial evidence of most witnesses must be strictly limited to direct evidence based on the witness’s factual observations.
+
+However, this does not apply if a witness has been accepted by the court as an expert in a certain field. In that case, the witness may offer an expert opinion based on the other facts presented and their personal knowledge of the field.
+
+##### Demonstrative Evidence
+
+Demonstrative evidence is evidence used to support testimonial evidence. It consists of items that may or may not be admitted into evidence themselves but are used to help a witness explain a concept or clarify an issue.
+For example, demonstrative evidence might include a diagram explaining the contents of a network packet or showing the process used to conduct a distributed denial of service attack.
+The admissibility of demonstrative evidence is a matter left to the trial court with the general principle that demonstrative evidence must assist the jury in understanding a case.
+
 #### Collecting Digital Evidence
 
 Collecting digital evidence can be particularly challenging due to the unique properties of digital information, and preserving the integrity of any evidence collected must be a primary concern when beginning an incident response.
@@ -89,7 +131,8 @@ Investigation tools like ticketing systems and checklists should be designed to 
 Reports of investigations and evidence should contain enough information to relate the details of events without the need for subjective interpretation.
 The information collected should be presented clearly and accompanied by all relevant metadata as required by the intended audience, such as a chain of custody required by a court.
 
-#### 
+#### Principles of Evidence
+
 Evidence being presented to a court is required to meet the most rigorous standards. Evidence deemed inadmissible that leads investigators to subsequent evidence can cause all the evidence to be useless.
 In general, all evidence should adhere to the following principles:
 
@@ -1547,7 +1590,6 @@ Access requirements for data on backup media may also differ, so unique access c
 Live systems rotate encryptions keys used for safeguarding live data at rest, but the old keys must be preserved, so data on backup drives encrypted with that key can still be read.
 Backup media and the data it contains should be tracked in the asset inventory, with full consideration during risk assessment and mitigation.
 
-
 #### RAID
 
 RAID can stand for either redundant array of inexpensive disks or individual disks.
@@ -1575,6 +1617,12 @@ In this case, storage solutions like infrastructure as a service (IaaS) or platf
 PaaS may be utilized to create an environment similar to the organization’s production environment, like a database, that can be easily switched over in the event of a disruption.
 
 As with all cloud services, the loss of physical control over data needs to be evaluated against cost savings. Encrypting data before storing it in a cloud environment may be a useful safeguard, if the encryption process does not cause unacceptable delays for restoration.
+
+#### Tape Rotation
+
+There are several commonly used tape rotation strategies for backups: the **Grandfather-Father-Son (GFS)** strategy, the **Tower of Hanoi** strategy, and the **Six Cartridge Weekly** Backup strategy.
+These strategies can be fairly complex, especially with large tape sets. They can be implemented manually using a pencil and a calendar or automatically by using either commercial backup software or a fully automated hierarchical storage management (HSM) system.
+An HSM system is an automated robotic backup jukebox consisting of 32 or 64 optical or tape backup devices. All the drive elements within an HSM system are configured as a single drive array (a bit like RAID).
 
 ### Recovery Site Strategies
 
@@ -1605,6 +1653,34 @@ The obvious benefit to multiple processing sites is the redundancy built in. The
 For organizations processing data, there will also be technical challenges of replicating and synchronizing data among multiple processing sites, for which solutions like disk or database mirroring may be useful.
 Many cloud services are inherently designed to support this use case, and instantly replicated data storage is a standard feature in many cloud databases and SaaS tools.
 This can address risks related to data syncing and replication between sites, but as with any migration to a cloud or outsourced service provider, there are increased risks related to losing control over data.
+
+#### Database Recovery
+
+##### Electronic Vaulting
+
+In an electronic vaulting scenario, database backups are moved to a remote site using bulk transfers.
+The remote location may be a dedicated alternative recovery site (such as a hot site) or simply an offsite location managed within the company or by a contractor for the purpose of maintaining backup data.
+If you use electronic vaulting, remember that there may be a significant delay between the time you declare a disaster and the time your database is ready for operation with current data.
+If you decide to activate a recovery site, technicians will need to retrieve the appropriate backups from the electronic vault and apply them to the soon-to-be production servers at the recovery site.
+
+As with any type of backup scenario, be certain to periodically test your electronic vaulting setup. A great method for testing backup solutions is to give disaster recovery personnel a “surprise test,” asking them to restore data from a certain day.
+
+##### Remote Journaling
+
+With remote journaling, data transfers are performed in a more expeditious manner. Data transfers still occur in a bulk transfer mode, but they occur on a more frequent basis, usually once every hour and sometimes more frequently.
+Unlike electronic vaulting scenarios, where entire database backup files are transferred, remote journaling setups transfer copies of the database transaction logs containing the transactions that occurred since the previous bulk transfer.
+
+Remote journaling is similar to electronic vaulting in that transaction logs transferred to the remote site are not applied to a live database server but are maintained in a backup device.
+When a disaster is declared, technicians retrieve the appropriate transaction logs and apply them to the production database, bringing the database up to the current production state.
+
+##### Remote Mirroring
+
+Remote mirroring is the most advanced database backup solution. Not surprisingly, it’s also the most expensive!
+Remote mirroring goes beyond the technology used by remote journaling and electronic vaulting; with remote mirroring, a live database server is maintained at the backup site.
+The remote server receives copies of the database modifications at the same time they are applied to the production server at the primary site. Therefore, the mirrored server is ready to take over an operational role at a moment’s notice.
+
+Remote mirroring is a popular database backup strategy for organizations seeking to implement a hot site.
+However, when weighing the feasibility of a remote mirroring solution, be sure to take into account the infrastructure and personnel costs required to support the mirrored server, as well as the processing overhead that will be added to each database transaction on the mirrored server.
 
 ### System Resilience, High Availability, Quality of Service, and Fault Tolerance
 
