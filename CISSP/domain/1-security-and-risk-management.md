@@ -1267,6 +1267,11 @@ With an information system, this might include the methods of communication, the
 With a physical environment, the attack surface might include the construction techniques, the location, or the means of entrance and egress.
 Limiting the attack surface to the minimum number of areas of exposure reduces the opportunities for a threat to become a successful attack.
 
+It has two goals in mind with this process:
+
+* To reduce the number of security-related design and coding defects
+* To reduce the severity of any remaining defects
+
 ### Threat Modeling Concepts
 
 #### Attacker-centric

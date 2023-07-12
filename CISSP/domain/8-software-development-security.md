@@ -287,6 +287,10 @@ The process iterates through four phases:
 Other SDLC methodologies may be used within each phase to perform activities such as gathering requirements or scheduling and performing development, and the iterative nature means changing or evolving requirements can be easily addressed.
 This model is expensive and introduces a great deal of overhead in the form of the repeated risk assessments at each phase; this overhead may be justified for projects where requirements are difficult to determine or long-term projects with requirements that are likely to change.
 
+##### Rapid Application Development (RAD)
+
+The Rapid Application Development (RAD) methodology relies more on the use of rapid prototyping than on extensive upfront planning.
+
 ##### Prototype
 
 Some development methodologies were designed with iteration in mind and assume the project will be repeated. The Prototype model is one example, where a simplified version of a system or app is built and released for feedback and review.
@@ -354,7 +358,32 @@ It arose from the need to measure and improve the burgeoning field of software d
 Development projects were often poorly estimated, controlled, and managed due to computer science being a nascent field at the time, so SEI formalized a set of best practices common across successful projects.
 The initial purpose of the model was to evaluate the capabilities of government contractors to deliver projects on time and on budget, but other development and business processes began to adopt the maturity model mindset.
 
+The stages of the SW-CMM are as follows:
+
+Level 1: Initial
+In this phase, you’ll often find hardworking people charging ahead in a disorganized fashion. There is usually little or no defined software development process.
+
+Level 2: Repeatable
+In this phase, basic lifecycle management processes are introduced.
+Reuse of code in an organized fashion begins to enter the picture, and repeatable results are expected from similar projects.
+SEI defines the key process areas for this level as Requirements Management, Software Project Planning, Software Project Tracking and Oversight, Software Subcontract Management, Software Quality Assurance, and Software Configuration Management.
+
+Level 3: Defined
+In this phase, software developers operate according to a set of formal, documented software development processes. All development projects take place within the constraints of the new standardized management model.
+SEI defines the key process areas for this level as Organization Process Focus, Organization Process Definition, Training Program, Integrated Software Management, Software Product Engineering, Intergroup Coordination, and Peer Reviews.
+
+Level 4: Managed
+In this phase, management of the software process proceeds to the next level. Quantitative measures are used to gain a detailed understanding of the development process.
+SEI defines the key process areas for this level as Quantitative Process Management and Software Quality Management.
+
+Level 5: Optimizing
+In the optimized organization, a process of continuous improvement occurs. Sophisticated software development processes are in place that ensure that feedback from one phase reaches to the previous phase to improve future results.
+SEI defines the key process areas for this level as Defect Prevention, Technology Change Management, and Process Change Management.
+
 #### Capability Maturity Model Integration
+
+CMM has largely been superseded by a new model called the Capability Maturity Model Integration (CMMI). The CMMI uses the same five stages as the CMM but calls level 4 **Quantitatively Managed**, rather than Managed.
+The major difference between CMM and CMMI is that CMM focuses on isolated processes, whereas CMMI focuses on the integration among those processes.
 
 Recognizing that the CMM was being adapted to new business processes, the SEI designed the Capability Maturity Model Integration (CMMI).
 It was originally designed with specialized applications in development (CMMI-DEV), services (CMMI-SVC), and product and service acquisition (CMMI-ACQ), and the most recent version 2.0 of the framework was released in 2018.
@@ -509,6 +538,21 @@ This is useful for performing testing, verification, and validation exercises, a
 Most organizations implement a formal change management body, and common names include some variation on change “something” board, like change management, change control, or change advisory (CMB, CCB, or CAB).
 The composition of a CMB typically includes permanent essential members from IT and security teams, as well as ad hoc members like finance or HR for changes with impacts on or input required from those departments.
 For example, a major OS shift will require significant investments, so finance and accounting will be involved, while HR will be able to contribute details regarding training and productivity impacts of the change.
+
+The change management process has three basic components:
+
+* **Request Control**
+The request control process provides an organized framework within which users can request modifications, managers can conduct cost/benefit analysis, and developers can prioritize tasks.
+
+* **Change Control**
+The change control process is used by developers to re-create the situation encountered by the user and to analyze the appropriate changes to remedy the situation.
+It also provides an organized framework within which multiple developers can create and test a solution prior to rolling it out into a production environment.
+Change control includes conforming to quality control restrictions, developing tools for update or change deployment, properly documenting any coded changes, and restricting the effects of new code to minimize diminishment of security.
+
+* **Release Control**
+Once the changes are finalized, they must be approved for release through the release control procedure.
+An essential step of the release control process is to double-check and ensure that any code inserted as a programming aid during the change process (such as debugging code and/or backdoors) is removed before releasing the new software to production.
+This process also ensures that only approved changes are made to production systems. Release control should also include acceptance testing to ensure that any alterations to end-user work tasks are understood and functional.
 
 The CMB is responsible for shepherding the change management process, which, much like the name of the group, will be unique across different organizations.
 A high-level change management process is outlined here, along with corresponding security practices recommended at each phase:
