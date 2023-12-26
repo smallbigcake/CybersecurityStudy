@@ -43,6 +43,9 @@ If you're inclined towards the CLI on Linux, Kali comes pre-installed with a too
 
 ## FIDO
 
+## OWASP TOP 10
+
+
  
 ## MITRE ATT&CK
 
